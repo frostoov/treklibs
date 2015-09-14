@@ -18,11 +18,6 @@ public:
             mFunc(args...);
     }
 
-    void operator() (Args&& ...args) {
-        if(mFunc != nullptr)
-            mFunc(std::move(args...));
-    }
-
     const Callback& operator=(const Function& func) const {
         mFunc = func;
         return *this;

@@ -3,3 +3,4 @@ project(treklibs)
 
 add_subdirectory(trek/common)
 add_subdirectory(trek/data)
+add_subdirectory(trek/net)

@@ -1,11 +1,11 @@
 cmake_minimum_required (VERSION 3.0)
-project(trekcommon)
-
+project(trekcommon CXX)
 
 add_definitions(${CMAKE_CXX_FLAGS} -std=c++14 -Wall -pedantic)
 
 set(SOURCES
     applog.cpp
+    threadmanager.cpp
 )
 
 set(HEADERS
@@ -15,6 +15,7 @@ set(HEADERS
 	enumcontainer.hpp
     stringbuilder.hpp
 	serialization.hpp
+    threadmanager.hpp
 	timeprint.hpp
 )
 
