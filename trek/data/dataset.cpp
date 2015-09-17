@@ -1,6 +1,7 @@
 #include "dataset.hpp"
 
 #include <trek/common/assertion.hpp>
+#include <trek/common/streamsize.hpp>
 
 using std::string;
 using std::istream;
@@ -19,7 +20,7 @@ DataSet::DataSet(const string& path) {
     open(path);
 }
 
-const DataSet::Record& DataSet::getCurrentRecord() const {
+const DataSet::Record& DataSet::currentRecord() const {
     checkOpen();
     return mCurrentRecord;
 }
@@ -66,11 +67,11 @@ void DataSet::readHeader() {
     deserialize(mStream, mHeader);
     if (!isValid(mHeader))
         throw runtime_error("DataSet::readHeader: invalid header");
-    mLsbKoef = getLSBKoef(mHeader.getSettings());
+    mLsbKoef = lsbKoef(mHeader.settings());
 }
 
-double DataSet::getLSBKoef(const Settings& settings) const {
-    auto lsb = settings.getLsb();
+double DataSet::lsbKoef(const Settings& settings) const {
+    auto lsb = settings.lsb();
     if (lsb == Lsb::ps100)
         return 0.098;
     else if (lsb == Lsb::ps200)
@@ -82,15 +83,7 @@ double DataSet::getLSBKoef(const Settings& settings) const {
 }
 
 bool DataSet::isValid(const DataSetHeader& header) {
-    return header.getKey() == 52015 && header.getType() == DataSetType::Ctudc;
-}
-
-std::ios::pos_type DataSet::getStreamSize(istream& stream) {
-    auto position = stream.tellg();
-    stream.seekg(0, stream.end);
-    auto size = stream.tellg();
-    stream.seekg(position);
-    return size;
+    return header.key() == 52015 && header.type() == DataSetType::Ctudc;
 }
 
 DataSet::operator bool() const {

@@ -45,15 +45,15 @@ public:
     void serialize(std::ostream& stream) const;
     void deserialize(std::istream& stream);
 
-    const TdcRecord& getTdcRecord() const;
-    const NevodPackage& getNevodPackage() const;
+    const TdcRecord& tdcRecord() const;
+    const NevodPackage& nevodPackage() const;
 
     bool hasTdcRecord() const;
     bool hasNevodPackage() const;
 
-    uint64_t getNumberOfRecord() const;
-    uint64_t getNumberOfRun() const;
-    TimePoint getTime() const;
+    uint64_t numberOfRecord() const;
+    uint64_t numberOfRun() const;
+    TimePoint time() const;
 
     void convertTdcWords(double koef);
 protected:

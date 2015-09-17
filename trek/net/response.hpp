@@ -12,17 +12,17 @@ class Response {
     using JsonArray  = Json::array_t;
     using JsonBool   = Json::boolean_t;
 public:
-    Response(const JsonString& getObject,
-             const JsonString& getMethod,
-             const JsonArray&  getOutputs,
-             const JsonBool&   getStatus);
+    Response(const JsonString& object,
+             const JsonString& method,
+             const JsonArray&  outputs,
+             const JsonBool&   status);
     Response(const std::string& response);
     explicit operator std::string() const;
 
-    const JsonString& getObject() const;
-    const JsonString& getMethod() const;
-    const JsonArray& getOutputs() const;
-    const JsonBool& getStatus() const;
+    const JsonString& object() const;
+    const JsonString& method() const;
+    const JsonArray& outputs() const;
+    const JsonBool& status() const;
 private:
     JsonString  mObject;
     JsonString  mMethod;

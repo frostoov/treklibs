@@ -9,15 +9,15 @@ DataSetHeader::DataSetHeader()
 DataSetHeader::DataSetHeader(DataSetType fileType, uint16_t key, Settings settings)
     : mType(fileType), mKey(key), mSettings(settings) { }
 
-DataSetType DataSetHeader::getType() const {
+DataSetType DataSetHeader::type() const {
     return mType;
 }
 
-uint16_t DataSetHeader::getKey() const {
+uint16_t DataSetHeader::key() const {
     return mKey;
 }
 
-const Settings& DataSetHeader::getSettings() const {
+const Settings& DataSetHeader::settings() const {
     return mSettings;
 }
 

@@ -5,7 +5,7 @@
 #include <ctime>
 #include <iomanip>
 
-namespace trek {
+namespace std {
 
 template<typename Clock, typename Duration>
 std::ostream& operator<<(std::ostream& stream, const std::chrono::time_point<Clock, Duration>& time_point) {

@@ -40,20 +40,20 @@ public:
     void setControlRegister(uint16_t reg);
     void setStatusRegister(uint16_t reg);
     void setDeadTime(uint16_t deadTime);
-    void setEventBLT(uint16_t eventBLT);
+    void setEventBLT(uint16_t eventBlt);
 
-    bool getTriggerMode() const;
-    bool getTriggerSubtraction() const;
-    bool getTdcMeta() const;
-    uint16_t getWindowWidth() const;
-    int16_t getWindowOffset() const;
-    EdgeDetection getEdgeDetection() const;
-    Lsb getLsb() const;
-    uint16_t getAlmostFull() const;
-    uint16_t getControl() const;
-    uint16_t getStatus() const;
-    uint16_t getDeadTime() const;
-    uint16_t getEventBLT() const;
+    bool triggerMode() const;
+    bool triggerSubtraction() const;
+    bool tdcMeta() const;
+    uint16_t windowWidth() const;
+    int16_t windowOffset() const;
+    EdgeDetection edgeDetection() const;
+    Lsb lsb() const;
+    uint16_t almostFull() const;
+    uint16_t control() const;
+    uint16_t status() const;
+    uint16_t deadTime() const;
+    uint16_t eventBlt() const;
 private:
     uint8_t	      mTriggerMode;	 /*!< Триггерный режим */
     uint8_t	      mTriggerSubtraction;	 /*!< Trigger subtraction */

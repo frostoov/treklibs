@@ -21,9 +21,9 @@ public:
     DataSetHeader();
     DataSetHeader(DataSetType fileType, uint16_t key, Settings settings);
 
-    DataSetType getType() const;
-    uint16_t getKey() const;
-    const Settings& getSettings() const;
+    DataSetType type() const;
+    uint16_t key() const;
+    const Settings& settings() const;
 
     void serialize(std::ostream& stream) const;
     void deserialize(std::istream& stream);

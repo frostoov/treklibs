@@ -1,5 +1,5 @@
 #include "session.hpp"
-#include "ctudccontroller.hpp"
+#include "jcontroller.hpp"
 
 #include <trek/common/stringbuilder.hpp>
 
@@ -9,13 +9,13 @@ namespace net {
 using std::string;
 using std::array;
 
-Session::Session(const ControllerMap& controllers, boost::asio::ip::tcp::socket&& socket)
+Session::Session(const ControllerMap& controllers, TCP::socket&& socket)
     : mControllers(controllers),
       mSocket(std::move(socket)) { }
 
-void Session::start() {
+void Session::run() {
     mOnStart(*this);
-    doRecieve();
+    recv();
 }
 
 std::string Session::getRemoteAddress() const {
@@ -42,7 +42,7 @@ const Session::DestroyCallback& Session::onDestroy() {
     return mOnDestroy;
 }
 
-void Session::doRecieve() {
+void Session::recv() {
     mSocket.async_receive(boost::asio::buffer(mBuffer), [this](const auto& errCode, auto length) {
         if(!errCode) {
             string requset(mBuffer.data(), length);
@@ -52,19 +52,18 @@ void Session::doRecieve() {
                 auto& controller = getController(requset);
                 response = controller.handleRequest(requset);
             } catch(const std::exception& e) {
-                response = StringBuilder() << "Invalid query " << e.what();
+                response = StringBuilder() << "Invalid query: " << e.what();
             }
-            doSend(response);
-            doRecieve();
+            send(response);
+            recv();
         } else {
-            mSocket.close();
             mOnClose(*this);
             mOnDestroy(shared_from_this());
         }
     });
 }
 
-void Session::doSend(const std::string& response) {
+void Session::send(const std::string& response) {
     mSocket.async_send(boost::asio::buffer(response), [this, response](const auto& errCode, auto) {
         if(!errCode)
             mOnSend(*this, response);
@@ -75,8 +74,8 @@ void Session::doSend(const std::string& response) {
     });
 }
 
-Controller& Session::getController(const std::string request) {
-    auto object = CtudcController::getObject(request);
+Controller& Session::getController(const std::string& request) {
+    auto object = JController::getObject(request);
     return *mControllers.at(object);
 }
 

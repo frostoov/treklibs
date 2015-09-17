@@ -30,7 +30,7 @@ public:
     void open(const std::string& path);
     void close();
 
-    const Record& getCurrentRecord() const;
+    const Record& currentRecord() const;
     bool next();
 
     bool isOpen() const;
@@ -39,10 +39,8 @@ public:
 protected:
     void checkOpen() const;
     void readHeader();
-    double getLSBKoef(const Settings& settings) const;
+    double lsbKoef(const Settings& settings) const;
     bool isValid(const DataSetHeader& header);
-    std::ios::pos_type getStreamSize(std::istream& stream);
-
 private:
     mutable std::ifstream mStream;
     Record mCurrentRecord;

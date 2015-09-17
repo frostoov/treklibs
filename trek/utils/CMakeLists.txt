@@ -1,25 +1,21 @@
 cmake_minimum_required (VERSION 3.0)
-project(trekdata CXX)
+project(trekutils CXX)
 
 add_definitions(${CMAKE_CXX_FLAGS} -std=c++14 -Wall -pedantic -fPIC)
 include_directories(${CMAKE_SOURCE_DIR})
 
 set(SOURCES
-	ctudcrecord.cpp
-	dataset.cpp
-	datasetheader.cpp
-	tdcrecord.cpp
-	tdcsettings.cpp)
-    
+	chamber.cpp
+	chamberhandler.cpp
+	trekhandler.cpp)
+
 set(HEADERS
-    ctudcrecord.hpp
-    datasetheader.hpp
-    dataset.hpp
-    structs.hpp
-    tdcrecord.hpp
-    tdcsettings.hpp)
+	chamberhandler.hpp
+	chamber.hpp
+	trekhandler.hpp
+	trektypes.hpp)
 
 add_library(${PROJECT_NAME} SHARED ${SOURCES} ${HEADERS})
 
 install(TARGETS ${PROJECT_NAME} DESTINATION lib)
-install(FILES ${HEADERS} DESTINATION include/trek/data)
+install(FILES ${HEADERS} DESTINATION include/trek/utils)

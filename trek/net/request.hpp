@@ -17,9 +17,9 @@ public:
     Request(const std::string& request);
     explicit operator std::string() const;
 
-    const JsonString& getObject() const;
-    const JsonString& getMethod() const;
-    const JsonArray&  getInputs() const;
+    const JsonString& object() const;
+    const JsonString& method() const;
+    const JsonArray&  inputs() const;
 private:
     JsonString  mObject;
     JsonString  mMethod;

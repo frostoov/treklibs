@@ -1,16 +1,14 @@
 #include "server.hpp"
 
+#include <trek/common/assertion.hpp>
+
 namespace trek {
 namespace net {
 
+using std::runtime_error;
 using std::string;
-using std::endl;
 using std::exception;
 using std::make_shared;
-using std::thread;
-using std::istream;
-using std::make_unique;
-using std::chrono::system_clock;
 
 using boost::asio::ip::address;
 
@@ -72,7 +70,7 @@ const Server::StatusCallback&Server::onStop() {
 Server::ControllerMap Server::convertControllers(const Controllers& controllers) {
     ControllerMap controllerMap;
     for(const auto& c : controllers) {
-        controllerMap.insert( {c->getName(), c} );
+        controllerMap.insert( {c->name(), c} );
     }
     return controllerMap;
 }
@@ -90,7 +88,8 @@ void Server::doAccept() {
             newSession->onSend()    = mOnSend;
 
             addSession(newSession);
-            newSession->start();
+            newSession->run();
+
             mSocket = TCP::socket(mIoService);
         }
         doAccept();
@@ -98,11 +97,17 @@ void Server::doAccept() {
 }
 
 void Server::addSession(const SessionPtr& session) {
-    mSessions.insert(session);
+    if(mSessions.count(session) == 0)
+        mSessions.insert(session);
+    else
+        throw Assertion("Server::addSession: session already exists");
 }
 
 void Server::removeSession(const Server::SessionPtr& session) {
-    mSessions.erase(session);
+    if(mSessions.count(session) != 0)
+        mSessions.erase(session);
+    else
+        throw Assertion("Server::removeSession: session does not exists");
 }
 
 

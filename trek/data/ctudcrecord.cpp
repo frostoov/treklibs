@@ -31,19 +31,19 @@ CtudcRecord::CtudcRecord(uint64_t run, uint64_t number, const CtudcRecord::TimeP
       mTime(time)  { }
 
 CtudcRecord::CtudcRecord(const CtudcRecord& other)
-    : CtudcRecord(other.getNumberOfRun(),
-                  other.getNumberOfRecord(),
-                  other.getTime()) {
-    other.hasTdcRecord() ? setTdcRecord(other.getTdcRecord()) : resetTdcRecord();
-    other.hasNevodPackage() ? setNevodPackage(other.getNevodPackage()) : resetNevodPackage();
+    : CtudcRecord(other.numberOfRun(),
+                  other.numberOfRecord(),
+                  other.time()) {
+    other.hasTdcRecord() ? setTdcRecord(other.tdcRecord()) : resetTdcRecord();
+    other.hasNevodPackage() ? setNevodPackage(other.nevodPackage()) : resetNevodPackage();
 }
 
 void CtudcRecord::operator= (const CtudcRecord& other) {
-    mNumberOfRun    = other.getNumberOfRun();
-    mNumberOfRecord = other.getNumberOfRecord();
-    mTime = other.getTime();
-    other.hasTdcRecord() ? setTdcRecord(other.getTdcRecord()) : resetTdcRecord();
-    other.hasNevodPackage() ? setNevodPackage(other.getNevodPackage()) : resetNevodPackage();
+    mNumberOfRun    = other.numberOfRun();
+    mNumberOfRecord = other.numberOfRecord();
+    mTime = other.time();
+    other.hasTdcRecord() ? setTdcRecord(other.tdcRecord()) : resetTdcRecord();
+    other.hasNevodPackage() ? setNevodPackage(other.nevodPackage()) : resetNevodPackage();
 }
 
 void CtudcRecord::setTdcRecord(const TdcRecord& record) {
@@ -97,14 +97,14 @@ void CtudcRecord::deserialize(std::istream& stream) {
         resetNevodPackage();
 }
 
-const NevodPackage& CtudcRecord::getNevodPackage() const {
+const NevodPackage& CtudcRecord::nevodPackage() const {
     if(mType.hasNevodPackage())
         return *mNevodPackage;
     else
         throw Assertion("CtudcRecord::getNevodPacakge: no nevod data");
 }
 
-const TdcRecord& CtudcRecord::getTdcRecord() const {
+const TdcRecord& CtudcRecord::tdcRecord() const {
     if(mType.hasTdcData())
         return mTdcRecord;
     else
@@ -119,15 +119,15 @@ bool CtudcRecord::hasNevodPackage() const {
     return mType.hasNevodPackage();
 }
 
-uint64_t CtudcRecord::getNumberOfRecord() const {
+uint64_t CtudcRecord::numberOfRecord() const {
     return mNumberOfRecord;
 }
 
-uint64_t CtudcRecord::getNumberOfRun() const {
+uint64_t CtudcRecord::numberOfRun() const {
     return mNumberOfRun;
 }
 
-CtudcRecord::TimePoint CtudcRecord::getTime() const {
+CtudcRecord::TimePoint CtudcRecord::time() const {
     return mTime;
 }
 

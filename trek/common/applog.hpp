@@ -5,30 +5,30 @@
 
 #include <iostream>
 #include <fstream>
-#include <functional>
 
 namespace trek {
 
-class AppLog {
-    using LogPtr = std::unique_ptr<AppLog>;
+class Log {
+    using SystemClock = std::chrono::system_clock;
+    using LogPtr = std::unique_ptr<Log>;
     using ostream_function = std::ostream& (*)(std::ostream&);
 public:
-    AppLog(AppLog&& other) = delete;
-    AppLog(const AppLog& other) = delete;
-    void operator=(const AppLog& other) = delete;
-    void operator=(AppLog&& other) = delete;
+    Log(Log&& other) = delete;
+    Log(const Log& other) = delete;
+    void operator=(const Log& other) = delete;
+    void operator=(Log&& other) = delete;
 
-    static AppLog& instance();
+    static Log& instance();
     static void init(const std::string& logName);
 
     template<typename T>
-    AppLog& operator<<(const T& item) {
+    Log& operator<<(const T& item) {
         mStream << item;
         if(mStdOut)
             std::cout << item;
         return instance();
     }
-    AppLog& operator<<(ostream_function func) {
+    Log& operator<<(ostream_function func) {
         mStream << func;
         if(mStdOut)
             std::cout << func;
@@ -38,7 +38,7 @@ public:
     void setStdOut(bool flag);
     void flush();
 private:
-    AppLog(const std::string& logName);
+    Log(const std::string& logName);
 private:
     static LogPtr mInstance;
     std::ofstream mStream;

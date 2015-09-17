@@ -16,18 +16,18 @@ TdcRecord::TdcRecord(const WordVector& eventWords)
     : mTdcWords(eventWords) { }
 
 uint32_t TdcRecord::getMesurement(uint32_t word) {
-    return (word & 0x7ffff);
+    return (word & 0b1111111111111111111);
 }
 
 uint32_t TdcRecord::getChamber(uint32_t word) {
-    return ((word >> 24) & 31);
+    return ((word >> 24) & 0b11111);
 }
 
 uint32_t TdcRecord::getWire(uint32_t word) {
-    return ((word >> 19) & 3);
+    return ((word >> 19) & 0b11);
 }
 
-const WordVector& TdcRecord::getData() const {
+const WordVector& TdcRecord::data() const {
     return mTdcWords;
 }
 

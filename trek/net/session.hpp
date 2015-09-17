@@ -26,9 +26,10 @@ public:
     using TCP = boost::asio::ip::tcp;
 public:
     Session(const ControllerMap& controllers, TCP::socket&& socket);
-    void start();
+    void run();
     std::string getRemoteAddress() const;
 
+public: //callbacks
     const MessageCallback& onRecv();
     const MessageCallback& onSend();
 
@@ -36,9 +37,9 @@ public:
     const StatusCallback& onClose();
     const DestroyCallback& onDestroy();
 protected:
-    void doRecieve();
-    void doSend(const std::string& response);
-    Controller& getController(const std::string request);
+    void recv();
+    void send(const std::string& response);
+    Controller& getController(const std::string& request);
 private:
     ControllerMap mControllers;
     TCP::socket mSocket;

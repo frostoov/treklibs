@@ -48,7 +48,7 @@ public:
      * @brief Получение сырых данных с TDC
      * @return Ссылка на константный вектор со словами TDC - std::vector<uint32_t>
      */
-    const WordVector& getData() const;
+    const WordVector& data() const;
     /**
      * @brief Создание и получение ассоциативного массива с измерениями со всей установки.
      * @return Ассоциативный массив(std::unordered_map) с данными камер
@@ -89,7 +89,7 @@ private:
  */
 class AbstractEventHandler {
 public:
-    virtual ~AbstractEventHandler() {}
+    virtual ~AbstractEventHandler() = default;
     /**
      * @brief Обработка единичного события
      * @param event Событие, которое будет обработано
@@ -100,7 +100,7 @@ public:
      */
     virtual void flush() = 0;
 protected:
-    AbstractEventHandler() {}
+    AbstractEventHandler() = default;
 };
 
 } //data

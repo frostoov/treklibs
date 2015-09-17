@@ -19,18 +19,6 @@ Request::Request(const std::string& request) {
     mInputs = jsonRequest.at("inputs").get<JsonArray>();
 }
 
-const Request::JsonString& Request::getObject() const {
-    return mObject;
-}
-
-const Request::JsonString& Request::getMethod() const {
-    return mMethod;
-}
-
-const Request::JsonArray& Request::getInputs() const {
-    return mInputs;
-}
-
 Request::operator std::string() const{
     return json{
         {"object", mObject},
@@ -39,6 +27,18 @@ Request::operator std::string() const{
     }.dump();
 }
 
+
+const Request::JsonString& Request::object() const {
+    return mObject;
+}
+
+const Request::JsonString& Request::method() const {
+    return mMethod;
+}
+
+const Request::JsonArray& Request::inputs() const {
+    return mInputs;
+}
 
 } //net
 } //trek

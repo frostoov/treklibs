@@ -1,11 +1,12 @@
 cmake_minimum_required (VERSION 3.0)
 project(treknet CXX)
 
-add_definitions(${CMAKE_CXX_FLAGS} -std=c++14 -Wall -pedantic)
+add_definitions(${CMAKE_CXX_FLAGS} -std=c++14 -Wall -pedantic -fPIC)
 include_directories(${CMAKE_SOURCE_DIR})
 
 set(SOURCES
-    ctudccontroller.cpp
+    jcontroller.cpp
+    client.cpp
     request.cpp
     response.cpp
     server.cpp
@@ -14,7 +15,8 @@ set(SOURCES
 
 set(HEADERS
     controller.hpp
-    ctudccontroller.hpp
+    jcontroller.hpp
+    client.hpp
     request.hpp
     response.hpp
     server.hpp

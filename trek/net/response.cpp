@@ -32,19 +32,19 @@ Response::operator std::string() const{
     }.dump();
 }
 
-const Response::JsonString& Response::getObject() const {
+const Response::JsonString& Response::object() const {
     return mObject;
 }
 
-const Response::JsonString& Response::getMethod() const {
+const Response::JsonString& Response::method() const {
     return mMethod;
 }
 
-const Response::JsonArray& Response::getOutputs() const {
+const Response::JsonArray& Response::outputs() const {
     return mOutputs;
 }
 
-const Response::JsonBool& Response::getStatus() const {
+const Response::JsonBool& Response::status() const {
     return mStatus;
 }
 

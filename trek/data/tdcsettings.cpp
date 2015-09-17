@@ -10,18 +10,18 @@ Settings::Settings()
 bool Settings::operator == (const Settings& other) {
     if(this == &other)
         return true;
-    return getTriggerMode() == other.getTriggerMode() &&
-           getAlmostFull()  == other.getAlmostFull() &&
-           getControl()     == other.getControl() &&
-           getDeadTime()    == other.getDeadTime() &&
-           getEdgeDetection() == other.getEdgeDetection() &&
-           getEventBLT() == other.getEventBLT() &&
-           getLsb() == other.getLsb() &&
-           getStatus() == other.getStatus() &&
-           getTdcMeta() == other.getTdcMeta() &&
-           getTriggerSubtraction() == other.getTriggerSubtraction() &&
-           getWindowOffset() == other.getWindowOffset() &&
-           getWindowWidth() == other.getWindowWidth();
+    return triggerMode() == other.triggerMode() &&
+           almostFull()  == other.almostFull() &&
+           control()     == other.control() &&
+           deadTime()    == other.deadTime() &&
+           edgeDetection() == other.edgeDetection() &&
+           eventBlt() == other.eventBlt() &&
+           lsb() == other.lsb() &&
+           status() == other.status() &&
+           tdcMeta() == other.tdcMeta() &&
+           triggerSubtraction() == other.triggerSubtraction() &&
+           windowOffset() == other.windowOffset() &&
+           windowWidth() == other.windowWidth();
 }
 
 bool Settings::operator != (const Settings& other) {
@@ -107,51 +107,51 @@ void Settings::setEventBLT(uint16_t eventBLT) {
     mEventBLT = eventBLT;
 }
 
-bool Settings::getTriggerMode() const {
+bool Settings::triggerMode() const {
     return static_cast<bool>(mTriggerMode);
 }
 
-bool Settings::getTriggerSubtraction() const {
+bool Settings::triggerSubtraction() const {
     return static_cast<bool>(mTriggerSubtraction);
 }
 
-bool Settings::getTdcMeta() const {
+bool Settings::tdcMeta() const {
     return static_cast<bool>(mTdcMeta);
 }
 
-uint16_t Settings::getWindowWidth() const {
+uint16_t Settings::windowWidth() const {
     return mWindowWidth;
 }
 
-int16_t Settings::getWindowOffset() const {
+int16_t Settings::windowOffset() const {
     return mWindowOffset;
 }
 
-EdgeDetection Settings::getEdgeDetection() const {
+EdgeDetection Settings::edgeDetection() const {
     return mEdgeDetection;
 }
 
-Lsb Settings::getLsb() const {
+Lsb Settings::lsb() const {
     return mLsb;
 }
 
-uint16_t Settings::getAlmostFull() const {
+uint16_t Settings::almostFull() const {
     return mAlmostFull;
 }
 
-uint16_t Settings::getControl() const {
+uint16_t Settings::control() const {
     return mControl;
 }
 
-uint16_t Settings::getStatus() const {
+uint16_t Settings::status() const {
     return mStatus;
 }
 
-uint16_t Settings::getDeadTime() const {
+uint16_t Settings::deadTime() const {
     return mDeadTime;
 }
 
-uint16_t Settings::getEventBLT() const {
+uint16_t Settings::eventBlt() const {
     return mEventBLT;
 }
 

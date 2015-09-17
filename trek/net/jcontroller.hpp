@@ -12,7 +12,7 @@
 namespace trek {
 namespace net {
 
-class CtudcController : public Controller {
+class JController : public Controller {
     using Mutex = std::mutex;
     using Lock  = std::lock_guard<Mutex>;
 protected:
@@ -22,8 +22,7 @@ public:
     std::string handleRequest(const std::string& rawRequest) override;
     static std::string getObject(const std::string& rawRequest);
 protected:
-    CtudcController(const Methods& method);
-    virtual Methods createMethods() = 0;
+    JController(const Methods& method);
 private:
     Method  getMethod(const Request& request) const;
     Methods mMethods;
