@@ -1,5 +1,4 @@
-#ifndef TREK_COMMON_TIME_PRINT_HPP
-#define TREK_COMMON_TIME_PRINT_HPP
+#pragma once
 
 #include <chrono>
 #include <ctime>
@@ -14,6 +13,3 @@ std::ostream& operator<<(std::ostream& stream, const std::chrono::time_point<Clo
 }
 
 }
-
-#endif // TREK_COMMON_TIME_PRINT_HPP
-

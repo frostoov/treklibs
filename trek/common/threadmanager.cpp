@@ -7,7 +7,7 @@ namespace trek {
 using std::thread;
 using std::make_unique;
 
-ThreadManager::~ThreadManager(){
+ThreadManager::~ThreadManager() {
     if(mThread != nullptr && mThread->joinable())
         mThread->join();
 }

@@ -1,11 +1,10 @@
-#ifndef CHAMBERMANAGER_HPP
-#define CHAMBERMANAGER_HPP
+#pragma once
 
 #include <cstdint>
 #include <array>
 
-#include <vecmath/lines.hpp>
-#include <vecmath/coordsystem.hpp>
+#include <trek/math/line2.hpp>
+#include <trek/math/coordsystem.hpp>
 
 #include "trektypes.hpp"
 
@@ -31,13 +30,11 @@ protected:
     static TrackDescription createTrackDescription(const TrackDistances& distances);
     static TrackDistances   createTrackDistances(const ChamberDistances& eventDistances, const Indecies& indices);
     static TrackTimes       createTrackTimes(const ChamberTimes& eventTimes, const Indecies& indices);
-    static double	leastSquares(const Points& points, vecmath::Line2& line);
+    static double	leastSquares(const Points& points, math::Line2& line);
     static bool	    systemError(TrackDescription& track);
     static double	getSystemError(double r, double ang);
 private:
-    static const std::array<vecmath::Vec2, 4> mWires;
+    static const std::array<math::Vec2, 4> mWires;
 };
 
 } //trek
-
-#endif // CHAMBERMANAGER_HPP

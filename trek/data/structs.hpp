@@ -1,5 +1,4 @@
-#ifndef TREK_DATA_STRUCTS_HPP
-#define TREK_DATA_STRUCTS_HPP
+#pragma once
 
 #include <trek/common/serialization.hpp>
 
@@ -86,6 +85,3 @@ struct NevodPackage {
 
 } //data
 } //trek
-
-#endif // TREK_DATA_STRUCTS_HPP
-

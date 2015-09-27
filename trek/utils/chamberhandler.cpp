@@ -1,21 +1,23 @@
-﻿#include <limits>
-#include "chamberhandler.hpp"
+﻿#include "chamberhandler.hpp"
 
+#include <limits>
+#include <cmath>
 
 namespace trek {
 
+using std::abs;
 using std::array;
 using std::runtime_error;
 using std::numeric_limits;
 
-using vecmath::Vec2;
-using vecmath::Line2;
+using math::Vec2;
+using math::Line2;
 
 template <typename T> int sign(T val) {
     return (T(0) < val) - (val < T(0));
 }
 
-const std::array<vecmath::Vec2, 4> ChamberHandler::mWires{{
+const std::array<math::Vec2, 4> ChamberHandler::mWires{{
         Vec2(41,  0.75),
         Vec2(51, -0.75),
         Vec2(61,  0.75),
@@ -23,7 +25,7 @@ const std::array<vecmath::Vec2, 4> ChamberHandler::mWires{{
     }};
 
 TrackDescription ChamberHandler::createTrackDescription(const ChamberTimes& eventTimes,
-                                                        const ChamberDescription& chamDesc) {
+        const ChamberDescription& chamDesc) {
     ChamberDistances eventDistances(getDistances(eventTimes, chamDesc));
     auto depth = getDepth(eventDistances);
     if(depth == 1) {
@@ -73,10 +75,10 @@ bool ChamberHandler::systemError(TrackDescription& track) {
         auto trackSign = sign(track.points[i].y());
         switch(trackSign * sign(mWires[i].y())) {
         case 1:
-            r = (std::abs(track.points[i].y()) > 6.2) ? 6.2 : track.points[i].y();
+            r = (abs(track.points[i].y()) > 6.2) ? 6.2 : track.points[i].y();
             break;
         case -1:
-            r = (std::abs(track.points[i].y()) > 3.6) ? 3.6 : track.points[i].y();
+            r = (abs(track.points[i].y()) > 3.6) ? 3.6 : track.points[i].y();
             break;
         default:
             return false;
@@ -92,7 +94,7 @@ double ChamberHandler::getSystemError(double r, double ang) {
 }
 
 TrackDistances ChamberHandler::createTrackDistances(const ChamberDistances& eventDistances,
-                                                    const Indecies& indices) {
+        const Indecies& indices) {
     TrackDistances trackDistances;
     for(size_t i = 0; i < trackDistances.size(); ++i)
         trackDistances.at(i) = eventDistances.at(i).at(indices.at(i) % eventDistances.at(i).size());
@@ -100,7 +102,7 @@ TrackDistances ChamberHandler::createTrackDistances(const ChamberDistances& even
 }
 
 TrackTimes ChamberHandler::createTrackTimes(const ChamberTimes& eventTimes,
-                                            const Indecies& indices) {
+        const Indecies& indices) {
     TrackTimes trackTimes;
     for(size_t i = 0; i < trackTimes.size(); ++i)
         trackTimes.at(i) = eventTimes.at(i).at(indices.at(i) % eventTimes.at(i).size());

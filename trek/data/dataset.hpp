@@ -1,12 +1,11 @@
-#ifndef TREK_DATA_DATA_SET_HPP
-#define TREK_DATA_DATA_SET_HPP
+#pragma once
+
+#include "ctudcrecord.hpp"
+#include "datasetheader.hpp"
 
 #include <string>
 #include <fstream>
 #include <vector>
-
-#include "ctudcrecord.hpp"
-#include "datasetheader.hpp"
 
 namespace trek {
 namespace data {
@@ -51,5 +50,3 @@ private:
 
 } //data
 } //trek
-
-#endif // TREK_DATA_DATA_SET_HPP

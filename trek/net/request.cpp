@@ -19,12 +19,12 @@ Request::Request(const std::string& request) {
     mInputs = jsonRequest.at("inputs").get<JsonArray>();
 }
 
-Request::operator std::string() const{
+Request::operator std::string() const {
     return json{
         {"object", mObject},
         {"method", mMethod},
         {"inputs", mInputs},
-    }.dump();
+    } .dump();
 }
 
 

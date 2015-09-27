@@ -1,5 +1,4 @@
-#ifndef TREK_COMMON_STRING_BUILDER_HPP
-#define TREK_COMMON_STRING_BUILDER_HPP
+#pragma once
 
 #include <string>
 #include <sstream>
@@ -21,5 +20,3 @@ protected:
 };
 
 }
-
-#endif // TREK_COMMON_STRING_BUILDER_HPP

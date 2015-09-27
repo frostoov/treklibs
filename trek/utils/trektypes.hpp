@@ -1,12 +1,11 @@
-#ifndef TREK_TYPES_HPP
-#define TREK_TYPES_HPP
+#pragma once
+
+#include <trek/math/vec2.hpp>
+#include <trek/math/line2.hpp>
 
 #include <array>
+#include <vector>
 #include <unordered_map>
-#include <cstring>
-
-#include <vecmath/vec.hpp>
-#include <vecmath/lines.hpp>
 
 namespace trek {
 
@@ -17,8 +16,8 @@ using ChamberDistances = std::array<DoubleVector, 4>;
 using TrackDistances   = std::array<double, 4>;
 using TrackTimes       = std::array<uint32_t, 4>;
 
-using Points            = std::vector<vecmath::Vec2>;
-using ChamberPoints     = std::array<vecmath::Vec3, 3>;
+using Points            = std::vector<math::Vec2>;
+using ChamberPoints     = std::array<math::Vec3, 3>;
 
 class WireParameters {
 public:
@@ -88,7 +87,7 @@ private:
  * @brief Структура с данными одного трека
  */
 struct TrackDescription {
-    vecmath::Line2 line;		/**< Прямая трека */
+    math::Line2 line;		/**< Прямая трека */
     Points         points;		/**< Точки, по которым был восстановлен трек */
     double         deviation;   /**< Отклонение прямой */
     TrackTimes	   times;		/**< Вермена с TDC */
@@ -98,6 +97,4 @@ using ChamberConfig = std::unordered_map<uintmax_t, ChamberDescription>;
 
 
 } //trek
-
-#endif // TREK_TYPES_HPP
 

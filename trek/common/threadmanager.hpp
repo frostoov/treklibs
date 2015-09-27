@@ -1,5 +1,4 @@
-#ifndef TREK_COMMON_THREAD_MANAGER_HPP
-#define TREK_COMMON_THREAD_MANAGER_HPP
+#pragma once
 
 #include <thread>
 #include <memory>
@@ -21,5 +20,3 @@ private:
 
 
 }
-
-#endif // TREK_COMMON_THREAD_MANAGER_HPP

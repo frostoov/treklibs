@@ -23,13 +23,13 @@ Response::Response(const std::string& response) {
     mStatus  = jsonResponse.at("status").get<JsonBool>();
 }
 
-Response::operator std::string() const{
+Response::operator std::string() const {
     return json{
         {"object", mObject},
         {"method", mMethod},
         {"outputs", mOutputs},
         {"status", mStatus},
-    }.dump();
+    } .dump();
 }
 
 const Response::JsonString& Response::object() const {

@@ -43,7 +43,7 @@ const Session::DestroyCallback& Session::onDestroy() {
 }
 
 void Session::recv() {
-    mSocket.async_receive(boost::asio::buffer(mBuffer), [this](const auto& errCode, auto length) {
+    mSocket.async_receive(boost::asio::buffer(mBuffer), [this](const auto & errCode, auto length) {
         if(!errCode) {
             string requset(mBuffer.data(), length);
             mOnRecv(*this, requset);
@@ -64,7 +64,7 @@ void Session::recv() {
 }
 
 void Session::send(const std::string& response) {
-    mSocket.async_send(boost::asio::buffer(response), [this, response](const auto& errCode, auto) {
+    mSocket.async_send(boost::asio::buffer(response), [this, response](const auto & errCode, auto) {
         if(!errCode)
             mOnSend(*this, response);
         else {

@@ -1,5 +1,4 @@
-#ifndef TREK_COMMON_ENUM_CONTAINER_HPP
-#define TREK_COMMON_ENUM_CONTAINER_HPP
+#pragma once
 
 #include "serialization.hpp"
 
@@ -46,5 +45,3 @@ private:
 };
 
 }
-
-#endif // TREK_COMMON_ENUM_CONTAINER_HPP

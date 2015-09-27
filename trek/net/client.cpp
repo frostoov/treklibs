@@ -8,8 +8,6 @@ using std::string;
 Client::Client(const string& ip, uint16_t port)
     : mSocket(mIoService) {
     mSocket.connect({IpAddress::from_string(ip), port});
-
-//    mThread.run( [this] { mIoService.run(); } );
 }
 
 Response Client::sendRequst(const Request& request) {

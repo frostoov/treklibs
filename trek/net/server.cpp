@@ -43,27 +43,27 @@ void Server::stop() {
     }
 }
 
-const Session::MessageCallback&Server::onRecv() {
+const Session::MessageCallback& Server::onRecv() {
     return mOnRecv;
 }
 
-const Session::MessageCallback&Server::onSend(){
+const Session::MessageCallback& Server::onSend() {
     return mOnSend;
 }
 
-const Session::StatusCallback&Server::onSessionStart() {
+const Session::StatusCallback& Server::onSessionStart() {
     return mOnSessionStart;
 }
 
-const Session::StatusCallback&Server::onSessionClose() {
+const Session::StatusCallback& Server::onSessionClose() {
     return mOnSessionClose;
 }
 
-const Server::StatusCallback&Server::onStart() {
+const Server::StatusCallback& Server::onStart() {
     return mOnStart;
 }
 
-const Server::StatusCallback&Server::onStop() {
+const Server::StatusCallback& Server::onStop() {
     return mOnStop;
 }
 
@@ -76,11 +76,13 @@ Server::ControllerMap Server::convertControllers(const Controllers& controllers)
 }
 
 void Server::doAccept() {
-    mAcceptor.async_accept(mSocket, [this](const auto& errCode) {
+    mAcceptor.async_accept(mSocket, [this](const auto & errCode) {
         if(!errCode) {
             auto newSession = make_shared<Session> (mControllers, std::move(mSocket));
 
-            newSession->onDestroy() = [this] (const auto& session) { removeSession(session); };
+            newSession->onDestroy() = [this] (const auto & session) {
+                removeSession(session);
+            };
 
             newSession->onStart()   = mOnSessionStart;
             newSession->onClose()   = mOnSessionClose;

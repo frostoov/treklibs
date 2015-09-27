@@ -1,5 +1,4 @@
-#ifndef SERVER_HPP
-#define SERVER_HPP
+#pragma once
 
 #include "controller.hpp"
 #include "session.hpp"
@@ -66,5 +65,3 @@ private:
 
 } //net
 } //trek
-
-#endif // SERVER_HPP

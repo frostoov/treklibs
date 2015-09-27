@@ -1,5 +1,4 @@
-#ifndef TREK_NET_REQUEST_HPP
-#define TREK_NET_REQUEST_HPP
+#pragma once
 
 #include <json.hpp>
 
@@ -28,5 +27,3 @@ private:
 
 } //net
 } //trek
-
-#endif //TREK_NET_REQUEST_HPP

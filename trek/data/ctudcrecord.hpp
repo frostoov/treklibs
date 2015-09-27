@@ -1,13 +1,12 @@
-#ifndef TREK_DATA_CTUDCRECORD_HPP
-#define TREK_DATA_CTUDCRECORD_HPP
+#pragma once
+
+#include "tdcrecord.hpp"
+#include "structs.hpp"
 
 #include <chrono>
 #include <vector>
 #include <cstdint>
 #include <memory>
-
-#include "tdcrecord.hpp"
-#include "structs.hpp"
 
 namespace trek {
 namespace data {
@@ -72,5 +71,3 @@ private:
 
 } //data
 } //trek
-
-#endif // TREK_DATA_CTUDCRECORD_HPP

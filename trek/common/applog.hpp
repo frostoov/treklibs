@@ -1,5 +1,4 @@
-#ifndef TREK_COMMON_APP_LOG_HPP
-#define TREK_COMMON_APP_LOG_HPP
+#pragma once
 
 #include "timeprint.hpp"
 
@@ -11,7 +10,7 @@ namespace trek {
 class Log {
     using SystemClock = std::chrono::system_clock;
     using LogPtr = std::unique_ptr<Log>;
-    using ostream_function = std::ostream& (*)(std::ostream&);
+    using ostream_function = std::ostream & (*)(std::ostream&);
 public:
     Log(Log&& other) = delete;
     Log(const Log& other) = delete;
@@ -46,5 +45,3 @@ private:
 };
 
 }
-
-#endif // TREK_COMMON_APP_LOG_HPP

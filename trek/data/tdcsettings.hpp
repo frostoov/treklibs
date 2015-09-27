@@ -1,5 +1,4 @@
-#ifndef TREK_DATA_TDC_SETTINGS_HPP
-#define TREK_DATA_TDC_SETTINGS_HPP
+#pragma once
 
 #include <trek/common/enumcontainer.hpp>
 
@@ -80,5 +79,3 @@ constexpr size_t Settings::getSize() {
 
 } //data
 } //trek
-
-#endif // TREK_DATA_TDC_SETTINGS_HPP

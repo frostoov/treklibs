@@ -1,5 +1,4 @@
-#ifndef TREK_COMMON_SERIALIZTION_HPP
-#define TREK_COMMON_SERIALIZTION_HPP
+#pragma once
 
 #include <ostream>
 #include <istream>
@@ -59,6 +58,3 @@ constexpr size_t getSize(void* = nullptr) {
 }
 
 } //trek
-
-#endif // TREK_COMMON_SERIALIZTION_HPP
-

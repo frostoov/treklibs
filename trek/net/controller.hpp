@@ -1,5 +1,4 @@
-#ifndef TREK_NET_CONTROLLER_HPP
-#define TREK_NET_CONTROLLER_HPP
+#pragma once
 
 #include <string>
 
@@ -17,5 +16,3 @@ protected:
 
 } //net
 } //trek
-
-#endif //TREK_NET_CONTROLLER_HPP

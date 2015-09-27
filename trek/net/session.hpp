@@ -1,5 +1,4 @@
-#ifndef TREK_NET_SESSION_HPP
-#define TREK_NET_SESSION_HPP
+#pragma once
 
 #include "controller.hpp"
 
@@ -55,6 +54,3 @@ private:
 
 } //net
 } //trek
-
-
-#endif // TREK_NET_SESSION_HPP

@@ -1,5 +1,4 @@
-#ifndef TREK_DATA_DATA_SET_HEADER_HPP
-#define TREK_DATA_DATA_SET_HEADER_HPP
+#pragma once
 
 #include "tdcsettings.hpp"
 
@@ -39,5 +38,3 @@ private:
 
 } //data
 } //trek
-
-#endif // TREK_DATA_DATA_SET_HEADER_HPP

@@ -55,7 +55,7 @@ bool TrekHandler::createTrack() {
 
 TrekHandler::Line3 TrekHandler::createTrack(const Chamber& cham1, const Chamber& cham2) {
     if(cham1.getChamberGroup() == cham2.getChamberGroup() && cham1.getChamberPlane() != cham2.getChamberPlane())
-        return vecmath::Plane::getLine(cham1.getTrackPlane(), cham2.getTrackPlane());
+        return math::Plane::getLine(cham1.getTrackPlane(), cham2.getTrackPlane());
     else
         throw std::runtime_error("TrekHandler::createTrek: invalid chambers");
 }

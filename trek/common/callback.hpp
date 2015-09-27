@@ -1,5 +1,4 @@
-#ifndef TREK_COMMON_CALLBACK_HPP
-#define TREK_COMMON_CALLBACK_HPP
+#pragma once
 
 #include <functional>
 
@@ -33,5 +32,3 @@ private:
 };
 
 } //trek;
-
-#endif // TREK_COMMON_CALLBACK_HPP

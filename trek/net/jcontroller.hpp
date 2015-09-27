@@ -1,5 +1,4 @@
-#ifndef TREK_NET_CTUDC_CONTROLLER_HPP
-#define TREK_NET_CTUDC_CONTROLLER_HPP
+#pragma once
 
 #include "controller.hpp"
 #include "request.hpp"
@@ -31,5 +30,3 @@ private:
 
 } //net
 } //trek
-
-#endif // TREK_NET_CTUDC_CONTROLLER_HPP

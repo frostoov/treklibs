@@ -1,5 +1,4 @@
-#ifndef TREK_DATA_TDC_RECORD_HPP
-#define TREK_DATA_TDC_RECORD_HPP
+#pragma once
 
 #include <array>
 #include <unordered_map>
@@ -15,7 +14,7 @@ using WordVector = std::vector<uint32_t>;
  * @class TdcRecord
  * @author frostoov
  * @date 03/29/15
- * @file tuevent.hpp
+ * @file tdcrecord.hpp
  * @brief Запись события TDC
  */
 class TdcRecord {
@@ -105,5 +104,3 @@ protected:
 
 } //data
 } //trek
-
-#endif // TREK_DATA_TDC_RECORD_HPP

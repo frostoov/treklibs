@@ -1,5 +1,4 @@
-#ifndef ASSERTION_HPP
-#define ASSERTION_HPP
+#pragma once
 
 #include <string>
 
@@ -8,9 +7,9 @@ namespace trek {
 class Assertion {
 public:
     Assertion(const std::string& message)
-        : mMessage(message) { }
+        : mMessage("Assertion: " + message) { }
     Assertion(std::string&& message)
-        : mMessage( std::move(message) ) { }
+        : mMessage( "Assertion: " +  std::move(message) ) { }
 
     operator std::string() {
         return mMessage;
@@ -21,5 +20,3 @@ private:
 };
 
 } //trek
-
-#endif //ASSERTION_HPP

@@ -1,5 +1,4 @@
-#ifndef TREK_NET_CLIENT_HPP
-#define TREK_NET_CLIENT_HPP
+#pragma once
 
 #include "request.hpp"
 #include "response.hpp"
@@ -11,7 +10,7 @@
 
 #include <array>
 
-namespace trek{
+namespace trek {
 namespace net {
 
 class Client {
@@ -25,11 +24,9 @@ private:
     IoService   mIoService;
     TCP::socket mSocket;
 
-//    ThreadManager mThread;
     std::array<char, 65527> mBuffer;
 };
 
 }
 }
 
-#endif //TREK_NET_CLIENT_HPP

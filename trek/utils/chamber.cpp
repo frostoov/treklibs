@@ -3,13 +3,13 @@
 
 namespace trek {
 
-using vecmath::Octahedron;
-using vecmath::Line2;
-using vecmath::Line3;
-using vecmath::Vec2;
-using vecmath::Vec3;
-using vecmath::Plane;
-using vecmath::CoordSystem3;
+using math::Octahedron;
+using math::Line2;
+using math::Line3;
+using math::Vec2;
+using math::Vec3;
+using math::Plane;
+using math::CoordSystem3;
 using std::runtime_error;
 
 Chamber::Chamber(const ChamberDescription& chamberDescription)

@@ -10,8 +10,8 @@ using std::chrono::duration_cast;
 using std::make_unique;
 
 template<typename Rep, typename Period>
-std::chrono::milliseconds toMilliseconds(const std::chrono::duration<Rep, Period>& duration) {
-    return duration_cast<std::chrono::milliseconds> (duration);
+static std::chrono::milliseconds toMilliseconds(const std::chrono::duration<Rep, Period>& duration) {
+    return duration_cast<std::chrono::milliseconds>(duration);
 }
 
 CtudcRecord::CtudcRecord()

@@ -1,5 +1,4 @@
-#ifndef TREKHANDLER_HPP
-#define TREKHANDLER_HPP
+#pragma once
 
 #include <trek/data/tdcrecord.hpp>
 #include "chamber.hpp"
@@ -7,10 +6,10 @@
 namespace trek {
 
 class TrekHandler {
-    using Octahedron = vecmath::Octahedron;
-    using Vec3       = vecmath::Vec3;
-    using Line2      = vecmath::Line2;
-    using Line3      = vecmath::Line3;
+    using Octahedron = math::Octahedron;
+    using Vec3       = math::Vec3;
+    using Line2      = math::Line2;
+    using Line3      = math::Line3;
     using TdcRecord	 = trek::data::TdcRecord;
     using ChamberMap = std::unordered_map<uintmax_t, Chamber>;
 public:
@@ -38,5 +37,3 @@ private:
 };
 
 }
-
-#endif // TREKHANDLER_HPP
