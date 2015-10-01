@@ -7,21 +7,24 @@ namespace math {
 
 class Line3 {
 public:
-    Line3() {}
-    Line3(const Vec3& dot1, const Vec3& dot2);
+    Line3() = default;
+    Line3(const Vec3& point, const Vec3& vector);
 
-    Vec3& dot();
-    Vec3& vec();
+    static Line3 fromPoints(const Vec3 &point1, const Vec3 &point2);
 
-    const Vec3& dot() const;
-    const Vec3& vec() const;
+    Vec3& dot() { return mPoint; }
+    Vec3& vec() { return mVector; }
+
+    const Vec3& dot() const { return mPoint; }
+    const Vec3& vec() const { return mVector; }
+
     void rotateX(double ang);
     void rotateY(double ang);
     void rotateZ(double ang);
     void rotate(const Vec3& vec, double ang);
 private:
-    Vec3 mDot;
-    Vec3 mVec;
+    Vec3 mPoint;
+    Vec3 mVector;
 };
 
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstddef>
+#include <iosfwd>
 
 namespace trek {
 namespace math {
@@ -9,7 +10,7 @@ namespace math {
  * @class Vec2
  * @author frostoov
  * @date 03/18/15
- * @file vec.hpp
+ * @file vec2.hpp
  * @brief Вектор в двухмерном пространстве
  */
 class Vec2 {
@@ -40,43 +41,38 @@ public:
      * @return Орт данного вектора
      */
     Vec2 ort() const;
-
     /**
      * @brief Вычисление длины данного вектора
      * @return Длина данного вектора
      */
     double abs() const;
-
     /**
      * @brief Координата X
      * @return Ссылка на координату X
      */
-    double& x();
+    double& x() { return mData[0]; }
     /**
      * @brief Координата Y
      * @return Ссылка на координату Y
      */
-    double& y();
-
+    double& y() { return mData[1]; }
     /**
      * @brief Координата X
      * @return Копия координаты X
      */
-    double x() const;
+    double x() const { return mData[0]; }
     /**
      * @brief Координата Y
      * @return Копия координаты Y
      */
-    double y() const;
-
-    double& operator[](size_t i);
-    double operator[](size_t i) const;
-
+    double y() const { return mData[1]; }
     /**
      * @brief Вращение вектора
      * @param ang Угол, на которое производится вращение
      */
     void rotate(double ang);
+    double& operator[](size_t i);
+    double operator[](size_t i) const;
 private:
     double mData[2];
 };
@@ -122,6 +118,8 @@ Vec2 operator*(double num, const Vec2& vec);
  * @return
  */
 double angle(const Vec2& a, const Vec2& b);
+
+std::ostream& operator<<(std::ostream& stream, const Vec2& vec);
 
 } //math
 } //trek

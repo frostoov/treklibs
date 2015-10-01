@@ -40,12 +40,14 @@ protected:
     void readHeader();
     double lsbKoef(const Settings& settings) const;
     bool isValid(const DataSetHeader& header);
+    bool checkStreamState();
 private:
     mutable std::ifstream mStream;
     Record mCurrentRecord;
     DataSetHeader mHeader;
     pos_type mStreamSize;
     double mLsbKoef;
+    bool   mHasValidRecord;
 };
 
 } //data

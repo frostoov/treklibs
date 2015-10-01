@@ -17,19 +17,19 @@ public:
     Vec3 ort() const;
     double abs() const;
 
-    double& x();
-    double& y();
-    double& z();
+    double& x() { return mData[0]; }
+    double& y() { return mData[1]; }
+    double& z() { return mData[2]; }
 
-    double x() const;
-    double y() const;
-    double z() const;
+    double x() const { return mData[0]; }
+    double y() const { return mData[1]; }
+    double z() const { return mData[2]; }
 
-    double* data();
-    const double* data() const;
+    double* data() { return mData; }
+    const double* data() const { return mData; }
 
-    double& operator[](unsigned int i);
-    double  operator[](unsigned int i) const;
+    double& operator[](size_t i);
+    double  operator[](size_t i) const;
 
     void rotateX(double ang);
     void rotateY(double ang);

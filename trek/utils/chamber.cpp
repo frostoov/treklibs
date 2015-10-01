@@ -21,8 +21,8 @@ Chamber::Chamber(const ChamberDescription& chamberDescription)
 bool Chamber::createTrack(const ChamberTimes& eventTimes) {
     try {
         mHasHit   = checkHit(eventTimes);
-        mTrack    = ChamberHandler::createTrackDescription(eventTimes, mDescription);
-        mHasTrack = true;
+        // mTrack    = ChamberHandler::createTrackDescription(eventTimes, mDescription);
+        // mHasTrack = true;
     } catch(...) {
         mHasTrack = false;
     }
@@ -111,26 +111,26 @@ bool Chamber::checkHit(const ChamberTimes& eventTimes) {
 }
 
 Octahedron Chamber::getOctahedron(const ChamberPoints& pos) {
-    Octahedron ret;
     const int chamWidth = mChamberWidth / 2;
 
     /*Вспомогательные векторы*/
     const auto p13 = pos.at(2) - pos.at(0);
     const auto p12 = pos.at(1) - pos.at(0);
+    const auto wVec = (p12 & p13).ort() * chamWidth;
 
-    const auto wVec = (p12 & p13).ort();
+    return {
+        pos.at(0) + wVec,
+        pos.at(0) - wVec,
 
-    /*Развертывание первого полигона*/
-    ret[0] = pos.at(0) + wVec * chamWidth;
-    ret[1] = pos.at(0) - wVec * chamWidth;
-    ret[2] = ret[1] + p12;
-    ret[3] = ret[0] + p12;
+        pos.at(1) - wVec,
+        pos.at(1) + wVec,
 
-    /*Противоположный полигон*/
-    for(char i = 4; i < 8; ++i)
-        ret[i] = ret[i - 4] + p13;
+        pos.at(2) + wVec,
+        pos.at(2) - wVec,
 
-    return ret;
+        pos.at(2) - wVec + p12,
+        pos.at(2) + wVec + p12,
+    };
 }
 
 } //trek

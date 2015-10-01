@@ -49,16 +49,16 @@ void Session::recv() {
             mOnRecv(*this, requset);
             string response;
             try {
-                auto& controller = getController(requset);
+                auto& controller = this->getController(requset);
                 response = controller.handleRequest(requset);
             } catch(const std::exception& e) {
                 response = StringBuilder() << "Invalid query: " << e.what();
             }
-            send(response);
-            recv();
+            this->send(response);
+            this->recv();
         } else {
             mOnClose(*this);
-            mOnDestroy(shared_from_this());
+            this->mOnDestroy(this->shared_from_this());
         }
     });
 }
@@ -69,7 +69,7 @@ void Session::send(const std::string& response) {
             mOnSend(*this, response);
         else {
             mOnClose(*this);
-            mOnDestroy(shared_from_this());
+            this->mOnDestroy(this->shared_from_this());
         }
     });
 }

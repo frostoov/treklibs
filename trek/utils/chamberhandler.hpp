@@ -23,7 +23,9 @@ class Chamber;
 class ChamberHandler {
     using Indecies = std::array<uintmax_t, 4>;
 public:
-    static TrackDescription createTrackDescription(const ChamberTimes& eventTimes, const ChamberDescription& chamDesc);
+    static bool createTrackDescription(const ChamberTimes& eventTimes,
+                                       const ChamberDescription& chamDesc,
+                                       TrackDescription& trackDesc);
 protected:
     static size_t           getDepth(const ChamberDistances& eventDistances);
     static ChamberDistances getDistances(const ChamberTimes& data, const ChamberDescription& chamDesc);

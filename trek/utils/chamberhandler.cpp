@@ -24,30 +24,31 @@ const std::array<math::Vec2, 4> ChamberHandler::mWires{{
         Vec2(71, -0.75),
     }};
 
-TrackDescription ChamberHandler::createTrackDescription(const ChamberTimes& eventTimes,
-        const ChamberDescription& chamDesc) {
+bool ChamberHandler::createTrackDescription(const ChamberTimes& eventTimes,
+                                            const ChamberDescription& chamDesc,
+                                            TrackDescription& trackDesc) {
     ChamberDistances eventDistances(getDistances(eventTimes, chamDesc));
     auto depth = getDepth(eventDistances);
-    if(depth == 1) {
-        TrackDescription trackDesc;
-        trackDesc.deviation = numeric_limits<double>::infinity();
-        Indecies ind;
-        for(ind.at(0) = 0; ind.at(0) < eventDistances.at(0).size(); ++ind.at(0))
-            for(ind.at(1) = 0; ind.at(1) < eventDistances.at(1).size(); ++ind.at(1))
-                for(ind.at(2) = 0; ind.at(2) < eventDistances.at(2).size(); ++ind.at(2))
-                    for(ind.at(3) = 0; ind.at(3) < eventDistances.at(3).size(); ++ind.at(3)) {
-                        auto tempTrackDesc  = createTrackDescription(createTrackDistances(eventDistances, ind));
-                        if(tempTrackDesc.deviation != -1 && tempTrackDesc.deviation < trackDesc.deviation) {
-                            tempTrackDesc.times = createTrackTimes(eventTimes, ind);
-                            trackDesc = tempTrackDesc;
-                        }
+    if(depth != 1)
+        return false;
+
+    trackDesc.deviation = numeric_limits<double>::infinity();
+    
+    Indecies ind;
+    for(ind.at(0) = 0; ind.at(0) < eventDistances.at(0).size(); ++ind.at(0))
+        for(ind.at(1) = 0; ind.at(1) < eventDistances.at(1).size(); ++ind.at(1))
+            for(ind.at(2) = 0; ind.at(2) < eventDistances.at(2).size(); ++ind.at(2))
+                for(ind.at(3) = 0; ind.at(3) < eventDistances.at(3).size(); ++ind.at(3)) {
+                    auto tempTrackDesc  = createTrackDescription(createTrackDistances(eventDistances, ind));
+                    if(tempTrackDesc.deviation != -1 && tempTrackDesc.deviation < trackDesc.deviation) {
+                        tempTrackDesc.times = createTrackTimes(eventTimes, ind);
+                        trackDesc = tempTrackDesc;
                     }
-        if(trackDesc.deviation != numeric_limits<double>::infinity() && systemError(trackDesc))
-            return trackDesc;
-        else
-            throw runtime_error("ChamberHandler: createTrackDescription: cannot create track");
-    } else
-        throw runtime_error("ChamberHandler: createTrackDescription: cannot create track");
+                }
+    if(trackDesc.deviation != numeric_limits<double>::infinity() && systemError(trackDesc))
+        return true;
+    else
+        return false;
 }
 
 ChamberDistances ChamberHandler::getDistances(const ChamberTimes& eventTimes, const ChamberDescription& chamDesc) {

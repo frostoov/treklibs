@@ -33,52 +33,24 @@ void Vec3::operator-=(const Vec3& vec) {
 
 Vec3 Vec3::ort() const {
     auto len = abs();
-    if(len) {
-        len = 1 / len;
-        return {mData[0]* len, mData[1]* len, mData[2]* len};
+    if(len != 0) {
+        return {mData[0]/len, mData[1]/len, mData[2]/len};
     } else
         return {0, 0, 0};
 }
 
 double Vec3::abs() const {
-    return sqrt(pow(mData[0], 2) +
-                pow(mData[1], 2) +
-                pow(mData[2], 2));
+    return sqrt(pow(mData[0], 2) +  pow(mData[1], 2) + pow(mData[2], 2));
 }
 
-double& Vec3::x() {
-    return mData[0];
+double& Vec3::operator[](size_t i) {
+    if(i < 3)
+        return mData[i];
+    else
+        throw out_of_range("Vec3::operator[]: out of range");
 }
 
-double& Vec3::y() {
-    return mData[1];
-}
-
-double& Vec3::z() {
-    return mData[2];
-}
-
-double Vec3::x() const {
-    return mData[0];
-}
-
-double Vec3::y() const {
-    return mData[1];
-}
-
-double Vec3::z() const {
-    return mData[2];
-}
-
-double* Vec3::data() {
-    return mData;
-}
-
-const double* Vec3::data() const {
-    return mData;
-}
-
-double Vec3::operator[](unsigned int i) const {
+double Vec3::operator[](size_t i) const {
     if(i < 3)
         return mData[i];
     else
@@ -135,13 +107,6 @@ const double* Vec3::begin() const {
 
 const double* Vec3::end() const {
     return mData + 3;
-}
-
-double& Vec3::operator[](unsigned int i) {
-    if(i < 3)
-        return mData[i];
-    else
-        throw out_of_range("Vec3::operator[]: out of range");
 }
 
 Vec3 Vec3::operator-() const {
@@ -210,7 +175,7 @@ bool operator==(const Vec3& a, const Vec3& b) {
 }
 
 std::ostream&operator<<(std::ostream& stream, const Vec3& vec) {
-    return stream << '{' << vec.x() << ", " << vec.y() << ", " << vec.z() << '}';
+    return stream << '(' << vec.x() << ", " << vec.y() << ", " << vec.z() << ')';
 }
 
 }

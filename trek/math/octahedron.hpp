@@ -10,19 +10,29 @@ namespace math {
 
 class Octahedron {
 public:
-    Octahedron() = default;
+    using Vertices = std::array<Vec3, 8>;
+    using Polygons = std::array<Quadrangle3, 6>;
+public:
     Octahedron(const Vec3& vtx1, const Vec3& vtx2, const Vec3& vtx3, const Vec3& vtx4,
                const Vec3& vtx5, const Vec3& vtx6, const Vec3& vtx7, const Vec3& vtx8);
-    std::vector<Vec3> checkIntersection(const Line3& line) const;
-    Vec3& operator[](size_t i);
-    const Vec3& operator[](size_t i) const;
+    Octahedron(Vec3&& vtx1, Vec3&& vtx2, Vec3&& vtx3, Vec3&& vtx4,
+               Vec3&& vtx5, Vec3&& vtx6, Vec3&& vtx7, Vec3&& vtx8);
+    Octahedron(const Vertices& vertices);
+    Octahedron(Vertices&& vertices);
+    std::vector<Vec3> getIntersections(const Line3& line) const;
+    bool checkIntersection(const Line3& line) const;
 
-    std::array<Quadrangle3, 6> getPolygons() const;
-
-    std::array<Vec3, 8>& vertices();
-    const std::array<Vec3, 8>& vertices() const;
+    const Vertices& vertices() const {
+        return mVertices;
+    }
+    const Polygons& polygons() const {
+        return mPolygons;
+    }
+protected:
+    static Polygons getPolygons(const std::array<Vec3, 8>& vetices);
 private:
-    std::array<Vec3, 8> mVertices;
+    Vertices mVertices;
+    Polygons mPolygons;
 };
 
 }

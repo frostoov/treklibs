@@ -81,7 +81,7 @@ void Server::doAccept() {
             auto newSession = make_shared<Session> (mControllers, std::move(mSocket));
 
             newSession->onDestroy() = [this] (const auto & session) {
-                removeSession(session);
+                this->removeSession(session);
             };
 
             newSession->onStart()   = mOnSessionStart;
@@ -89,12 +89,12 @@ void Server::doAccept() {
             newSession->onRecv()    = mOnRecv;
             newSession->onSend()    = mOnSend;
 
-            addSession(newSession);
+            this->addSession(newSession);
             newSession->run();
 
             mSocket = TCP::socket(mIoService);
         }
-        doAccept();
+        this->doAccept();
     });
 }
 

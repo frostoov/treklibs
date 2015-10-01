@@ -2,6 +2,7 @@
 
 #include <trek/math/vec2.hpp>
 #include <trek/math/line2.hpp>
+#include <trek/math/vec3.hpp>
 
 #include <array>
 #include <vector>
@@ -97,4 +98,3 @@ using ChamberConfig = std::unordered_map<uintmax_t, ChamberDescription>;
 
 
 } //trek
-

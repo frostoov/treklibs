@@ -2,6 +2,7 @@
 
 #include <cmath>
 #include <stdexcept>
+#include <ostream>
 
 namespace trek {
 namespace math {
@@ -70,22 +71,6 @@ double Vec2::abs() const {
                  pow(mData[1], 2) );
 }
 
-double& Vec2::x() {
-    return mData[0];
-}
-
-double& Vec2::y() {
-    return mData[1];
-}
-
-double Vec2::x() const {
-    return mData[0];
-}
-
-double Vec2::y() const {
-    return mData[1];
-}
-
 double Vec2::operator[](size_t i) const {
     if(i < 2)
         return mData[i];
@@ -102,7 +87,7 @@ double& Vec2::operator[](size_t i) {
 
 Vec2 Vec2::ort() const {
     auto len = this->abs();
-    if(len)
+    if(len != 0)
         return {mData[0] / len, mData[1] / len};
     else
         return {0, 0};
@@ -123,6 +108,10 @@ void Vec2::rotate(double ang) {
         x()* c - y()* s,
         x()* s + y()* c,
     };
+}
+
+std::ostream& operator<<(std::ostream& stream, const Vec2& vec) {
+    return stream << '(' << vec.x() << ", " << vec.y() << ')';
 }
 
 }

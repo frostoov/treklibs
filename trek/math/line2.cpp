@@ -1,6 +1,5 @@
 #include "line2.hpp"
 
-#include <cmath>
 #include <limits>
 #include <stdexcept>
 
@@ -11,7 +10,10 @@ using std::runtime_error;
 using std::numeric_limits;
 
 Line2::Line2()
-    : koefK(0), koefB(0) {}
+    : koefK(0), koefB(0) { }
+
+Line2::Line2(double k, double b)
+    : koefK(k), koefB(b) { }
 
 Line2::Line2(const Vec2& dot1, const Vec2& dot2) {
     auto dirVec = dot1 - dot2;
@@ -21,24 +23,8 @@ Line2::Line2(const Vec2& dot1, const Vec2& dot2) {
         koefK = numeric_limits<double>::infinity();
     }
     koefB = dot1.y() - koefK * dot1.x();
-
 }
 
-double& Line2::k() {
-    return koefK;
-}
-
-double& Line2::b() {
-    return koefB;
-}
-
-double Line2::k() const {
-    return koefK;
-}
-
-double Line2::b() const {
-    return koefB;
-}
 
 Vec2 Line2::getIntersection(const Line2& line1, const Line2& line2) {
     if(line1.k() == line2.k())
@@ -50,8 +36,5 @@ Vec2 Line2::getIntersection(const Line2& line1, const Line2& line2) {
     } else
         return {0, 0};
 }
-
-
-
 }
 }

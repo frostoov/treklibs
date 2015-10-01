@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 3.0)
 project(trekdata CXX)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall -pedantic -fPIC")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall -pedantic -pipe -march=native")
 include_directories(${CMAKE_SOURCE_DIR})
 
 set(SOURCES

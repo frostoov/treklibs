@@ -13,6 +13,8 @@ Client::Client(const string& ip, uint16_t port)
 Response Client::sendRequst(const Request& request) {
     mSocket.send( boost::asio::buffer(string(request)) );
     auto size = mSocket.receive(boost::asio::buffer(mBuffer));
+
+    Response({mBuffer.data(), size});
     return Response( {mBuffer.data(), size} );
 }
 

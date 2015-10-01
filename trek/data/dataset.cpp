@@ -12,7 +12,8 @@ namespace trek {
 namespace data {
 
 DataSet::DataSet()
-    : mStreamSize(0) {
+    : mStreamSize(0),
+      mHasValidRecord(false) {
     mStream.exceptions(mStream.badbit | mStream.failbit);
 }
 
@@ -27,12 +28,14 @@ const DataSet::Record& DataSet::currentRecord() const {
 
 bool DataSet::next() {
     checkOpen();
-    if (*this) {
+    if (checkStreamState()) {
+        if(!mHasValidRecord)
+            mHasValidRecord = true;
         mCurrentRecord.deserialize(mStream);
         mCurrentRecord.convertTdcWords(mLsbKoef);
-        return true;
     } else
-        return false;
+        mHasValidRecord = false;
+    return mHasValidRecord;
 }
 
 void DataSet::open(const string& path) {
@@ -86,8 +89,12 @@ bool DataSet::isValid(const DataSetHeader& header) {
     return header.key() == 52015 && header.type() == DataSetType::Ctudc;
 }
 
-DataSet::operator bool() const {
+bool DataSet::checkStreamState() {
     return isOpen() && mStream && mStream.tellg() < mStreamSize;
+}
+
+DataSet::operator bool() const {
+    return mHasValidRecord;
 }
 
 } //data

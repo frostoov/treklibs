@@ -50,17 +50,13 @@ Line3 Plane::getLine(const Plane& plane1, const Plane& plane2) {
     return line;
 }
 
-const Vec3& Plane::norm() const {
-    return mNorm;
-}
-
-double Plane::d() const {
-    return mD;
-}
-
-Vec3 Plane::getIntersectionPoint(const Line3& line) {
-    auto t = - ((mNorm * line.dot()) + mD) / (mNorm * line.vec());
-    return (line.vec() * t) + line.dot();
+bool Plane::getIntersectionPoint(const Line3& line, Vec3& point) {
+    auto p = (mNorm * line.vec());
+    if(p == 0)
+        return false;
+    auto t = - ((mNorm * line.dot()) + mD) / p;
+    point = (line.vec() * t) + line.dot();
+    return true;
 }
 
 }
