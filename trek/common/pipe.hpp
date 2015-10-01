@@ -5,6 +5,8 @@
 #include <condition_variable>
 #include <atomic>
 
+namespace trek {
+
 template<typename T>
 class Pipe {
     using Queue = std::queue<T>;
@@ -57,3 +59,5 @@ private:
     std::condition_variable mCv;
     std::atomic_bool mActive;
 };
+
+} //trek
