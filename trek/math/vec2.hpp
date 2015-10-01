@@ -50,22 +50,30 @@ public:
      * @brief Координата X
      * @return Ссылка на координату X
      */
-    double& x() { return mData[0]; }
+    double& x() {
+        return mData[0];
+    }
     /**
      * @brief Координата Y
      * @return Ссылка на координату Y
      */
-    double& y() { return mData[1]; }
+    double& y() {
+        return mData[1];
+    }
     /**
      * @brief Координата X
      * @return Копия координаты X
      */
-    double x() const { return mData[0]; }
+    double x() const {
+        return mData[0];
+    }
     /**
      * @brief Координата Y
      * @return Копия координаты Y
      */
-    double y() const { return mData[1]; }
+    double y() const {
+        return mData[1];
+    }
     /**
      * @brief Вращение вектора
      * @param ang Угол, на которое производится вращение

@@ -17,16 +17,32 @@ public:
     Vec3 ort() const;
     double abs() const;
 
-    double& x() { return mData[0]; }
-    double& y() { return mData[1]; }
-    double& z() { return mData[2]; }
+    double& x() {
+        return mData[0];
+    }
+    double& y() {
+        return mData[1];
+    }
+    double& z() {
+        return mData[2];
+    }
 
-    double x() const { return mData[0]; }
-    double y() const { return mData[1]; }
-    double z() const { return mData[2]; }
+    double x() const {
+        return mData[0];
+    }
+    double y() const {
+        return mData[1];
+    }
+    double z() const {
+        return mData[2];
+    }
 
-    double* data() { return mData; }
-    const double* data() const { return mData; }
+    double* data() {
+        return mData;
+    }
+    const double* data() const {
+        return mData;
+    }
 
     double& operator[](size_t i);
     double  operator[](size_t i) const;

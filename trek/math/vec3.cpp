@@ -34,7 +34,7 @@ void Vec3::operator-=(const Vec3& vec) {
 Vec3 Vec3::ort() const {
     auto len = abs();
     if(len != 0) {
-        return {mData[0]/len, mData[1]/len, mData[2]/len};
+        return {mData[0] / len, mData[1] / len, mData[2] / len};
     } else
         return {0, 0, 0};
 }
@@ -171,10 +171,10 @@ double angle(const Vec3& a, const Vec3& b) {
 bool operator==(const Vec3& a, const Vec3& b) {
     return a[0] == b[0] &&
            a[1] == b[1] &&
-            a[2] == b[2];
+           a[2] == b[2];
 }
 
-std::ostream&operator<<(std::ostream& stream, const Vec3& vec) {
+std::ostream& operator<<(std::ostream& stream, const Vec3& vec) {
     return stream << '(' << vec.x() << ", " << vec.y() << ", " << vec.z() << ')';
 }
 

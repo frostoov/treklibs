@@ -16,8 +16,10 @@ public:
     Quadrangle2(Vertices&& vertices);
 
     bool checkPoint(const Vec2& dot) const;
-    
-    const Vertices& vertices() const { return mVertices; }
+
+    const Vertices& vertices() const {
+        return mVertices;
+    }
 private:
     Vertices mVertices;
 };

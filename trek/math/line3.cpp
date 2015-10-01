@@ -28,7 +28,7 @@ void Line3::rotate(const Vec3& vec, double ang) {
 }
 
 
-Line3 Line3::fromPoints(const Vec3 &point1, const Vec3 &point2) {
+Line3 Line3::fromPoints(const Vec3& point1, const Vec3& point2) {
     return Line3(point1, point2 - point1);
 }
 

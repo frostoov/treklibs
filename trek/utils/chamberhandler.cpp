@@ -25,15 +25,15 @@ const std::array<math::Vec2, 4> ChamberHandler::mWires{{
     }};
 
 bool ChamberHandler::createTrackDescription(const ChamberTimes& eventTimes,
-                                            const ChamberDescription& chamDesc,
-                                            TrackDescription& trackDesc) {
+        const ChamberDescription& chamDesc,
+        TrackDescription& trackDesc) {
     ChamberDistances eventDistances(getDistances(eventTimes, chamDesc));
     auto depth = getDepth(eventDistances);
     if(depth != 1)
         return false;
 
     trackDesc.deviation = numeric_limits<double>::infinity();
-    
+
     Indecies ind;
     for(ind.at(0) = 0; ind.at(0) < eventDistances.at(0).size(); ++ind.at(0))
         for(ind.at(1) = 0; ind.at(1) < eventDistances.at(1).size(); ++ind.at(1))
