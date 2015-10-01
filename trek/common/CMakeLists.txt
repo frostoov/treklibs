@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 3.0)
 project(trekcommon CXX)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall -pedantic -fPIC")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall -pedantic -pipe -march=native")
 
 set(SOURCES
     applog.cpp
@@ -19,6 +19,7 @@ set(HEADERS
     threadmanager.hpp
 	timeprint.hpp
     streamsize.hpp
+    pipe.hpp
 )
 
 add_library(${PROJECT_NAME} SHARED  ${SOURCES} ${HEADERS})
