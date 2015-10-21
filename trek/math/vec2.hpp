@@ -15,74 +15,74 @@ namespace math {
  */
 class Vec2 {
 public:
-    Vec2(double x = 0, double y = 0);
-    /**
-     * @brief Унарный плюс
-     * @return Возрщает себя
-     */
-    Vec2 operator +() const;
-    /**
-     * @brief  Унарный минус
-     * @return Возвращает обраный вектор
-     */
-    Vec2 operator -() const;
-    /**
-     * @brief Сложение с данным вектором
-     * @param vec Вектор, который прибавляется к данному
-     */
-    void operator+= (const Vec2& vec);
-    /**
-     * @brief Вычитание из данного вектора
-     * @param vec Вектор, который отнимается от данного
-     */
-    void operator-= (const Vec2& vec);
-    /**
-     * @brief Вычисление орта данного вектора
-     * @return Орт данного вектора
-     */
-    Vec2 ort() const;
-    /**
-     * @brief Вычисление длины данного вектора
-     * @return Длина данного вектора
-     */
-    double abs() const;
-    /**
-     * @brief Координата X
-     * @return Ссылка на координату X
-     */
-    double& x() {
-        return mData[0];
-    }
-    /**
-     * @brief Координата Y
-     * @return Ссылка на координату Y
-     */
-    double& y() {
-        return mData[1];
-    }
-    /**
-     * @brief Координата X
-     * @return Копия координаты X
-     */
-    double x() const {
-        return mData[0];
-    }
-    /**
-     * @brief Координата Y
-     * @return Копия координаты Y
-     */
-    double y() const {
-        return mData[1];
-    }
-    /**
-     * @brief Вращение вектора
-     * @param ang Угол, на которое производится вращение
-     */
-    void rotate(double ang);
-    double& operator[](size_t i);
-    double operator[](size_t i) const;
+	Vec2(double x = 0, double y = 0);
+	/**
+	 * @brief Унарный плюс
+	 * @return Возрщает себя
+	 */
+	Vec2 operator +() const;
+	/**
+	 * @brief  Унарный минус
+	 * @return Возвращает обраный вектор
+	 */
+	Vec2 operator -() const;
+	/**
+	 * @brief Сложение с данным вектором
+	 * @param vec Вектор, который прибавляется к данному
+	 */
+	void operator+= (const Vec2& vec);
+	/**
+	 * @brief Вычитание из данного вектора
+	 * @param vec Вектор, который отнимается от данного
+	 */
+	void operator-= (const Vec2& vec);
+	/**
+	 * @brief Вычисление орта данного вектора
+	 * @return Орт данного вектора
+	 */
+	Vec2 ort() const;
+	/**
+	 * @brief Вычисление длины данного вектора
+	 * @return Длина данного вектора
+	 */
+	double abs() const;
+	/**
+	 * @brief Координата X
+	 * @return Ссылка на координату X
+	 */
+	double& x() {
+		return mData[0];
+	}
+	/**
+	 * @brief Координата Y
+	 * @return Ссылка на координату Y
+	 */
+	double& y() {
+		return mData[1];
+	}
+	/**
+	 * @brief Координата X
+	 * @return Копия координаты X
+	 */
+	double x() const {
+		return mData[0];
+	}
+	/**
+	 * @brief Координата Y
+	 * @return Копия координаты Y
+	 */
+	double y() const {
+		return mData[1];
+	}
+	/**
+	 * @brief Вращение вектора
+	 * @param ang Угол, на которое производится вращение
+	 */
+	void rotate(double ang);
+	double& operator[](size_t i);
+	double operator[](size_t i) const;
 private:
-    double mData[2];
+	double mData[2];
 };
 
 /**
