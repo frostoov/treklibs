@@ -6,16 +6,16 @@
 namespace trek {
 
 class ThreadManager {
-    using Function = std::function<void()>;
-    using ThreadPtr = std::unique_ptr< std::thread >;
+	using Function = std::function<void()>;
+	using ThreadPtr = std::unique_ptr< std::thread >;
 public:
-    ~ThreadManager();
-    void run(const Function& func);
-    void join();
+	~ThreadManager();
+	void run(const Function& func);
+	void join();
 
-    operator bool() const;
+	operator bool() const;
 private:
-    ThreadPtr mThread;
+	ThreadPtr mThread;
 };
 
 

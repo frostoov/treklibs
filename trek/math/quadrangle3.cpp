@@ -10,13 +10,13 @@ using std::move;
 
 Quadrangle3::Quadrangle3(const Vec3& vtx1, const Vec3& vtx2, const Vec3& vtx3, const Vec3& vtx4)
 	: mVertices{{vtx1, vtx2, vtx3, vtx4}},
-	  mCoordSystem(getCoordinateSystem(mVertices)),
-	  mQuadrangle2(getQuadrangle2(mVertices, mCoordSystem)) { }
+mCoordSystem(getCoordinateSystem(mVertices)),
+mQuadrangle2(getQuadrangle2(mVertices, mCoordSystem)) { }
 
 Quadrangle3::Quadrangle3(Vec3&& vtx1, Vec3&& vtx2, Vec3&& vtx3, Vec3&& vtx4)
 	: mVertices{{move(vtx1), move(vtx2), move(vtx3), move(vtx4) }},
-	  mCoordSystem(getCoordinateSystem(mVertices)),
-	  mQuadrangle2(getQuadrangle2(mVertices, mCoordSystem)) { }
+mCoordSystem(getCoordinateSystem(mVertices)),
+mQuadrangle2(getQuadrangle2(mVertices, mCoordSystem)) { }
 
 Quadrangle3::Quadrangle3(const Quadrangle3::Vertices& vertices)
 	: mVertices(vertices),
@@ -54,7 +54,7 @@ Plane Quadrangle3::getPlane() const {
 	return {mVertices[0], mVertices[1], mVertices[2]};
 }
 
-Quadrangle2 Quadrangle3::getQuadrangle2(Vertices v, const CoordSystem3 &coorSystem) {
+Quadrangle2 Quadrangle3::getQuadrangle2(Vertices v, const CoordSystem3& coorSystem) {
 	Quadrangle2::Vertices vertices2;
 	for(size_t i = 0; i < v.size(); ++i) {
 		mCoordSystem.convertTo(v[i]);

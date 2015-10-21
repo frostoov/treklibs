@@ -19,35 +19,35 @@ namespace data {
  */
 
 class DataSet {
-    using pos_type = std::ifstream::pos_type;
+	using pos_type = std::ifstream::pos_type;
 public:
-    using Record = CtudcRecord;
+	using Record = CtudcRecord;
 public:
-    DataSet();
-    DataSet(const std::string& path);
+	DataSet();
+	DataSet(const std::string& path);
 
-    void open(const std::string& path);
-    void close();
+	void open(const std::string& path);
+	void close();
 
-    const Record& currentRecord() const;
-    bool next();
+	const Record& currentRecord() const;
+	bool next();
 
-    bool isOpen() const;
-    static bool checkExtension(const std::string& fileName);
-    operator bool() const;
+	bool isOpen() const;
+	static bool checkExtension(const std::string& fileName);
+	operator bool() const;
 protected:
-    void checkOpen() const;
-    void readHeader();
-    double lsbKoef(const Settings& settings) const;
-    bool isValid(const DataSetHeader& header);
-    bool checkStreamState();
+	void checkOpen() const;
+	void readHeader();
+	double lsbKoef(const Settings& settings) const;
+	bool isValid(const DataSetHeader& header);
+	bool checkStreamState();
 private:
-    mutable std::ifstream mStream;
-    Record mCurrentRecord;
-    DataSetHeader mHeader;
-    pos_type mStreamSize;
-    double mLsbKoef;
-    bool   mHasValidRecord;
+	mutable std::ifstream mStream;
+	Record mCurrentRecord;
+	DataSetHeader mHeader;
+	pos_type mStreamSize;
+	double mLsbKoef;
+	bool   mHasValidRecord;
 };
 
 } //data

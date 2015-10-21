@@ -22,22 +22,22 @@ using ChamberPoints     = std::array<math::Vec3, 3>;
 
 class WireParameters {
 public:
-    WireParameters(uint32_t offset = 0, double speed = 0) : mOffset(offset), mSpeed(speed) {}
-    void setOffset(uint32_t offset) {
-        mOffset = offset;
-    }
-    void setSpeed(double speed)     {
-        mSpeed = speed;
-    }
-    uint32_t getOffset() const {
-        return mOffset;
-    }
-    double   getSpeed()  const {
-        return mSpeed;
-    }
+	WireParameters(uint32_t offset = 0, double speed = 0) : mOffset(offset), mSpeed(speed) {}
+	void setOffset(uint32_t offset) {
+		mOffset = offset;
+	}
+	void setSpeed(double speed)     {
+		mSpeed = speed;
+	}
+	uint32_t getOffset() const {
+		return mOffset;
+	}
+	double   getSpeed()  const {
+		return mSpeed;
+	}
 private:
-    uint32_t mOffset;
-    double   mSpeed;
+	uint32_t mOffset;
+	double   mSpeed;
 };
 
 using ChamberParameters = std::array<WireParameters, 4>;
@@ -51,33 +51,33 @@ using ChamberParameters = std::array<WireParameters, 4>;
  */
 class ChamberDescription {
 public:
-    ChamberDescription(const ChamberPoints& points,
-                       const ChamberParameters& parameters,
-                       uint32_t plane, uint32_t group) :
-        mPoints(points),
-        mParameters(parameters),
-        mPlane(plane),
-        mGroup(group) {}
-    const ChamberPoints& getPoints() const {
-        return mPoints;
-    }
-    const ChamberParameters& getParameters() const {
-        return mParameters;
-    }
-    uint32_t getPlane() const {
-        return mPlane;
-    }
-    uint32_t getGroup() const {
-        return mGroup;
-    }
-    void setParameters(const ChamberParameters& parameters) {
-        mParameters = parameters;
-    }
+	ChamberDescription(const ChamberPoints& points,
+	                   const ChamberParameters& parameters,
+	                   uint32_t plane, uint32_t group) :
+		mPoints(points),
+		mParameters(parameters),
+		mPlane(plane),
+		mGroup(group) {}
+	const ChamberPoints& getPoints() const {
+		return mPoints;
+	}
+	const ChamberParameters& getParameters() const {
+		return mParameters;
+	}
+	uint32_t getPlane() const {
+		return mPlane;
+	}
+	uint32_t getGroup() const {
+		return mGroup;
+	}
+	void setParameters(const ChamberParameters& parameters) {
+		mParameters = parameters;
+	}
 private:
-    ChamberPoints     mPoints;     /**< Точки дрейфовой камеры */
-    ChamberParameters mParameters; /**< Параметры для каждой проволки*/
-    uint32_t          mPlane;      /**< Номер плоскости дрейфовой камеры */
-    uint32_t          mGroup;      /**< Номер группы дрейфовой камеры */
+	ChamberPoints     mPoints;     /**< Точки дрейфовой камеры */
+	ChamberParameters mParameters; /**< Параметры для каждой проволки*/
+	uint32_t          mPlane;      /**< Номер плоскости дрейфовой камеры */
+	uint32_t          mGroup;      /**< Номер группы дрейфовой камеры */
 };
 
 /**
@@ -88,10 +88,10 @@ private:
  * @brief Структура с данными одного трека
  */
 struct TrackDescription {
-    math::Line2 line;		/**< Прямая трека */
-    Points         points;		/**< Точки, по которым был восстановлен трек */
-    double         deviation;   /**< Отклонение прямой */
-    TrackTimes	   times;		/**< Вермена с TDC */
+	math::Line2 line;		/**< Прямая трека */
+	Points         points;		/**< Точки, по которым был восстановлен трек */
+	double         deviation;   /**< Отклонение прямой */
+	TrackTimes	   times;		/**< Вермена с TDC */
 };
 
 using ChamberConfig = std::unordered_map<uintmax_t, ChamberDescription>;

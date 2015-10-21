@@ -14,17 +14,17 @@ namespace trek {
 namespace net {
 
 class Client {
-    using IpAddress = boost::asio::ip::address;
-    using IoService = boost::asio::io_service;
-    using TCP = boost::asio::ip::tcp;
+	using IpAddress = boost::asio::ip::address;
+	using IoService = boost::asio::io_service;
+	using TCP = boost::asio::ip::tcp;
 public:
-    Client(const std::string& ip, uint16_t port);
-    Response sendRequst(const Request& request);
+	Client(const std::string& ip, uint16_t port);
+	Response sendRequst(const Request& request);
 private:
-    IoService   mIoService;
-    TCP::socket mSocket;
+	IoService   mIoService;
+	TCP::socket mSocket;
 
-    std::array<char, 65527> mBuffer;
+	std::array<char, 65527> mBuffer;
 };
 
 }

@@ -4,33 +4,33 @@ namespace trek {
 namespace data {
 
 DataSetHeader::DataSetHeader()
-    : mType(DataSetType::Simple) { }
+	: mType(DataSetType::Simple) { }
 
 DataSetHeader::DataSetHeader(DataSetType fileType, uint16_t key, Settings settings)
-    : mType(fileType), mKey(key), mSettings(settings) { }
+	: mType(fileType), mKey(key), mSettings(settings) { }
 
 DataSetType DataSetHeader::type() const {
-    return mType;
+	return mType;
 }
 
 uint16_t DataSetHeader::key() const {
-    return mKey;
+	return mKey;
 }
 
 const Settings& DataSetHeader::settings() const {
-    return mSettings;
+	return mSettings;
 }
 
 void DataSetHeader::serialize(std::ostream& stream) const {
-    trek::serialize(stream, mType);
-    trek::serialize(stream, mKey);
-    trek::serialize(stream, mSettings);
+	trek::serialize(stream, mType);
+	trek::serialize(stream, mKey);
+	trek::serialize(stream, mSettings);
 }
 
 void DataSetHeader::deserialize(std::istream& stream) {
-    trek::deserialize(stream, mType);
-    trek::deserialize(stream, mKey);
-    trek::deserialize(stream, mSettings);
+	trek::deserialize(stream, mType);
+	trek::deserialize(stream, mKey);
+	trek::deserialize(stream, mSettings);
 }
 
 

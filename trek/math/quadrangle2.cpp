@@ -25,9 +25,9 @@ bool Quadrangle2::checkPoint(const Vec2& point) const {
 		if(l == 4)
 			l = 0;
 		auto norm = Vec2(
-			mVertices[l].y() - mVertices[k].y(),
-			mVertices[k].x() - mVertices[l].x()
-		).ort();
+		                mVertices[l].y() - mVertices[k].y(),
+		                mVertices[k].x() - mVertices[l].x()
+		            ).ort();
 		auto C = norm * mVertices[k];
 		auto distDot = norm * point - C;
 		auto distCen = norm * cen - C;

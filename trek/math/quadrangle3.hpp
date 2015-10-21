@@ -26,7 +26,7 @@ public:
 	Plane getPlane() const;
 protected:
 	CoordSystem3 getCoordinateSystem(const Vertices& vertices) const;
-	Quadrangle2 getQuadrangle2(Vertices v, const CoordSystem3 &coorSystem);
+	Quadrangle2 getQuadrangle2(Vertices v, const CoordSystem3& coorSystem);
 private:
 	Vertices     mVertices;
 	CoordSystem3 mCoordSystem;
