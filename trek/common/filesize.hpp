@@ -1,9 +1,9 @@
 #pragma once
 
-#include <istream>
+#include <string>
 
 namespace trek {
 
-std::istream::pos_type getStreamSize(std::istream& stream);
+off_t getFileSize(const std::string& fileName);
 
 }

@@ -1,7 +1,7 @@
 #include "dataset.hpp"
 
 #include <trek/common/assertion.hpp>
-#include <trek/common/streamsize.hpp>
+#include <trek/common/filesize.hpp>
 
 using std::string;
 using std::istream;
@@ -40,7 +40,7 @@ bool DataSet::next() {
 
 void DataSet::open(const string& path) {
     mStream.open(path, mStream.binary);
-    mStreamSize = getStreamSize(mStream);
+    mStreamSize = getFileSize(path);
     readHeader();
     next();
 }

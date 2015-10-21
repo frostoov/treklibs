@@ -2,6 +2,7 @@
 
 #include <ostream>
 #include <istream>
+#include <type_traits>
 #include <vector>
 
 namespace trek {

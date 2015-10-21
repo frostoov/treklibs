@@ -6,7 +6,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall -pedantic -pipe -march=
 set(SOURCES
     applog.cpp
     threadmanager.cpp
-    streamsize.cpp
+        filesize.cpp
 )
 
 set(HEADERS
@@ -18,7 +18,7 @@ set(HEADERS
 	serialization.hpp
     threadmanager.hpp
 	timeprint.hpp
-    streamsize.hpp
+        filesize.hpp
     pipe.hpp
 )
 

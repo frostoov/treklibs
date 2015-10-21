@@ -1,15 +1,22 @@
 #include "filesize.hpp"
 
+#include "stringbuilder.hpp"
+
+#include <sys/stat.h>
+#include <cstring>
+#include <cerrno>
+
 namespace trek {
 
-using std::istream;
+using std::string;
+using std::runtime_error;
 
-istream::pos_type getStreamSize(istream& stream) {
-    auto position = stream.tellg();
-    stream.seekg(0, stream.end);
-    auto size = stream.tellg();
-    stream.seekg(position);
-    return size;
+off_t getFileSize(const string& fileName) {
+    struct stat st;
+    if( stat(fileName.data(), &st) == -1)
+        throw runtime_error(StringBuilder() << "getFileSize: " << std::strerror(errno));
+
+    return st.st_size;
 }
 
 }
