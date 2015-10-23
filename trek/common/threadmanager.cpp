@@ -12,7 +12,7 @@ ThreadManager::~ThreadManager() {
 		mThread->join();
 }
 
-void ThreadManager::run(const Function& func) {
+void ThreadManager::run(Function&& func) {
 	if(mThread == nullptr)
 		mThread = make_unique<thread>(func);
 	else

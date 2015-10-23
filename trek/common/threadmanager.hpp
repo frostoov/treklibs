@@ -10,7 +10,7 @@ class ThreadManager {
 	using ThreadPtr = std::unique_ptr< std::thread >;
 public:
 	~ThreadManager();
-	void run(const Function& func);
+	void run(Function&& func);
 	void join();
 
 	operator bool() const;

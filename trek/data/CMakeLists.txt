@@ -4,20 +4,24 @@ project(trekdata CXX)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall -pedantic -pipe -march=native")
 include_directories(${CMAKE_SOURCE_DIR})
 
-set(SOURCES
+set(
+	SOURCES
 	ctudcrecord.cpp
 	dataset.cpp
 	datasetheader.cpp
 	tdcrecord.cpp
-	tdcsettings.cpp)
+	tdcsettings.cpp
+)
     
-set(HEADERS
-    ctudcrecord.hpp
-    datasetheader.hpp
-    dataset.hpp
-    structs.hpp
-    tdcrecord.hpp
-    tdcsettings.hpp)
+set(
+	HEADERS
+	ctudcrecord.hpp
+	datasetheader.hpp
+	dataset.hpp
+	structs.hpp
+	 tdcrecord.hpp
+	tdcsettings.hpp
+)
 
 add_library(${PROJECT_NAME} SHARED ${SOURCES} ${HEADERS})
 

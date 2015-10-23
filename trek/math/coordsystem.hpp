@@ -8,7 +8,7 @@ namespace math {
 
 class CoordSystem3 {
 public:
-	CoordSystem3(const Vec3& offset, const Vec3& X, const Vec3& Z);
+	CoordSystem3(const Vec3& offset, const Vec3& X,const Vec3& Y, const Vec3& Z);
 	void convertTo(Vec3& vec) const;
 	void convertTo(Line3& line) const;
 protected:
@@ -16,9 +16,9 @@ protected:
 	void shift(Vec3& vec) const;
 private:
 	Vec3 mOffset;
-	double V1[3];
-	double V2[3];
-	double V3[3];
+	Vec3 V1;
+	Vec3 V2;
+	Vec3 V3;
 };
 
 } //math

@@ -67,7 +67,7 @@ CoordSystem3 Quadrangle3::getCoordinateSystem(const Vertices& vertices) const {
 	auto newX = (vertices.at(1) - vertices.at(0)).ort();
 	auto newY = (vertices.at(3) - vertices.at(0)).ort();
 	auto newZ = (newX & newY).ort();
-	return {vertices.at(0), newX, newZ};
+	return {vertices.at(0), newX, newY, newZ};
 }
 
 }
