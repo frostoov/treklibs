@@ -25,10 +25,10 @@ Response::Response(const std::string& response) {
 
 Response::operator std::string() const {
 	return json{
-		{"object", mObject},
-		{"method", mMethod},
+		{"object",  mObject},
+		{"method",  mMethod},
 		{"outputs", mOutputs},
-		{"status", mStatus},
+		{"status",  mStatus},
 	} .dump();
 }
 

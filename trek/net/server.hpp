@@ -17,8 +17,7 @@ class Server {
 	using SessionPtr = std::shared_ptr<Session>;
 	using SessionSet = std::unordered_set<SessionPtr>;
 	using ControllerPtr = std::shared_ptr<Controller>;
-	using Controllers   = std::vector<ControllerPtr>;
-	using ControllerMap = std::unordered_map<std::string, ControllerPtr>;
+	using Controllers   = std::unordered_map<std::string, ControllerPtr>;
 
 	using StatusCallback = Callback<void(const Server&)>;
 
@@ -26,9 +25,9 @@ class Server {
 	using IpAddress = boost::asio::ip::address;
 	using TCP = boost::asio::ip::tcp;
 public:
-	Server(const Controllers& controllers, const std::string& ipAdrress, uint16_t port);
+	Server(const std::vector<ControllerPtr>& controllers, const std::string& ipAdrress, uint16_t port);
 	~Server();
-	bool run();
+	void run();
 	void stop();
 
 	const Session::MessageCallback& onRecv();
@@ -40,13 +39,12 @@ public:
 	const StatusCallback& onStop();
 
 protected:
-	static ControllerMap convertControllers(const Controllers& controllers);
 	void doAccept();
 	void addSession(const SessionPtr& session);
 	void removeSession(const SessionPtr& session);
-	void receiveNevodSignal();
+	Controllers convertControllers(const std::vector<ControllerPtr>& controllers);
 private:
-	ControllerMap mControllers;
+	Controllers mControllers;
 	IoService mIoService;
 	TCP::acceptor mAcceptor;
 	TCP::socket mSocket;

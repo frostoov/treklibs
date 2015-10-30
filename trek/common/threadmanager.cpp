@@ -1,11 +1,10 @@
 #include "threadmanager.hpp"
 
-#include "assertion.hpp"
-
 namespace trek {
 
 using std::thread;
 using std::make_unique;
+using std::logic_error;
 
 ThreadManager::~ThreadManager() {
 	if(mThread != nullptr && mThread->joinable())
@@ -13,10 +12,9 @@ ThreadManager::~ThreadManager() {
 }
 
 void ThreadManager::run(Function&& func) {
-	if(mThread == nullptr)
-		mThread = make_unique<thread>(func);
-	else
-		throw Assertion("ThreadManager::run: thread is already running");
+	if(mThread != nullptr)
+		throw logic_error("ThreadManager::run: thread is already running");
+	mThread = make_unique<thread>(func);	
 }
 
 void ThreadManager::join() {

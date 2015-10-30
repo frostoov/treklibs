@@ -2,8 +2,8 @@
 
 #include "timeprint.hpp"
 
-#include <iostream>
 #include <fstream>
+#include <iostream>
 
 namespace trek {
 

@@ -1,7 +1,8 @@
 #pragma once
 
-#include <trek/data/tdcrecord.hpp>
 #include "chamber.hpp"
+
+#include <trek/data/eventrecord.hpp>
 
 namespace trek {
 
@@ -10,7 +11,7 @@ class TrekHandler {
 	using Vec3       = math::Vec3;
 	using Line2      = math::Line2;
 	using Line3      = math::Line3;
-	using TdcRecord	 = trek::data::TdcRecord;
+	using TdcRecord	 = trek::data::EventRecord;
 	using ChamberMap = std::unordered_map<uintmax_t, Chamber>;
 public:
 	TrekHandler(const ChamberConfig& config);
@@ -18,7 +19,7 @@ public:
 		return mChambers;
 	}
 
-	void loadEvent(const trek::data::TdcRecord& rawEvent);
+	void loadEvent(const trek::data::EventRecord & rawEvent);
 	void loadChambers(const ChamberConfig& chams);
 	bool createTrack();
 

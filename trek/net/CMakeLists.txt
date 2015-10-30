@@ -5,7 +5,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall -pedantic -pipe -march=
 include_directories(${CMAKE_SOURCE_DIR})
 
 set(SOURCES
-    jcontroller.cpp
+        controller.cpp
     client.cpp
     request.cpp
     response.cpp
@@ -15,7 +15,7 @@ set(SOURCES
 
 set(HEADERS
     controller.hpp
-    jcontroller.hpp
+        controller.hpp
     client.hpp
     request.hpp
     response.hpp

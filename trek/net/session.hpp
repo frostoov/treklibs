@@ -17,14 +17,14 @@ class Session : public std::enable_shared_from_this<Session> {
 	using SessionPtr = std::shared_ptr< Session >;
 
 	using ControllerPtr = std::shared_ptr<Controller>;
-	using ControllerMap = std::unordered_map<std::string, ControllerPtr>;
+	using Controllers   = std::unordered_map<std::string, ControllerPtr>;
 public:
 	using DestroyCallback = Callback< void(const SessionPtr&)>;
 	using MessageCallback = Callback< void(const Session&, const std::string message) >;
 	using StatusCallback = Callback< void(const Session&) >;
 	using TCP = boost::asio::ip::tcp;
 public:
-	Session(const ControllerMap& controllers, TCP::socket&& socket);
+	Session(const Controllers& controllers, TCP::socket&& socket);
 	void run();
 	std::string getRemoteAddress() const;
 
@@ -38,9 +38,9 @@ public: //callbacks
 protected:
 	void recv();
 	void send(const std::string& response);
-	Controller& getController(const std::string& request);
+	Controller& getController(const Request& request);
 private:
-	ControllerMap mControllers;
+	Controllers mControllers;
 	TCP::socket mSocket;
 
 	MessageCallback mOnRecv;

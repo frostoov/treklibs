@@ -1,7 +1,5 @@
 #include "server.hpp"
 
-#include <trek/common/assertion.hpp>
-
 namespace trek {
 namespace net {
 
@@ -9,10 +7,11 @@ using std::runtime_error;
 using std::string;
 using std::exception;
 using std::make_shared;
+using std::logic_error;
 
 using boost::asio::ip::address;
 
-Server::Server(const Controllers& controllers, const string& ipAdrress, uint16_t port)
+Server::Server(const std::vector<ControllerPtr>& controllers, const string& ipAdrress, uint16_t port)
 	: mControllers(convertControllers(controllers)),
 	  mAcceptor(mIoService, TCP::endpoint(IpAddress::from_string(ipAdrress), port)),
 	  mSocket(mIoService) { }
@@ -21,26 +20,24 @@ Server::~Server() {
 	stop();
 }
 
-bool Server::run() {
-	if(!mThread) {
-		mThread.run( [this] {
-			doAccept();
-			mIoService.run();
-		} );
-		mOnStart(*this);
-		return true;
-	} else
-		return false;
+void Server::run() {
+	if(mThread)
+		throw logic_error("Server::run server already running");
+	mThread.run([this] {
+		doAccept();
+		mIoService.run();
+	});
+	mOnStart(*this);
 }
 
 void Server::stop() {
-	if(mThread) {
-		mIoService.stop();
-		mIoService.reset();
-		mSessions.clear();
-		mThread.join();
-		mOnStop(*this);
-	}
+	if(!mThread)
+		return;
+	mIoService.stop();
+	mSessions.clear();
+	mThread.join();
+	mOnStop(*this);
+	mIoService.reset();
 }
 
 const Session::MessageCallback& Server::onRecv() {
@@ -67,14 +64,6 @@ const Server::StatusCallback& Server::onStop() {
 	return mOnStop;
 }
 
-Server::ControllerMap Server::convertControllers(const Controllers& controllers) {
-	ControllerMap controllerMap;
-	for(const auto& c : controllers) {
-		controllerMap.insert( {c->name(), c} );
-	}
-	return controllerMap;
-}
-
 void Server::doAccept() {
 	mAcceptor.async_accept(mSocket, [this](const auto & errCode) {
 		if(!errCode) {
@@ -99,17 +88,21 @@ void Server::doAccept() {
 }
 
 void Server::addSession(const SessionPtr& session) {
-	if(mSessions.count(session) == 0)
-		mSessions.insert(session);
-	else
-		throw Assertion("Server::addSession: session already exists");
+	if(mSessions.count(session) != 0)
+		throw logic_error("Server::addSession: session already exists");
+	mSessions.insert(session);	
 }
 
 void Server::removeSession(const Server::SessionPtr& session) {
-	if(mSessions.count(session) != 0)
-		mSessions.erase(session);
-	else
-		throw Assertion("Server::removeSession: session does not exists");
+	mSessions.erase(session);
+}
+
+Server::Controllers Server::convertControllers(const std::vector<ControllerPtr>& controllers) {
+	Controllers ret;
+	for(auto c: controllers) {
+		ret.insert({c->name(), c});
+	}
+	return ret;
 }
 
 } //net

@@ -1,15 +1,17 @@
 #include "session.hpp"
-#include "jcontroller.hpp"
+#include "controller.hpp"
 
 #include <trek/common/stringbuilder.hpp>
 
 namespace trek {
 namespace net {
 
+using nlohmann::json;
 using std::string;
 using std::array;
+using std::exception;
 
-Session::Session(const ControllerMap& controllers, TCP::socket&& socket)
+Session::Session(const Controllers& controllers, TCP::socket&& socket)
 	: mControllers(controllers),
 	  mSocket(std::move(socket)) { }
 
@@ -44,39 +46,53 @@ const Session::DestroyCallback& Session::onDestroy() {
 
 void Session::recv() {
 	mSocket.async_receive(boost::asio::buffer(mBuffer), [this](const auto & errCode, auto length) {
-		if(!errCode) {
-			string requset(mBuffer.data(), length);
-			mOnRecv(*this, requset);
-			string response;
-			try {
-				auto& controller = this->getController(requset);
-				response = controller.handleRequest(requset);
-			} catch(const std::exception& e) {
-				response = StringBuilder() << "Invalid query: " << e.what();
-			}
-			this->send(response);
-			this->recv();
-		} else {
+		if(errCode) {
 			mOnClose(*this);
 			this->mOnDestroy(this->shared_from_this());
+			return;
 		}
+		string rawRequset(mBuffer.data(), length);
+		mOnRecv(*this, rawRequset);
+		try {
+			Request request(rawRequset);
+			try {
+				auto& controller = this->getController(request);
+				auto response = controller.handleRequest(request);
+				this->send(string(response));
+			} catch(const exception& e) {
+				this->send(string(Response{
+					request.object(),
+					request.method(),
+					{e.what()},
+					false
+				}));
+			}
+		} catch(...) {
+			this->send(string(Response{
+				"unknown",
+				"unknown",
+				{"Invalid request"},
+				false
+			}));
+		}
+
+		this->recv();
 	});
 }
 
 void Session::send(const std::string& response) {
 	mSocket.async_send(boost::asio::buffer(response), [this, response](const auto & errCode, auto) {
-		if(!errCode)
-			mOnSend(*this, response);
-		else {
+		if(errCode) {
 			mOnClose(*this);
 			this->mOnDestroy(this->shared_from_this());
+			return;
 		}
+		mOnSend(*this, response);
 	});
 }
 
-Controller& Session::getController(const std::string& request) {
-	auto object = JController::getObject(request);
-	return *mControllers.at(object);
+Controller& Session::getController(const Request& request) {
+	return *mControllers.at(request.object());
 }
 
 } //net

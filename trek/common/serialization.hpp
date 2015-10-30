@@ -48,14 +48,4 @@ inline bool deserialize(std::istream& stream, T& object) {
 	return true;
 }
 
-template<typename T, typename = std::enable_if_t<std::is_fundamental<T>::value> >
-constexpr size_t getSize() {
-	return sizeof(T);
-}
-
-template<typename T, typename = std::enable_if_t<std::is_class<T>::value> >
-constexpr size_t getSize(void* = nullptr) {
-	return T::getSize();
-}
-
 } //trek

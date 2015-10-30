@@ -8,13 +8,13 @@ namespace trek {
 namespace data {
 
 struct DateTime {
-	uint8_t hsecond;	/**< сотые секунды */
-	uint8_t second;		/**< секунда */
-	uint8_t minute;		/**< минута */
-	uint8_t hour;		/**< час */
-	uint8_t day;		/**< день */
-	uint8_t month;		/**< месяц */
-	uint16_t year;		/**< год */
+	uint8_t hsecond;
+	uint8_t second;
+	uint8_t minute;
+	uint8_t hour;
+	uint8_t day;
+	uint8_t month;
+	uint16_t year;
 
 	void serialize(std::ostream& stream) const {
 		trek::serialize(stream, hsecond);
@@ -33,12 +33,6 @@ struct DateTime {
 		trek::deserialize(stream, day);
 		trek::deserialize(stream, month);
 		trek::deserialize(stream, year);
-	}
-	static constexpr size_t getSize() {
-		return trek::getSize<decltype(hsecond) >() + trek::getSize<decltype(second) >() +
-		       trek::getSize<decltype(minute) >() + trek::getSize<decltype(hour) >() +
-		       trek::getSize<decltype(day) >() + trek::getSize<decltype(month) >() +
-		       trek::getSize<decltype(year) >();
 	}
 };
 
@@ -74,12 +68,6 @@ struct NevodPackage {
 		trek::deserialize(stream, nvdTriggerType);
 		trek::deserialize(stream, decorTriggerType);
 		trek::deserialize(stream, fifoNumber);
-	}
-	static constexpr size_t getSize() {
-		return sizeof(keyword) + trek::getSize<decltype(type) >() + trek::getSize<decltype(dateTime) >() +
-		       trek::getSize<decltype(numberOfRun) >() + trek::getSize<decltype(numberOfRecord) >() +
-		       trek::getSize<decltype(statusRegister) >() + trek::getSize<decltype(nvdTriggerType) >() +
-		       trek::getSize<decltype(decorTriggerType) >() + trek::getSize<decltype(fifoNumber) >();
 	}
 };
 
