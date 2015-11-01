@@ -13,7 +13,7 @@ public:
 	unsigned wire() const;
 	unsigned chamber() const;
 	unsigned time() const;
-	
+
 	void serialize(std::ostream& stream) const;
 	void deserialize(std::istream& stream);
 private:
