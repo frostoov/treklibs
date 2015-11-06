@@ -30,6 +30,10 @@ public:
 	EventRecord(std::istream& stream);
 
 	const HitRecord& operator[](size_t i) const;
+	uint64_t nRun() const;
+	uint64_t nEvent() const;
+	TimePoint time() const;
+
 	size_t size() const;
 	bool empty() const;
 	/**

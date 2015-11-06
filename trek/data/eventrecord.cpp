@@ -30,6 +30,18 @@ const HitRecord& EventRecord::operator[](size_t i) const {
 	return mHits.at(i);
 }
 
+uint64_t EventRecord::nRun() const {
+	return mNRun;
+}
+
+uint64_t EventRecord::nEvent() const {
+	return mNEvent;
+}
+
+EventRecord::TimePoint EventRecord::time() const {
+	return mTimePoint;
+}
+
 size_t EventRecord::size() const {
 	return mHits.size();
 }
