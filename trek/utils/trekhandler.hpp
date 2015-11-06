@@ -19,7 +19,7 @@ public:
 		return mChambers;
 	}
 
-	void loadEvent(const trek::data::EventRecord & rawEvent);
+	void loadEvent(const trek::data::EventRecord& rawEvent);
 	void loadChambers(const ChamberConfig& chams);
 	bool createTrack();
 

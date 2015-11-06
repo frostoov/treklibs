@@ -21,23 +21,16 @@ Server::~Server() {
 }
 
 void Server::run() {
-	if(mThread)
-		throw logic_error("Server::run server already running");
-	mThread.run([this] {
-		doAccept();
-		mIoService.run();
-	});
+	mIoService.reset();
+	doAccept();
 	mOnStart(*this);
+	mIoService.run();
 }
 
 void Server::stop() {
-	if(!mThread)
-		return;
 	mIoService.stop();
 	mSessions.clear();
-	mThread.join();
 	mOnStop(*this);
-	mIoService.reset();
 }
 
 const Session::MessageCallback& Server::onRecv() {
@@ -90,7 +83,7 @@ void Server::doAccept() {
 void Server::addSession(const SessionPtr& session) {
 	if(mSessions.count(session) != 0)
 		throw logic_error("Server::addSession: session already exists");
-	mSessions.insert(session);	
+	mSessions.insert(session);
 }
 
 void Server::removeSession(const Server::SessionPtr& session) {
@@ -99,7 +92,7 @@ void Server::removeSession(const Server::SessionPtr& session) {
 
 Server::Controllers Server::convertControllers(const std::vector<ControllerPtr>& controllers) {
 	Controllers ret;
-	for(auto c: controllers) {
+	for(auto c : controllers) {
 		ret.insert({c->name(), c});
 	}
 	return ret;

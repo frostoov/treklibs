@@ -18,7 +18,7 @@ protected:
 	using Method  = std::function<Response(const Request&)>;
 	using Methods = std::unordered_map<std::string, Method>;
 public:
-	Response handleRequest(const Request &request);
+	Response handleRequest(const Request& request);
 	const std::string& name() const;
 protected:
 	Controller(const std::string& name, const Methods& method);

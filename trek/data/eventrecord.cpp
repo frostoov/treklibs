@@ -12,12 +12,11 @@ using std::chrono::duration_cast;
 using std::chrono::milliseconds;
 using std::chrono::duration;
 
-template<typename Rep, typename Period>
-static milliseconds toMilliseconds(const duration<Rep, Period>& duration) {
-	return duration_cast<milliseconds>(duration);
-}
+static auto toMillis = [](const auto& dur) {
+	return duration_cast<milliseconds>(dur);
+};
 
-EventRecord::EventRecord(unsigned nRun, unsigned nEvent, const EventHits &hits)
+EventRecord::EventRecord(unsigned nRun, unsigned nEvent, const EventHits& hits)
 	: mNRun(nRun),
 	  mNEvent(nEvent),
 	  mTimePoint(SystemClock::now()),
@@ -92,12 +91,12 @@ void EventRecord::deserialize(istream& stream) {
 		trek::deserialize(stream, hit);
 }
 
-void EventRecord::serializeTime(ostream &stream, const TimePoint &time) const {
-	int64_t timeInMilliseconds = toMilliseconds(time.time_since_epoch()).count();
-	trek::serialize(stream, timeInMilliseconds);
+void EventRecord::serializeTime(ostream& stream, const TimePoint& time) const {
+	int64_t timeInMillis = toMillis(time.time_since_epoch()).count();
+	trek::serialize(stream, timeInMillis);
 }
 
-void EventRecord::deserializeTime(istream &stream, TimePoint &time) {
+void EventRecord::deserializeTime(istream& stream, TimePoint& time) {
 	int64_t millis;
 	trek::deserialize(stream, millis);
 	time = TimePoint(duration_cast<TimePoint::duration> (milliseconds(millis)));

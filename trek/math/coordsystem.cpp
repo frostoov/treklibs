@@ -8,7 +8,7 @@ namespace math {
 
 using std::cos;
 
-CoordSystem3::CoordSystem3(const Vec3& offset, const Vec3& X, const Vec3& Y,const Vec3& Z)
+CoordSystem3::CoordSystem3(const Vec3& offset, const Vec3& X, const Vec3& Y, const Vec3& Z)
 	: mOffset(offset),
 	  V1{X}, V2{Y}, V3{Z} { }
 

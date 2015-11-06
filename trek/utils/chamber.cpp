@@ -37,7 +37,7 @@ void Chamber::resetData() {
 CoordSystem3 Chamber::getChamberSystem(const ChamberPoints& pos) {
 	auto xAxis = (pos[1] - pos[0]).ort();
 	auto zAxis = (pos[2] - pos[0]).ort();
-	auto yAxis = zAxis&xAxis;
+	auto yAxis = zAxis & xAxis;
 	return {pos[0], xAxis, yAxis, zAxis};
 }
 

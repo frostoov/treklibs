@@ -9,10 +9,10 @@ using std::istream;
 using std::ostream;
 
 HitRecord::HitRecord(unsigned wire, unsigned chamber, unsigned time)
-	: mChannel( uint16_t((wire&0xFF) | (chamber<<8))),
+	: mChannel( uint16_t((wire & 0xFF) | (chamber << 8))),
 	  mTime(time) { }
 
-HitRecord::HitRecord(std::istream &stream) {
+HitRecord::HitRecord(std::istream& stream) {
 	this->deserialize(stream);
 }
 

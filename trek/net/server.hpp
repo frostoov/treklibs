@@ -3,8 +3,6 @@
 #include "controller.hpp"
 #include "session.hpp"
 
-#include <trek/common/threadmanager.hpp>
-
 #include <string>
 #include <cstdint>
 #include <unordered_set>
@@ -57,7 +55,6 @@ private:
 	StatusCallback mOnStart;
 	StatusCallback mOnStop;
 	SessionSet   mSessions;
-	ThreadManager mThread;
 };
 
 } //net
