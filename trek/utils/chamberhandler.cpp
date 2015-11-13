@@ -24,10 +24,11 @@ const std::array<math::Vec2, 4> ChamberHandler::mWires{{
 		Vec2(71, -0.75),
 	}};
 
-bool ChamberHandler::createTrackDescription(const ChamberTimes& eventTimes,
+bool ChamberHandler::createTrackDescription(
+		const data::ChamHits& eventTimes,
         const ChamberDescription& chamDesc,
         TrackDescription& trackDesc) {
-	ChamberDistances eventDistances(getDistances(eventTimes, chamDesc));
+	ChamDistances eventDistances(getDistances(eventTimes, chamDesc));
 	auto depth = getDepth(eventDistances);
 	if(depth != 1)
 		return false;
@@ -51,18 +52,18 @@ bool ChamberHandler::createTrackDescription(const ChamberTimes& eventTimes,
 		return false;
 }
 
-ChamberDistances ChamberHandler::getDistances(const ChamberTimes& eventTimes, const ChamberDescription& chamDesc) {
-	ChamberDistances distances;
+ChamDistances ChamberHandler::getDistances(const data::ChamHits& eventTimes, const ChamberDescription& chamDesc) {
+	ChamDistances distances;
 	for(size_t wire = 0; wire < eventTimes.size(); ++wire)
 		for(auto msr :  eventTimes.at(wire)) {
-			const auto& params = chamDesc.getParameters().at(wire);
-			if(msr > params.getOffset())
-				distances.at(wire).push_back((msr - params.getOffset()) *params.getSpeed());
+			const auto& params = chamDesc.parameters.at(wire);
+			if(msr > params.offset)
+				distances.at(wire).push_back((msr - params.offset) *params.speed);
 		}
 	return distances;
 }
 
-size_t ChamberHandler::getDepth(const ChamberDistances& eventDistances) {
+size_t ChamberHandler::getDepth(const ChamDistances & eventDistances) {
 	auto depth = numeric_limits<size_t>::max();
 	for(const auto& wireData : eventDistances)
 		if(wireData.size() < depth)
@@ -94,16 +95,14 @@ double ChamberHandler::getSystemError(double r, double ang) {
 	return r * (1 / std::cos(ang) - 1);
 }
 
-TrackDistances ChamberHandler::createTrackDistances(const ChamberDistances& eventDistances,
-        const Indecies& indices) {
+TrackDistances ChamberHandler::createTrackDistances(const ChamDistances & eventDistances, const Indecies& indices) {
 	TrackDistances trackDistances;
 	for(size_t i = 0; i < trackDistances.size(); ++i)
 		trackDistances.at(i) = eventDistances.at(i).at(indices.at(i) % eventDistances.at(i).size());
 	return trackDistances;
 }
 
-TrackTimes ChamberHandler::createTrackTimes(const ChamberTimes& eventTimes,
-        const Indecies& indices) {
+TrackTimes ChamberHandler::createTrackTimes(const data::ChamHits& eventTimes, const Indecies& indices) {
 	TrackTimes trackTimes;
 	for(size_t i = 0; i < trackTimes.size(); ++i)
 		trackTimes.at(i) = eventTimes.at(i).at(indices.at(i) % eventTimes.at(i).size());

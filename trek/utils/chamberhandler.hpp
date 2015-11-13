@@ -5,6 +5,7 @@
 
 #include <trek/math/line2.hpp>
 #include <trek/math/coordsystem.hpp>
+#include <trek/data/eventrecord.hpp>
 
 #include "trektypes.hpp"
 
@@ -23,15 +24,15 @@ class Chamber;
 class ChamberHandler {
 	using Indecies = std::array<uintmax_t, 4>;
 public:
-	static bool createTrackDescription(const ChamberTimes& eventTimes,
+	static bool createTrackDescription(const data::ChamHits& eventTimes,
 	                                   const ChamberDescription& chamDesc,
 	                                   TrackDescription& trackDesc);
 protected:
-	static size_t           getDepth(const ChamberDistances& eventDistances);
-	static ChamberDistances getDistances(const ChamberTimes& data, const ChamberDescription& chamDesc);
+	static size_t           getDepth(const ChamDistances & eventDistances);
+	static ChamDistances getDistances(const data::ChamHits& data, const ChamberDescription& chamDesc);
 	static TrackDescription createTrackDescription(const TrackDistances& distances);
-	static TrackDistances   createTrackDistances(const ChamberDistances& eventDistances, const Indecies& indices);
-	static TrackTimes       createTrackTimes(const ChamberTimes& eventTimes, const Indecies& indices);
+	static TrackDistances   createTrackDistances(const ChamDistances & eventDistances, const Indecies& indices);
+	static TrackTimes       createTrackTimes(const data::ChamHits& eventTimes, const Indecies& indices);
 	static double	leastSquares(const Points& points, math::Line2& line);
 	static bool	    systemError(TrackDescription& track);
 	static double	getSystemError(double r, double ang);

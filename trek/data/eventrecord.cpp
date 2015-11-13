@@ -16,6 +16,11 @@ static auto toMillis = [](const auto& dur) {
 	return duration_cast<milliseconds>(dur);
 };
 
+EventRecord::EventRecord()
+	: mNRun(0),
+	  mNEvent(0),
+	  mTimePoint(SystemClock::now()) { }
+
 EventRecord::EventRecord(unsigned nRun, unsigned nEvent, const EventHits& hits)
 	: mNRun(nRun),
 	  mNEvent(nEvent),

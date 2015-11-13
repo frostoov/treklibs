@@ -4,13 +4,14 @@
 #include <trek/math/coordsystem.hpp>
 
 #include "trektypes.hpp"
+#include "trek/data/eventrecord.hpp"
 
 namespace trek {
 
 class Chamber {
 public:
 	Chamber(const ChamberDescription& chamberInfo);
-	bool createTrack(const ChamberTimes& eventTimes);
+	bool createTrack(const data::ChamHits& eventTimes);
 	void resetData();
 
 	const math::Line2&   getTrackLine() const;
@@ -19,13 +20,13 @@ public:
 	math::Plane getTrackPlane() const;
 
 	uint32_t getChamberPlane() const {
-		return mDescription.getPlane();
+		return mDescription.plane;
 	}
 	uint32_t getChamberGroup() const {
-		return mDescription.getGroup();
+		return mDescription.group;
 	}
 	const ChamberPoints& getChamberPoints() const {
-		return mDescription.getPoints();
+		return mDescription.points;
 	}
 	const math::Octahedron& getOctahedron() const {
 		return mOctahedron;
@@ -41,8 +42,7 @@ protected:
 	static math::Line2 getExternalProjection(math::Line3 track, const math::CoordSystem3& system);
 	static math::Line2 getExternalProjection(math::Vec3 p1, math::Vec3 p2, const math::CoordSystem3& system);
 
-
-	static bool checkHit(const ChamberTimes& eventTimes);
+	static bool checkHit(const data::ChamHits& eventTimes);
 	static math::CoordSystem3 getChamberSystem(const ChamberPoints& pos);
 	static math::Octahedron   getOctahedron(const ChamberPoints& pos);
 private:

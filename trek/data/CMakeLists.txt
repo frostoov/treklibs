@@ -15,6 +15,7 @@ set(
 	nevod.hpp
 	eventrecord.hpp
 	hitrecord.hpp
+    nevod.hpp
 )
 
 add_library(${PROJECT_NAME} SHARED ${SOURCES})

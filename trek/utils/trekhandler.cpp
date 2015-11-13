@@ -15,15 +15,13 @@ TrekHandler::TrekHandler(const ChamberConfig& config)
 	loadChambers(config);
 }
 
-void TrekHandler::loadEvent(const TdcRecord& rawEvent) {
-	auto trekEvent = rawEvent.getTrekEvent();
+void TrekHandler::loadEvent(const data::TrekHits& event) {
 	for(auto& chamberPair : mChambers) {
 		const auto chamberNumber = chamberPair.first;
 		auto& chamber = chamberPair.second;
-		if(trekEvent.count(chamberNumber)) {
-			const auto& chamberEvent = trekEvent.at(chamberNumber);
-			chamber.createTrack(chamberEvent);
-		} else
+		if(event.count(chamberNumber))
+			chamber.createTrack(event.at(chamberNumber));
+		else
 			chamber.resetData();
 	}
 }
@@ -46,7 +44,7 @@ bool TrekHandler::createTrack() {
 		chambers.assign(begin(trackChambers), end(trackChambers));
 		if(chambers.at(0)->getChamberGroup() == chambers.at(1)->getChamberGroup() &&
 		        chambers.at(0)->getChamberPlane() != chambers.at(1)->getChamberPlane()) {
-			mTTrack = createTrack(*chambers.at(0), *chambers.at(1));
+			mTrack = createTrack(*chambers.at(0), *chambers.at(1));
 			mHasTrack = true;
 		}
 	}
@@ -60,4 +58,4 @@ TrekHandler::Line3 TrekHandler::createTrack(const Chamber& cham1, const Chamber&
 		throw std::runtime_error("TrekHandler::createTrek: invalid chambers");
 }
 
-} //vecmath
+} //trek

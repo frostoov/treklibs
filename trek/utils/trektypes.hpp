@@ -10,34 +10,20 @@
 
 namespace trek {
 
-using DoubleVector     = std::vector<double>;
-using WordVector	   = std::vector<uint32_t>;
-using ChamberTimes     = std::array<WordVector, 4>;
-using ChamberDistances = std::array<DoubleVector, 4>;
-using TrackDistances   = std::array<double, 4>;
-using TrackTimes       = std::array<uint32_t, 4>;
+
+using ChamDistances   = std::array<std::vector<double>, 4>;
+using TrackDistances  = std::array<double, 4>;
+using TrackTimes      = std::array<unsigned, 4>;
 
 using Points            = std::vector<math::Vec2>;
 using ChamberPoints     = std::array<math::Vec3, 3>;
 
-class WireParameters {
-public:
-	WireParameters(uint32_t offset = 0, double speed = 0) : mOffset(offset), mSpeed(speed) {}
-	void setOffset(uint32_t offset) {
-		mOffset = offset;
-	}
-	void setSpeed(double speed)     {
-		mSpeed = speed;
-	}
-	uint32_t getOffset() const {
-		return mOffset;
-	}
-	double   getSpeed()  const {
-		return mSpeed;
-	}
-private:
-	uint32_t mOffset;
-	double   mSpeed;
+struct WireParameters {
+	WireParameters(unsigned offset_ = 0, double speed_ = 0)
+			: offset(offset_),
+			  speed(speed_) {}
+	unsigned offset;
+	double   speed;
 };
 
 using ChamberParameters = std::array<WireParameters, 4>;
@@ -49,35 +35,20 @@ using ChamberParameters = std::array<WireParameters, 4>;
  * @file chamber.hpp
  * @brief Описание дрейфовой камеры
  */
-class ChamberDescription {
-public:
-	ChamberDescription(const ChamberPoints& points,
-	                   const ChamberParameters& parameters,
-	                   uint32_t plane, uint32_t group) :
-		mPoints(points),
-		mParameters(parameters),
-		mPlane(plane),
-		mGroup(group) {}
-	const ChamberPoints& getPoints() const {
-		return mPoints;
-	}
-	const ChamberParameters& getParameters() const {
-		return mParameters;
-	}
-	uint32_t getPlane() const {
-		return mPlane;
-	}
-	uint32_t getGroup() const {
-		return mGroup;
-	}
-	void setParameters(const ChamberParameters& parameters) {
-		mParameters = parameters;
-	}
-private:
-	ChamberPoints     mPoints;     /**< Точки дрейфовой камеры */
-	ChamberParameters mParameters; /**< Параметры для каждой проволки*/
-	uint32_t          mPlane;      /**< Номер плоскости дрейфовой камеры */
-	uint32_t          mGroup;      /**< Номер группы дрейфовой камеры */
+struct ChamberDescription {
+	ChamberDescription(
+			const ChamberPoints& points_,
+			const ChamberParameters& parameters_,
+			uint32_t plane_,
+			uint32_t group_)
+			: points(points_),
+			  parameters(parameters_),
+			  plane(plane_),
+			  group(group_) {}
+	ChamberPoints     points;     /**< Точки дрейфовой камеры */
+	ChamberParameters parameters; /**< Параметры для каждой проволки*/
+	uint32_t          plane;      /**< Номер плоскости дрейфовой камеры */
+	uint32_t          group;      /**< Номер группы дрейфовой камеры */
 };
 
 /**
@@ -88,7 +59,7 @@ private:
  * @brief Структура с данными одного трека
  */
 struct TrackDescription {
-	math::Line2 line;		/**< Прямая трека */
+	math::Line2    line;		/**< Прямая трека */
 	Points         points;		/**< Точки, по которым был восстановлен трек */
 	double         deviation;   /**< Отклонение прямой */
 	TrackTimes	   times;		/**< Вермена с TDC */

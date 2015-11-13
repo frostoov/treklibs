@@ -12,8 +12,8 @@ namespace trek {
 namespace data {
 
 using EventHits = std::vector<HitRecord>;
-using ChamHits = std::array<std::vector<unsigned int>, 4>;
-using TrekHits = std::unordered_map<unsigned int, ChamHits>;
+using ChamHits = std::array<std::vector<unsigned>, 4>;
+using TrekHits = std::unordered_map<unsigned, ChamHits>;
 
 /**
  * @class EventRecord
@@ -26,6 +26,7 @@ class EventRecord {
 	using SystemClock  = std::chrono::high_resolution_clock;
 	using TimePoint    = SystemClock::time_point;
 public:
+	EventRecord(); 
 	EventRecord(unsigned nRun, unsigned nEvent, const EventHits& hits);
 	EventRecord(std::istream& stream);
 

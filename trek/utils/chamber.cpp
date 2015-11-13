@@ -14,18 +14,15 @@ using std::runtime_error;
 
 Chamber::Chamber(const ChamberDescription& chamberDescription)
 	: mDescription(chamberDescription),
-	  mChamberSystem(getChamberSystem(chamberDescription.getPoints())),
-	  mOctahedron(getOctahedron(chamberDescription.getPoints())),
+	  mChamberSystem(getChamberSystem(chamberDescription.points)),
+	  mOctahedron(getOctahedron(chamberDescription.points)),
 	  mHasHit(false), mHasTrack(false) {}
 
-bool Chamber::createTrack(const ChamberTimes& eventTimes) {
-	try {
-		mHasHit   = checkHit(eventTimes);
-		// mTrack    = ChamberHandler::createTrackDescription(eventTimes, mDescription);
-		// mHasTrack = true;
-	} catch(...) {
-		mHasTrack = false;
-	}
+bool Chamber::createTrack(const data::ChamHits& eventTimes) {
+//	mHasHit   = checkHit(eventTimes);
+//	return false;
+	mHasHit   = checkHit(eventTimes);
+	mHasTrack = ChamberHandler::createTrackDescription(eventTimes, mDescription, mTrack);
 	return mHasTrack;
 }
 
@@ -58,7 +55,7 @@ const TrackDescription& Chamber::getTrackDescription() const {
 Plane Chamber::getTrackPlane() const {
 	if(mHasTrack == false)
 		throw runtime_error("Chamber: getTrackPlane: no track");
-	return getTrackPlane(mTrack.line, mDescription.getPoints());
+	return getTrackPlane(mTrack.line, mDescription.points);
 }
 
 bool Chamber::hasHit() const {
@@ -103,7 +100,7 @@ Line2 Chamber::getExternalProjection(Vec3 p1, Vec3 p2, const CoordSystem3& syste
 	return {{p1.x(), p1.y() }, {p2.x(), p2.y() }};
 }
 
-bool Chamber::checkHit(const ChamberTimes& eventTimes) {
+bool Chamber::checkHit(const data::ChamHits & eventTimes) {
 	for(const auto wireTimes : eventTimes) {
 		if(!wireTimes.empty())
 			return true;
