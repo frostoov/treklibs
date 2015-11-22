@@ -22,20 +22,20 @@ class Chamber;
  * @brief Обработка mChamberTrackданны события дрейфовой камеры
  */
 class ChamberHandler {
-	using Indecies = std::array<uintmax_t, 4>;
+	using Indecies = std::array<unsigned, 4>;
 public:
 	static bool createTrackDescription(const data::ChamHits& eventTimes,
 	                                   const ChamberDescription& chamDesc,
 	                                   TrackDescription& trackDesc);
 protected:
-	static size_t           getDepth(const ChamDistances & eventDistances);
+	static size_t getDepth(const ChamDistances & eventDistances);
 	static ChamDistances getDistances(const data::ChamHits& data, const ChamberDescription& chamDesc);
 	static TrackDescription createTrackDescription(const TrackDistances& distances);
-	static TrackDistances   createTrackDistances(const ChamDistances & eventDistances, const Indecies& indices);
-	static TrackTimes       createTrackTimes(const data::ChamHits& eventTimes, const Indecies& indices);
-	static double	leastSquares(const Points& points, math::Line2& line);
-	static bool	    systemError(TrackDescription& track);
-	static double	getSystemError(double r, double ang);
+	static TrackDistances createTrackDistances(const ChamDistances & eventDistances, const Indecies& indices);
+	static TrackTimes createTrackTimes(const data::ChamHits& eventTimes, const Indecies& indices);
+	static double leastSquares(const Points& points, math::Line2& line);
+	static bool systemError(TrackDescription& track);
+	static double getSystemError(double r, double ang);
 private:
 	static const std::array<math::Vec2, 4> mWires;
 };

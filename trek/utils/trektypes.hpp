@@ -10,7 +10,6 @@
 
 namespace trek {
 
-
 using ChamDistances   = std::array<std::vector<double>, 4>;
 using TrackDistances  = std::array<double, 4>;
 using TrackTimes      = std::array<unsigned, 4>;
