@@ -35,15 +35,6 @@ using ChamberParameters = std::array<WireParameters, 4>;
  * @brief Описание дрейфовой камеры
  */
 struct ChamberDescription {
-	ChamberDescription(
-			const ChamberPoints& points_,
-			const ChamberParameters& parameters_,
-			uint32_t plane_,
-			uint32_t group_)
-			: points(points_),
-			  parameters(parameters_),
-			  plane(plane_),
-			  group(group_) {}
 	ChamberPoints     points;     /**< Точки дрейфовой камеры */
 	ChamberParameters parameters; /**< Параметры для каждой проволки*/
 	uint32_t          plane;      /**< Номер плоскости дрейфовой камеры */

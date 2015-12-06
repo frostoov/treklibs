@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 3.0)
 project(trekdata CXX)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall -pedantic -pipe -march=native")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall -pedantic")
 include_directories(${CMAKE_SOURCE_DIR})
 
 set(
@@ -15,7 +15,6 @@ set(
 	nevod.hpp
 	eventrecord.hpp
 	hitrecord.hpp
-    nevod.hpp
 )
 
 add_library(${PROJECT_NAME} SHARED ${SOURCES})

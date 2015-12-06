@@ -26,17 +26,33 @@ class EventRecord {
 	using SystemClock  = std::chrono::high_resolution_clock;
 	using TimePoint    = SystemClock::time_point;
 public:
-	EventRecord(); 
+	EventRecord();
 	EventRecord(unsigned nRun, unsigned nEvent, const EventHits& hits);
 	EventRecord(std::istream& stream);
 
+	auto begin() {
+		return mHits.begin();
+	}
+	auto begin() const {
+		return mHits.begin();
+	}
+	auto end() {
+		return mHits.end();
+	}
+	auto end() const {
+		return mHits.end();
+	}
 	const HitRecord& operator[](size_t i) const;
 	uint64_t nRun() const;
 	uint64_t nEvent() const;
 	TimePoint time() const;
 
-	size_t size() const;
-	bool empty() const;
+	auto size() const {
+		return mHits.size();
+	}
+	auto empty() const {
+		return mHits.empty();
+	}
 	/**
 	 * @brief Создание и получение ассоциативного массива с измерениями со всей установки.
 	 * @return Ассоциативный массив(std::unordered_map) с данными камер

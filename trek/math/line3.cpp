@@ -3,28 +3,28 @@
 namespace trek {
 namespace math {
 
-Line3::Line3(const Vec3& point, const Vec3& vector)
-	: mPoint(point),
-	  mVector(vector) { }
+Line3::Line3(const Vec3& point_, const Vec3& vector_)
+	: point(point_),
+	  vector(vector_) { }
 
 void Line3::rotateX(double ang) {
-	mPoint.rotateX(ang);
-	mVector.rotateX(ang);
+	point.rotateX(ang);
+	vector.rotateX(ang);
 }
 
 void Line3::rotateY(double ang) {
-	mPoint.rotateY(ang);
-	mVector.rotateY(ang);
+	point.rotateY(ang);
+	vector.rotateY(ang);
 }
 
 void Line3::rotateZ(double ang) {
-	mPoint.rotateZ(ang);
-	mVector.rotateZ(ang);
+	point.rotateZ(ang);
+	vector.rotateZ(ang);
 }
 
 void Line3::rotate(const Vec3& vec, double ang) {
-	mPoint.rotate(vec, ang);
-	mVector.rotate(vec, ang);
+	point.rotate(vec, ang);
+	vector.rotate(vec, ang);
 }
 
 

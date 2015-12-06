@@ -18,8 +18,8 @@ void CoordSystem3::convertTo(Vec3& vec) const {
 }
 
 void CoordSystem3::convertTo(Line3& line) const {
-	rotate(line.vec());
-	convertTo(line.dot());
+	rotate(line.vector);
+	convertTo(line.point);
 }
 
 void CoordSystem3::shift(Vec3& vec) const {

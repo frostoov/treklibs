@@ -2,57 +2,29 @@
 
 #include <trek/math/octahedron.hpp>
 #include <trek/math/coordsystem.hpp>
+#include <trek/data/eventrecord.hpp>
 
 #include "trektypes.hpp"
-#include "trek/data/eventrecord.hpp"
 
 namespace trek {
 
 class Chamber {
 public:
 	Chamber(const ChamberDescription& chamberInfo);
-	bool createTrack(const data::ChamHits& eventTimes);
-	void resetData();
+	TrackDescription createTrack(const data::ChamHits& chamHits);
+	math::Line2 lineProjection(math::Line3 line) const;
 
-	const math::Line2&   getTrackLine() const;
-	const TrackDescription& getTrackDescription() const;
-
-	math::Plane getTrackPlane() const;
-
-	uint32_t getChamberPlane() const {
-		return mDescription.plane;
-	}
-	uint32_t getChamberGroup() const {
-		return mDescription.group;
-	}
-	const ChamberPoints& getChamberPoints() const {
-		return mDescription.points;
-	}
-	const math::Octahedron& getOctahedron() const {
-		return mOctahedron;
-	}
-
-	bool hasHit()   const;
-	bool hasTrack() const;
-
-	math::Line2 getExternalProjection(const math::Line3& track) const;
-	math::Line2 getExternalProjection(math::Vec3 p1, math::Vec3 p2) const;
+	uint32_t plane() const;
+	uint32_t group() const;
+	const ChamberPoints& points() const;
+	const math::Octahedron& octahedron() const;
 protected:
-	static math::Plane getTrackPlane(const math::Line2& track, const ChamberPoints& pos);
-	static math::Line2 getExternalProjection(math::Line3 track, const math::CoordSystem3& system);
-	static math::Line2 getExternalProjection(math::Vec3 p1, math::Vec3 p2, const math::CoordSystem3& system);
-
-	static bool checkHit(const data::ChamHits& eventTimes);
 	static math::CoordSystem3 getChamberSystem(const ChamberPoints& pos);
 	static math::Octahedron   getOctahedron(const ChamberPoints& pos);
 private:
-	ChamberDescription    mDescription;
+	ChamberDescription mDescription;
 	math::CoordSystem3 mChamberSystem;
 	math::Octahedron   mOctahedron;
-	TrackDescription      mTrack;
-
-	bool mHasHit;
-	bool mHasTrack;
 
 	constexpr static double mChamberWidth   = 500;
 	constexpr static double mChamberHeight  = 112;

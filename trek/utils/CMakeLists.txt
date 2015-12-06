@@ -1,19 +1,21 @@
 cmake_minimum_required (VERSION 3.0)
 project(trekutils CXX)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall -pedantic -pipe -march=native")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall -pedantic")
 include_directories(${CMAKE_SOURCE_DIR})
 
-set(SOURCES
+set(
+	SOURCES
 	chamber.cpp
 	chamberhandler.cpp
-	trekhandler.cpp)
+)
 
-set(HEADERS
+set(
+	HEADERS
 	chamberhandler.hpp
 	chamber.hpp
-	trekhandler.hpp
-	trektypes.hpp)
+	trektypes.hpp
+)
 
 add_library(${PROJECT_NAME} SHARED ${SOURCES} ${HEADERS})
 

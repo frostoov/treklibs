@@ -5,58 +5,54 @@
 namespace trek {
 namespace math {
 
-using std::runtime_error;
+using std::domain_error;
 
 Plane::Plane(const Vec3& dot1, const Vec3& dot2, const Vec3& dot3) {
-	mNorm = ((dot2 - dot1) & (dot3 - dot1)).ort();
-	mD = - (mNorm * dot1);
+	norm = ((dot2 - dot1) & (dot3 - dot1)).ort();
+	dist = -(norm * dot1);
 }
 
 Line3 Plane::getLine(const Plane& plane1, const Plane& plane2) {
 	Line3 line;
-	auto& dot = line.dot();
-	auto& vec = line.vec();
-	const auto& norm1 = plane1.norm();
-	const auto& norm2 = plane2.norm();
+	auto& p = line.point;
+	auto& v = line.vector;
+	const auto& n1 = plane1.norm;
+	const auto& n2 = plane2.norm;
 
-	vec = Vec3(plane1.norm() & plane2.norm()).ort();
+	v = Vec3(plane1.norm & plane2.norm).ort();
 	/*Находим точку лежащую на прямой*/
-	if(norm1.x() * norm2.y() - norm1.x() * norm2.y() != 0) {
-		dot.y() = (norm2.x() * plane1.d() - norm1.x() * plane2.d()) /
-		          (norm1.x() * norm2.y()  - norm2.x() * norm1.y());
-		if(norm1.x() != 0)
-			dot.x() = (-plane1.d() - norm1.y() * dot.y()) / norm1.x();
-		else if(norm2.x() != 0)
-			dot.x() = (-plane2.d() - norm2.y() * dot.y()) / norm2.x();
-		dot.z() = 0;
-	} else if(norm2.y() * norm1.z() - norm1.y() * norm2.z() != 0) {
-		dot.z() = (norm1.y() * plane2.d() - norm2.y() * plane1.d()) /
-		          (norm2.y() * norm1.z()  - norm1.y() * norm2.z());
-		if(norm1.y() != 0)
-			dot.y() = (-plane1.d() - norm1.z() * dot.z()) / norm1.y();
-		else if(norm2.y() != 0)
-			dot.y() = (-plane2.d() - norm2.z() * dot.z()) / norm2.y();
-		dot.x() = 0;
-	} else if(norm2.x() * norm1.z() - norm1.x() * norm2.z() != 0) {
-		dot.z() = (norm1.x() * plane2.d() - norm2.x() * plane1.d()) /
-		          (norm2.x() * norm1.z()  - norm1.x() * norm2.z());
-		if(norm1.x() != 0)
-			dot.x() = (-plane1.d() - norm1.z() * dot.z()) / norm1.x();
-		else if(norm2.x() != 0)
-			dot.x() = (-plane2.d() - norm2.z() * dot.z()) / norm2.x();
-		dot.y() = 0;
+	if(n1.x * n2.y - n1.x * n2.y != 0) {
+		p.y = (n2.x * plane1.dist - n1.x * plane2.dist) / (n1.x * n2.y - n2.x * n1.y);
+		if(n1.x != 0)
+			p.x = (-plane1.dist - n1.y * p.y) / n1.x;
+		else if(n2.x != 0)
+			p.x = (-plane2.dist - n2.y * p.y) / n2.x;
+		p.z = 0;
+	} else if(n2.y * n1.z - n1.y * n2.z != 0) {
+		p.z = (n1.y * plane2.dist - n2.y * plane1.dist) / (n2.y * n1.z - n1.y * n2.z);
+		if(n1.y != 0)
+			p.y = (-plane1.dist - n1.z * p.z) / n1.y;
+		else if(n2.y != 0)
+			p.y = (-plane2.dist - n2.z * p.z) / n2.y;
+		p.x = 0;
+	} else if(n2.x * n1.z - n1.x * n2.z != 0) {
+		p.z = (n1.x * plane2.dist - n2.x * plane1.dist) / (n2.x * n1.z - n1.x * n2.z);
+		if(n1.x != 0)
+			p.x = (-plane1.dist - n1.z * p.z) / n1.x;
+		else if(n2.x != 0)
+			p.x = (-plane2.dist - n2.z * p.z) / n2.x;
+		p.y = 0;
 	} else
-		throw runtime_error("TLine3: can't find intersection of two planes");
+		throw domain_error("TLine3: can't find intersection of two planes");
 	return line;
 }
 
-bool Plane::getIntersectionPoint(const Line3& line, Vec3& point) {
-	auto p = (mNorm * line.vec());
+Vec3 Plane::cross(const Line3 &line) {
+	auto p = norm * line.vector;
 	if(p == 0)
-		return false;
-	auto t = - ((mNorm * line.dot()) + mD) / p;
-	point = (line.vec() * t) + line.dot();
-	return true;
+		throw domain_error("Plane::cross plane and line are parallel");
+	auto t = - ((norm * line.point) + dist) / p;
+	return (line.vector * t) + line.point;
 }
 
 }

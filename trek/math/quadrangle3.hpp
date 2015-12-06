@@ -19,11 +19,11 @@ public:
 	Quadrangle3(Vec3&& vtx1, Vec3&& vtx2, Vec3&& vtx3 , Vec3&& vtx4);
 	Quadrangle3(const Vertices& vertices);
 	Quadrangle3(Vertices&& vertices);
-	bool checkPoint(Vec3 vec) const;
-	bool getIntersection(const Line3& line, Vec3& point) const;
-	bool checkIntersection(const Line3& line) const;
+	bool hasPoint(Vec3 vec) const;
+	Vec3 cross(const Line3 &line) const;
+	bool crossing(const Line3 &line) const;
 
-	Plane getPlane() const;
+	Plane plane() const;
 protected:
 	CoordSystem3 getCoordinateSystem(const Vertices& vertices) const;
 	Quadrangle2 getQuadrangle2(Vertices v, const CoordSystem3& coorSystem);

@@ -1,8 +1,10 @@
 cmake_minimum_required (VERSION 3.0)
 project(trekmath CXX)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall -pedantic -pipe -march=native")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall -pedantic")
 
-set(HEADERS
+set(
+	HEADERS
+    histogram.hpp
 	coordsystem.hpp
     plane.hpp
     quadrangle2.hpp
@@ -15,7 +17,9 @@ set(HEADERS
     vec3.hpp
 )
 
-set(SOURCES
+set(
+	SOURCES
+	histogram.cpp
     coordsystem.cpp
     plane.cpp
     quadrangle2.cpp

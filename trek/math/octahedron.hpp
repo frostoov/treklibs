@@ -19,8 +19,8 @@ public:
 	           Vec3&& vtx5, Vec3&& vtx6, Vec3&& vtx7, Vec3&& vtx8);
 	Octahedron(const Vertices& vertices);
 	Octahedron(Vertices&& vertices);
-	std::vector<Vec3> getIntersections(const Line3& line) const;
-	bool checkIntersection(const Line3& line) const;
+	std::vector<Vec3> cross(const Line3 &line) const;
+	bool crossing(const Line3 &line) const;
 
 	const Vertices& vertices() const {
 		return mVertices;

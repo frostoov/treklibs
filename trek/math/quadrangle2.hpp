@@ -1,7 +1,10 @@
 #pragma once
 
 #include "vec2.hpp"
+#include "line2.hpp"
+
 #include <array>
+#include <vector>
 
 namespace trek {
 namespace math {
@@ -15,7 +18,7 @@ public:
 	Quadrangle2(const Vertices& vertices);
 	Quadrangle2(Vertices&& vertices);
 
-	bool checkPoint(const Vec2& dot) const;
+	bool hasPoint(const Vec2 &dot) const;
 
 	const Vertices& vertices() const {
 		return mVertices;

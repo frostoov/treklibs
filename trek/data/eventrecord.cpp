@@ -47,13 +47,6 @@ EventRecord::TimePoint EventRecord::time() const {
 	return mTimePoint;
 }
 
-size_t EventRecord::size() const {
-	return mHits.size();
-}
-bool EventRecord::empty() const {
-	return mHits.empty();
-}
-
 TrekHits EventRecord::getTrekHits() const {
 	TrekHits trekEvent;
 	for(const auto& hit : mHits) {
@@ -78,14 +71,6 @@ unordered_set<unsigned> EventRecord::getTriggeredChambers() const {
 	for(const auto& hit : mHits)
 		triggChambers.insert(hit.chamber());
 	return triggChambers;
-}
-
-void EventRecord::setHits(const EventHits& data) {
-	mHits = data;
-}
-
-void EventRecord::clearHits() {
-	mHits.clear();
 }
 
 void EventRecord::serialize(ostream& stream) const {
