@@ -3,7 +3,7 @@
 
 namespace trek {
 
-using math::Octahedron;
+using math::Hexahedron;
 using math::Line2;
 using math::Line3;
 using math::Vec2;
@@ -15,7 +15,7 @@ using std::domain_error;
 Chamber::Chamber(const ChamberDescription& chamberDescription)
 	: mDescription(chamberDescription),
 	  mChamberSystem(getChamberSystem(chamberDescription.points)),
-	  mOctahedron(getOctahedron(chamberDescription.points)) {}
+	  mHexahedron(getHexahedron(chamberDescription.points)) {}
 
 TrackDescription Chamber::createTrack(const data::ChamHits& eventTimes) {
 	TrackDescription track;
@@ -31,7 +31,7 @@ CoordSystem3 Chamber::getChamberSystem(const ChamberPoints& pos) {
 	return {pos[0], xAxis, yAxis, zAxis};
 }
 
-Octahedron Chamber::getOctahedron(const ChamberPoints& pos) {
+Hexahedron Chamber::getHexahedron(const ChamberPoints& pos) {
 	const int chamWidth = mChamberWidth / 2;
 
 	/*Вспомогательные векторы*/
@@ -66,8 +66,8 @@ const ChamberPoints &Chamber::points() const {
 	return mDescription.points;
 }
 
-const math::Octahedron &Chamber::octahedron() const {
-	return mOctahedron;
+const math::Hexahedron &Chamber::hexahedron() const {
+	return mHexahedron;
 }
 
 Line2 Chamber::lineProjection(Line3 line) const {

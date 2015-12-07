@@ -112,10 +112,6 @@ Vec3 operator-(const Vec3& a, const Vec3& b) {
 	return {a.x - b.x, a.y - b.y, a.z - b.z};
 }
 
-double range(const Vec3& a, const Vec3& b) {
-	return (a - b).abs();
-}
-
 double angle(const Vec3& a, const Vec3& b) {
 	auto len = a.abs() * b.abs();
 	if(len == 0)

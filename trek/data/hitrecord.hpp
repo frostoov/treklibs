@@ -6,12 +6,25 @@
 namespace trek {
 namespace data {
 
+/*!
+ * \brief Запись хита TDC
+ *  Хит содержит номер камеры и проволки (нумерация с 0), измерение (вермя от начала окна в пикосекундах)
+ */
 class HitRecord {
 public:
 	HitRecord(unsigned wire, unsigned chamber, unsigned time);
 	HitRecord(std::istream& stream);
+	/*!
+	 * \brief Проволка хита
+	 */
 	unsigned wire() const;
+	/*!
+	 * \brief Камера хита
+	 */
 	unsigned chamber() const;
+	/*!
+	 * \brief Измерение хита
+	 */
 	unsigned time() const;
 
 	void serialize(std::ostream& stream) const;

@@ -8,7 +8,13 @@
 
 namespace trek {
 namespace math {
-
+/*!
+ * \class Quadrangle2
+ * \author frostoov
+ * \date 03/18/15
+ * \file quadrangle2.hpp
+ * \brief Четырехугольник в двумерном пространстве
+ */
 class Quadrangle2 {
 public:
 	using Vertices = std::array<Vec2, 4>;
@@ -18,8 +24,14 @@ public:
 	Quadrangle2(const Vertices& vertices);
 	Quadrangle2(Vertices&& vertices);
 
+	/*!
+	 * \brief Метод, определяет, лежит ли точка внутри четырехугольника
+	 */
 	bool hasPoint(const Vec2 &dot) const;
 
+	/*!
+	 * \brief Метод возвращает вершины четырехугольника
+	 */
 	const Vertices& vertices() const {
 		return mVertices;
 	}

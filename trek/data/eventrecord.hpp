@@ -12,15 +12,23 @@ namespace trek {
 namespace data {
 
 using EventHits = std::vector<HitRecord>;
+/*!
+ * \brief Массив с измерениями камеры
+ * Индекс массива - номер проволки (нумерация с 0), значение - вектор измерений с проволки
+ */
 using ChamHits = std::array<std::vector<unsigned>, 4>;
+/*!
+ * \brief Ассоциативынй массив с измерениями всей установки
+ * Ключ массив - номер камеры (нумерация с 0), значение - массив с измерениями камеры(ChamHits)
+ */
 using TrekHits = std::unordered_map<unsigned, ChamHits>;
 
-/**
- * @class EventRecord
- * @author frostoov
- * @date 03/29/15
- * @file eventrecord.hpp
- * @brief Запись события TDC
+/*!
+ * \class EventRecord
+ * \author frostoov
+ * \date 03/29/15
+ * \file eventrecord.hpp
+ * \brief Запись события TDC
  */
 class EventRecord {
 	using SystemClock  = std::chrono::high_resolution_clock;
@@ -43,34 +51,44 @@ public:
 		return mHits.end();
 	}
 	const HitRecord& operator[](size_t i) const;
+	/*!
+	 * \brief Номер рана (неводский)
+	 */
 	uint64_t nRun() const;
+	/*!
+	 * \brief Номер события (неводский)
+	 */
 	uint64_t nEvent() const;
+	/*!
+	 * \brief Время записи события
+	 */
 	TimePoint time() const;
 
+	/*!
+	 * \brief Количество хитов в событии
+	 */
 	auto size() const {
 		return mHits.size();
 	}
 	auto empty() const {
 		return mHits.empty();
 	}
-	/**
-	 * @brief Создание и получение ассоциативного массива с измерениями со всей установки.
-	 * @return Ассоциативный массив(std::unordered_map) с данными камер
+	/*!
+	 * \brief Создание и получение ассоциативного массива с измерениями со всей установки.
 	 */
 	TrekHits getTrekHits() const;
-	/**
-	 * @brief Создание и получение массива с измерениями с камеры
-	 * @param cham Номер камеры
+	/*!
+	 * \brief Создание и получение массива с измерениями с камеры
+	 * \param[cham] Номер камеры
 	 */
 	ChamHits getChamberHits(unsigned cham) const;
-	/**
-	 * @brief Создать и получить множество номеров сработавших камер
-	 * @return Множество номеров сработавших камер
+	/*!
+	 * \brief Создание и получение множества номеров сработавших камер
 	 */
 	std::unordered_set<unsigned> getTriggeredChambers() const;
-	/**
-	 * @brief Установить данные события
-	 * @param data вектор со словами - проволка/камера + время
+	/*!
+	 * \brief Установка данных события
+	 * \param data вектор со хитами TDC
 	 */
 	void setHits(const EventHits& data);
 	void clearHits();

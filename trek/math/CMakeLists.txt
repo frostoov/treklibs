@@ -9,7 +9,7 @@ set(
     plane.hpp
     quadrangle2.hpp
     quadrangle3.hpp
-    octahedron.hpp
+    hexahedron.hpp
 	general.hpp
     line2.hpp
     line3.hpp
@@ -24,7 +24,7 @@ set(
     plane.cpp
     quadrangle2.cpp
     quadrangle3.cpp
-    octahedron.cpp
+    hexahedron.cpp
     line2.cpp
     line3.cpp
     vec2.cpp
