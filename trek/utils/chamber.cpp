@@ -72,10 +72,7 @@ const math::Hexahedron &Chamber::hexahedron() const {
 
 Line2 Chamber::lineProjection(Line3 line) const {
 	mChamberSystem.convertTo(line);
-	const auto& vector = Vec2{line.vector.x, line.vector.y};
-	const auto& point  = Vec2{line.point.x, line.point.y};
-
-	return Line2::fromVectors(point, vector);
+	return Line2::fromVectors(Vec2{line.point.x, line.point.y}, Vec2{line.vector.x, line.vector.y});
 }
 
 } //trek

@@ -19,7 +19,7 @@ Response Controller::handleRequest(const Request& request) {
 }
 
 Controller::Method Controller::getMethod(const Request& request) const {
-	return mMethods.at(request.method());
+	return mMethods.at(request.method);
 }
 
 const string& Controller::name() const {

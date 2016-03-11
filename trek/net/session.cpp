@@ -61,8 +61,8 @@ void Session::recv() {
 				this->send(string(response));
 			} catch(const exception& e) {
 				this->send(string(Response{
-					request.object(),
-					request.method(),
+					request.object,
+					request.method,
 					{e.what()},
 					false
 				}));
@@ -92,7 +92,7 @@ void Session::send(const std::string& response) {
 }
 
 Controller& Session::getController(const Request& request) {
-	return *mControllers.at(request.object());
+	return *mControllers.at(request.object);
 }
 
 } //net

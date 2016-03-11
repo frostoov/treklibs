@@ -8,8 +8,8 @@ namespace data {
 using std::istream;
 using std::ostream;
 
-HitRecord::HitRecord(unsigned wire, unsigned chamber, unsigned time)
-	: mChannel( uint16_t((wire & 0xFF) | (chamber << 8))),
+HitRecord::HitRecord(Type type, unsigned wire, unsigned chamber, unsigned time)
+	: mChannel( uint32_t(type) << 28 | ((chamber & 0xFFFFF) << 8) | (wire & 0xFF)),
 	  mTime(time) { }
 
 HitRecord::HitRecord(std::istream& stream) {
@@ -21,7 +21,11 @@ unsigned HitRecord::wire() const {
 }
 
 unsigned HitRecord::chamber() const {
-	return unsigned(mChannel >> 8);
+	return unsigned((mChannel >> 8) & 0xFFFFF);
+}
+
+HitRecord::Type HitRecord::type() const {
+	return Type(mChannel >> 28);
 }
 
 unsigned int HitRecord::time() const {

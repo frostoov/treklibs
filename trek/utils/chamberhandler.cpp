@@ -34,7 +34,7 @@ const std::array<math::Vec2, 4> mWires{{
 		Vec2(51, -0.75),
 		Vec2(61,  0.75),
 		Vec2(71, -0.75),
-	}};
+}};
 
 bool createTrackDescription(
 		const data::ChamHits& eventTimes,

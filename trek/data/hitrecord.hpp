@@ -12,12 +12,17 @@ namespace data {
  */
 class HitRecord {
 public:
-	HitRecord(unsigned wire, unsigned chamber, unsigned time);
+	enum class Type {
+		leading  = 0,
+		trailing = 1,
+	};
+public:
+	HitRecord(Type type, unsigned wire, unsigned chamber, unsigned time);
 	HitRecord(std::istream& stream);
 	/*!
 	 * \brief Проволка хита
 	 */
-	unsigned wire() const;
+	 unsigned wire() const;
 	/*!
 	 * \brief Камера хита
 	 */
@@ -26,6 +31,10 @@ public:
 	 * \brief Измерение хита
 	 */
 	unsigned time() const;
+	/*!
+	 * \brief Тип хита (leading/trailing)
+	 */
+	Type type() const;
 
 	void serialize(std::ostream& stream) const;
 	void deserialize(std::istream& stream);

@@ -88,7 +88,7 @@ void EventRecord::deserialize(istream& stream) {
 	deserializeTime(stream, mTimePoint);
 	uint32_t size;
 	trek::deserialize(stream, size);
-	mHits.resize(size, {0, 0, 0});
+	mHits.resize(size, {HitRecord::Type::leading, 0, 0, 0});
 	for(auto& hit : mHits)
 		trek::deserialize(stream, hit);
 }

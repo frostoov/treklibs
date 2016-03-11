@@ -26,7 +26,7 @@ Line2::Line2(const Vec2& dot1, const Vec2& dot2) {
 }
 
 Line2 Line2::fromVectors(const Vec2& dot, const Vec2& vec) {
-	auto k = vec.x/vec.y;
+	auto k = vec.y/vec.x;
 	auto b = dot.y - k*dot.x;
 	return Line2{k, b};
 }

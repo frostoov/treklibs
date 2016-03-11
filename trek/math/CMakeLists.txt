@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.0)
+cmake_minimum_required(VERSION 3.0)
 project(trekmath CXX)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall -pedantic")
 
@@ -31,7 +31,7 @@ set(
     vec3.cpp
 )
 
-add_library(${PROJECT_NAME} SHARED ${SOURCES} ${HEADERS})
+add_library(${PROJECT_NAME} STATIC ${SOURCES} ${HEADERS})
 
 install(TARGETS ${PROJECT_NAME} DESTINATION lib)
 install(FILES ${HEADERS} DESTINATION include/trek/math)
