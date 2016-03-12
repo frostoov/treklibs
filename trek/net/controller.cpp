@@ -13,13 +13,8 @@ Controller::Controller(const string& name, const Methods& method)
 	  mName(name) { }
 
 Response Controller::handleRequest(const Request& request) {
-	Lock lock(mMutex);
-	auto method = getMethod(request);
+	auto method = mMethods.at(request.method);
 	return method( request );
-}
-
-Controller::Method Controller::getMethod(const Request& request) const {
-	return mMethods.at(request.method);
 }
 
 const string& Controller::name() const {

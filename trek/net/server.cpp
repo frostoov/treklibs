@@ -60,10 +60,10 @@ const Server::StatusCallback& Server::onStop() {
 void Server::doAccept() {
 	mAcceptor.async_accept(mSocket, [this](const auto & errCode) {
 		if(!errCode) {
-			auto newSession = make_shared<Session> (mControllers, std::move(mSocket));
+			auto newSession = make_shared<Session>(mControllers, std::move(mSocket));
 
-			newSession->onDestroy() = [this] (const auto & session) {
-				this->removeSession(session);
+			newSession->onDestroy() = [this] (const auto& session) {
+				removeSession(session);
 			};
 
 			newSession->onStart()   = mOnSessionStart;
@@ -76,7 +76,7 @@ void Server::doAccept() {
 
 			mSocket = TCP::socket(mIoService);
 		}
-		this->doAccept();
+		doAccept();
 	});
 }
 
@@ -86,16 +86,15 @@ void Server::addSession(const SessionPtr& session) {
 	mSessions.insert(session);
 }
 
-void Server::removeSession(const Server::SessionPtr& session) {
+void Server::removeSession(const SessionPtr& session) {
 	mSessions.erase(session);
 }
 
 Server::Controllers Server::convertControllers(const std::vector<ControllerPtr>& controllers) {
-	Controllers ret;
-	for(auto c : controllers) {
-		ret.insert({c->name(), c});
-	}
-	return ret;
+	Controllers cs;
+	for(auto c : controllers)
+		cs.emplace(c->name(), c);
+	return cs;
 }
 
 } //net
