@@ -5,3 +5,5 @@ cmake_install.cmake
 install_manifest.txt
 CMakeLists.txt.user
 .idea
+__pycache__
+.ycm_extra_conf.py
