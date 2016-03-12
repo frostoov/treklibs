@@ -59,7 +59,6 @@ void Session::recv() {
 			mOnClose(*this);
 			return mOnDestroy(shared_from_this());
 		}
-		std::cout << "length1:" << mMsgSize << std::endl;
 		mBuffer.resize(mMsgSize);
 		msgRecv();
 		recv();
@@ -68,7 +67,6 @@ void Session::recv() {
 
 void Session::send(const string& response) {
 	uint64_t length = response.size();
-	std::cout << "length2:" << length << std::endl;
 	async_write(mSocket, buffer(&length, sizeof(length)), [this, response](auto& errCode, auto l) {
 		if(errCode || 8 != l) {
 			mOnClose(*this);
