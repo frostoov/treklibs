@@ -63,7 +63,7 @@ void Server::doAccept() {
 			auto newSession = make_shared<Session>(mControllers, std::move(mSocket));
 
 			newSession->onDestroy() = [this] (const auto& session) {
-				removeSession(session);
+				this->removeSession(session);
 			};
 
 			newSession->onStart()   = mOnSessionStart;
@@ -76,7 +76,7 @@ void Server::doAccept() {
 
 			mSocket = TCP::socket(mIoService);
 		}
-		doAccept();
+		this->doAccept();
 	});
 }
 

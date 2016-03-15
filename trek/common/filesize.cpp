@@ -5,6 +5,7 @@
 #include <sys/stat.h>
 #include <cstring>
 #include <cerrno>
+#include <stdexcept>
 
 namespace trek {
 

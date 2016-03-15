@@ -57,11 +57,11 @@ void Session::recv() {
 	async_read(mSocket, buffer(&mMsgSize, sizeof(mMsgSize)), [this](auto &errCode, auto l) {
 		if(errCode || sizeof(mMsgSize) != l) {
 			mOnClose(*this);
-			return mOnDestroy(shared_from_this());
+			return mOnDestroy(this->shared_from_this());
 		}
 		mBuffer.resize(mMsgSize);
-		msgRecv();
-		recv();
+		this->msgRecv();
+		this->recv();
 	});
 }
 
@@ -70,9 +70,9 @@ void Session::send(const string& response) {
 	async_write(mSocket, buffer(&length, sizeof(length)), [this, response](auto& errCode, auto l) {
 		if(errCode || 8 != l) {
 			mOnClose(*this);
-			return mOnDestroy(shared_from_this());
+			return mOnDestroy(this->shared_from_this());
 		}
-		msgSend(response);
+		this->msgSend(response);
 	});
 }
 
@@ -80,12 +80,12 @@ void Session::msgRecv() {
 	async_read(mSocket, buffer(mBuffer), [&](auto &errCode, auto) {
 		if(errCode) {
 			mOnClose(*this);
-			return mOnDestroy(shared_from_this());
+			return mOnDestroy(this->shared_from_this());
 		}
 		auto request = string(mBuffer.data(), mBuffer.size());
 		mOnRecv(*this, request);
-		auto response = handleRequest(request);
-		send(string(response));
+		auto response = this->handleRequest(request);
+		this->send(string(response));
 	});
 }
 
@@ -93,7 +93,7 @@ void Session::msgSend(const string& response) {
 	async_write(mSocket, buffer(response.data(), response.size()), [this, response](auto& errCode, auto) {
 		if(errCode) {
 			mOnClose(*this);
-			return mOnDestroy(shared_from_this());
+			return mOnDestroy(this->shared_from_this());
 		}
 		mOnSend(*this, response);
 	});
