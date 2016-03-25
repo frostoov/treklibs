@@ -29,7 +29,7 @@ void Session::run() {
 	recv();
 }
 
-std::string Session::getRemoteAddress() const {
+std::string Session::remoteAddress() const {
 	return mRemoteAddress;
 }
 
@@ -54,25 +54,14 @@ const Session::DestroyCallback& Session::onDestroy() {
 }
 
 void Session::recv() {
-	async_read(mSocket, buffer(&mMsgSize, sizeof(mMsgSize)), [this](auto &errCode, auto l) {
-		if(errCode || sizeof(mMsgSize) != l) {
+	async_read(mSocket, buffer(&mMsgSize, sizeof(mMsgSize)), [this](auto &errCode, auto) {
+		if(errCode) {
 			mOnClose(*this);
 			return mOnDestroy(this->shared_from_this());
 		}
 		mBuffer.resize(mMsgSize);
 		this->msgRecv();
 		this->recv();
-	});
-}
-
-void Session::send(const string& response) {
-	uint64_t length = response.size();
-	async_write(mSocket, buffer(&length, sizeof(length)), [this, response](auto& errCode, auto l) {
-		if(errCode || 8 != l) {
-			mOnClose(*this);
-			return mOnDestroy(this->shared_from_this());
-		}
-		this->msgSend(response);
 	});
 }
 
@@ -84,35 +73,34 @@ void Session::msgRecv() {
 		}
 		auto request = string(mBuffer.data(), mBuffer.size());
 		mOnRecv(*this, request);
-		auto response = this->handleRequest(request);
-		this->send(string(response));
+		this->handleRequest(request);
 	});
 }
 
-void Session::msgSend(const string& response) {
-	async_write(mSocket, buffer(response.data(), response.size()), [this, response](auto& errCode, auto) {
+void Session::send(const string& response) {
+	uint64_t length = response.size();
+	std::ostringstream stream;
+	stream.write(reinterpret_cast<char*>(&length), sizeof(length));
+	stream << response;
+	async_write(mSocket, buffer(stream.str()), [this, response](auto& errCode, auto l) {
 		if(errCode) {
 			mOnClose(*this);
 			return mOnDestroy(this->shared_from_this());
 		}
-		mOnSend(*this, response);
+		this->mOnSend(*this, response);
 	});
 }
 
-Response Session::handleRequest(const string& rawRequest) {
+void Session::handleRequest(const string& rawRequest) {
 	try {
 		Request request(rawRequest);
-		try {
-			auto& controller = *mControllers.at(request.object);
-			auto response = controller.handleRequest(request);
-			return string(response);
-		} catch(const exception& e) {
-			Response response{request.object, request.method, {e.what()}, false};
-			return string(response);
-		}
+		auto& controller = *mControllers.at(request.object);
+		controller.handleRequest(request, [this](const Response& response) {
+			this->send(string(response));
+		});
 	} catch(...) {
-		Response response{"unknown", "unknown", {"Invalid request"}, false};
-		return string(response);
+		Response response{"unknown", "unknown", {}, "Invalid request"};
+		send(string(response));
 	}
 }
 

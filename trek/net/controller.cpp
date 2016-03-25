@@ -12,9 +12,14 @@ Controller::Controller(const string& name, const Methods& method)
 	: mMethods(method),
 	  mName(name) { }
 
-Response Controller::handleRequest(const Request& request) {
-	auto method = mMethods.at(request.method);
-	return method( request );
+void Controller::handleRequest(const Request& request, const SendCallback& send) {
+	try {
+		auto method = mMethods.at(request.method);
+		method(request, send);
+	} catch(std::exception& e) {
+		Response response{request.object, request.method, {}, e.what()};
+		send(string(response));
+	}
 }
 
 const string& Controller::name() const {

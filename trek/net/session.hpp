@@ -24,8 +24,9 @@ public:
 public:
 	Session(const Controllers& controllers, TCP::socket&& socket);
 	void run();
-	std::string getRemoteAddress() const;
 
+	void send(const std::string& response);
+	std::string remoteAddress() const;
 public: //callbacks
 	const MessageCallback& onRecv();
 	const MessageCallback& onSend();
@@ -35,12 +36,9 @@ public: //callbacks
 	const DestroyCallback& onDestroy();
 protected:
 	void recv();
-	void send(const std::string& response);
 
 	void msgRecv();
-	void msgSend(const std::string& response);
-
-	Response handleRequest(const std::string& rawRequest);
+	void handleRequest(const std::string& rawRequest);
 private:
 	Controllers mControllers;
 	TCP::socket mSocket;

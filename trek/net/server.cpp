@@ -14,7 +14,15 @@ using boost::asio::ip::address;
 Server::Server(const std::vector<ControllerPtr>& controllers, const string& ipAdrress, uint16_t port)
 	: mControllers(convertControllers(controllers)),
 	  mAcceptor(mIoService, TCP::endpoint(IpAddress::from_string(ipAdrress), port)),
-	  mSocket(mIoService) { }
+	  mSocket(mIoService) {
+	auto broadcast = [this](const Response& response) {
+		for(auto& s : mSessions)
+			s->send(string(response));
+	};
+	for(auto& c : mControllers) {
+		c.second->setBroadCast(broadcast);
+	}
+}
 
 Server::~Server() {
 	stop();

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "request.hpp"
-#include "response.hpp"
+#include <trek/net/request.hpp>
+#include <trek/net/response.hpp>
 
 #include <unordered_map>
 #include <functional>
@@ -12,13 +12,22 @@ namespace net {
 
 class Controller {
 protected:
-	using Method  = std::function<Response(const Request&)>;
-	using Methods = std::unordered_map<std::string, Method>;
+	using SendCallback = std::function<void(const Response&)>;
+	using Method       = std::function<void(const Request&, const SendCallback&)>;
+	using Methods      = std::unordered_map<std::string, Method>;
 public:
-	Response handleRequest(const Request& request);
+	void handleRequest(const Request& request, const SendCallback& send);
 	const std::string& name() const;
+	void setBroadCast(const SendCallback& broadcast) {
+		mBroadcast = broadcast;
+	}
 protected:
 	Controller(const std::string& name, const Methods& method);
+	void broadcast(const Response& response) {
+		if(mBroadcast)
+			mBroadcast(response);
+	}
+	SendCallback mBroadcast;
 private:
 	Methods     mMethods;
 	std::string mName;

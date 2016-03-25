@@ -1,4 +1,4 @@
-#include "response.hpp"
+#include <trek/net/response.hpp>
 
 namespace trek {
 namespace net {
@@ -8,7 +8,7 @@ using nlohmann::json;
 Response::Response(const JsonString& object,
 				   const JsonString& method,
 				   const JsonArray& outputs,
-				   JsonBool status)
+				   JsonString status)
 	: object(object),
 	  method(method),
 	  outputs(outputs),
@@ -20,7 +20,7 @@ Response::Response(const std::string& response) {
 	object  = jsonResponse.at("object").get<JsonString>();
 	method  = jsonResponse.at("method").get<JsonString>();
 	outputs = jsonResponse.at("outputs").get<JsonArray>();
-	status  = jsonResponse.at("status").get<JsonBool>();
+	status  = jsonResponse.at("status").get<JsonString>();
 }
 
 Response::operator std::string() const {
