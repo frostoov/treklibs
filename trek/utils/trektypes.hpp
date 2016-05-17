@@ -18,11 +18,11 @@ using Points            = std::vector<math::Vec2>;
 using ChamberPoints     = std::array<math::Vec3, 3>;
 
 struct WireParameters {
-	WireParameters(unsigned offset_ = 0, double speed_ = 0)
-			: offset(offset_),
-			  speed(speed_) {}
-	unsigned offset;
-	double   speed;
+    WireParameters(unsigned offset_ = 0, double speed_ = 0)
+        : offset(offset_),
+          speed(speed_) {}
+    unsigned offset;
+    double   speed;
 };
 
 using ChamberParameters = std::array<WireParameters, 4>;
@@ -35,10 +35,10 @@ using ChamberParameters = std::array<WireParameters, 4>;
  * @brief Описание дрейфовой камеры
  */
 struct ChamberDescription {
-	ChamberPoints     points;     /**< Точки дрейфовой камеры */
-	ChamberParameters parameters; /**< Параметры для каждой проволки*/
-	uint32_t          plane;      /**< Номер плоскости дрейфовой камеры */
-	uint32_t          group;      /**< Номер группы дрейфовой камеры */
+    ChamberPoints     points;     /**< Точки дрейфовой камеры */
+    ChamberParameters parameters; /**< Параметры для каждой проволки*/
+    uint32_t          plane;      /**< Номер плоскости дрейфовой камеры */
+    uint32_t          group;      /**< Номер группы дрейфовой камеры */
 };
 
 /**
@@ -49,10 +49,10 @@ struct ChamberDescription {
  * @brief Структура с данными одного трека
  */
 struct TrackDescription {
-	math::Line2    line;		/**< Прямая трека */
-	Points         points;		/**< Точки, по которым был восстановлен трек */
-	double         deviation;   /**< Отклонение прямой */
-	TrackTimes	   times;		/**< Вермена с TDC */
+    math::Line2    line;		/**< Прямая трека */
+    Points         points;		/**< Точки, по которым был восстановлен трек */
+    double         deviation;   /**< Отклонение прямой */
+    TrackTimes	   times;		/**< Вермена с TDC */
 };
 
 using ChamberConfig = std::unordered_map<uintmax_t, ChamberDescription>;

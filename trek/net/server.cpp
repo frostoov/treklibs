@@ -12,97 +12,97 @@ using std::logic_error;
 using boost::asio::ip::address;
 
 Server::Server(const std::vector<ControllerPtr>& controllers, const string& ipAdrress, uint16_t port)
-	: mControllers(convertControllers(controllers)),
-	  mAcceptor(mIoService, TCP::endpoint(IpAddress::from_string(ipAdrress), port)),
-	  mSocket(mIoService) {
-	auto broadcast = [this](const Response& response) {
-		for(auto& s : mSessions)
-			s->send(string(response));
-	};
-	for(auto& c : mControllers) {
-		c.second->setBroadCast(broadcast);
-	}
+    : mControllers(convertControllers(controllers)),
+      mAcceptor(mIoService, TCP::endpoint(IpAddress::from_string(ipAdrress), port)),
+      mSocket(mIoService) {
+    auto broadcast = [this](const Response & response) {
+        for(auto& s : mSessions)
+            s->send(string(response));
+    };
+    for(auto& c : mControllers) {
+        c.second->setBroadCast(broadcast);
+    }
 }
 
 Server::~Server() {
-	stop();
+    stop();
 }
 
 void Server::run() {
-	mIoService.reset();
-	doAccept();
-	mOnStart(*this);
-	mIoService.run();
+    mIoService.reset();
+    doAccept();
+    mOnStart(*this);
+    mIoService.run();
 }
 
 void Server::stop() {
-	mIoService.stop();
-	mSessions.clear();
-	mOnStop(*this);
+    mIoService.stop();
+    mSessions.clear();
+    mOnStop(*this);
 }
 
 const Session::MessageCallback& Server::onRecv() {
-	return mOnRecv;
+    return mOnRecv;
 }
 
 const Session::MessageCallback& Server::onSend() {
-	return mOnSend;
+    return mOnSend;
 }
 
 const Session::StatusCallback& Server::onSessionStart() {
-	return mOnSessionStart;
+    return mOnSessionStart;
 }
 
 const Session::StatusCallback& Server::onSessionClose() {
-	return mOnSessionClose;
+    return mOnSessionClose;
 }
 
 const Server::StatusCallback& Server::onStart() {
-	return mOnStart;
+    return mOnStart;
 }
 
 const Server::StatusCallback& Server::onStop() {
-	return mOnStop;
+    return mOnStop;
 }
 
 void Server::doAccept() {
-	mAcceptor.async_accept(mSocket, [this](const auto & errCode) {
-		if(!errCode) {
-			auto newSession = make_shared<Session>(mControllers, std::move(mSocket));
+    mAcceptor.async_accept(mSocket, [this](const auto & errCode) {
+        if(!errCode) {
+            auto newSession = make_shared<Session>(mControllers, std::move(mSocket));
 
-			newSession->onDestroy() = [this] (const auto& session) {
-				this->removeSession(session);
-			};
+            newSession->onDestroy() = [this] (const auto & session) {
+                this->removeSession(session);
+            };
 
-			newSession->onStart()   = mOnSessionStart;
-			newSession->onClose()   = mOnSessionClose;
-			newSession->onRecv()    = mOnRecv;
-			newSession->onSend()    = mOnSend;
+            newSession->onStart()   = mOnSessionStart;
+            newSession->onClose()   = mOnSessionClose;
+            newSession->onRecv()    = mOnRecv;
+            newSession->onSend()    = mOnSend;
 
-			this->addSession(newSession);
-			newSession->run();
+            this->addSession(newSession);
+            newSession->run();
 
-			mSocket = TCP::socket(mIoService);
-		}
-		this->doAccept();
-	});
+            mSocket = TCP::socket(mIoService);
+        }
+        this->doAccept();
+    });
 }
 
 void Server::addSession(const SessionPtr& session) {
-	if(mSessions.count(session) != 0)
-		throw logic_error("Server::addSession: session already exists");
-	mSessions.insert(session);
+    if(mSessions.count(session) != 0)
+        throw logic_error("Server::addSession: session already exists");
+    mSessions.insert(session);
 }
 
 void Server::removeSession(const SessionPtr& session) {
-	mSessions.erase(session);
+    mSessions.erase(session);
 }
 
 Server::Controllers Server::convertControllers(const std::vector<ControllerPtr>& controllers) {
-	Controllers cs;
-	for(auto c : controllers)
-		cs.emplace(c->name(), c);
-	return cs;
+    Controllers cs;
+    for(auto c : controllers)
+        cs.emplace(c->name(), c);
+    return cs;
 }
 
 } //net

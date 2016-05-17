@@ -17,26 +17,26 @@ namespace math {
  */
 class Quadrangle2 {
 public:
-	using Vertices = std::array<Vec2, 4>;
+    using Vertices = std::array<Vec2, 4>;
 public:
-	Quadrangle2(const Vec2& vtx1, const Vec2& vtx2, const Vec2& vtx3 , const Vec2& vtx4);
-	Quadrangle2(Vec2&& vtx1, Vec2&& vtx2, Vec2&& vtx3, Vec2&& vtx4);
-	Quadrangle2(const Vertices& vertices);
-	Quadrangle2(Vertices&& vertices);
+    Quadrangle2(const Vec2& vtx1, const Vec2& vtx2, const Vec2& vtx3 , const Vec2& vtx4);
+    Quadrangle2(Vec2&& vtx1, Vec2&& vtx2, Vec2&& vtx3, Vec2&& vtx4);
+    Quadrangle2(const Vertices& vertices);
+    Quadrangle2(Vertices&& vertices);
 
-	/*!
-	 * \brief Метод, определяет, лежит ли точка внутри четырехугольника
-	 */
-	bool hasPoint(const Vec2 &dot) const;
+    /*!
+     * \brief Метод, определяет, лежит ли точка внутри четырехугольника
+     */
+    bool hasPoint(const Vec2& dot) const;
 
-	/*!
-	 * \brief Метод возвращает вершины четырехугольника
-	 */
-	const Vertices& vertices() const {
-		return mVertices;
-	}
+    /*!
+     * \brief Метод возвращает вершины четырехугольника
+     */
+    const Vertices& vertices() const {
+        return mVertices;
+    }
 private:
-	Vertices mVertices;
+    Vertices mVertices;
 };
 
 }

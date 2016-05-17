@@ -31,78 +31,78 @@ using TrekHits = std::unordered_map<unsigned, ChamHits>;
  * \brief Запись события TDC
  */
 class EventRecord {
-	using SystemClock  = std::chrono::high_resolution_clock;
-	using TimePoint    = SystemClock::time_point;
+    using SystemClock  = std::chrono::high_resolution_clock;
+    using TimePoint    = SystemClock::time_point;
 public:
-	EventRecord();
-	EventRecord(unsigned nRun, unsigned nEvent, const EventHits& hits);
-	EventRecord(std::istream& stream);
+    EventRecord();
+    EventRecord(unsigned nRun, unsigned nEvent, const EventHits& hits);
+    EventRecord(std::istream& stream);
 
-	auto begin() {
-		return mHits.begin();
-	}
-	auto begin() const {
-		return mHits.begin();
-	}
-	auto end() {
-		return mHits.end();
-	}
-	auto end() const {
-		return mHits.end();
-	}
-	const HitRecord& operator[](size_t i) const;
-	/*!
-	 * \brief Номер рана (неводский)
-	 */
-	uint64_t nRun() const;
-	/*!
-	 * \brief Номер события (неводский)
-	 */
-	uint64_t nEvent() const;
-	/*!
-	 * \brief Время записи события
-	 */
-	TimePoint time() const;
+    auto begin() {
+        return mHits.begin();
+    }
+    auto begin() const {
+        return mHits.begin();
+    }
+    auto end() {
+        return mHits.end();
+    }
+    auto end() const {
+        return mHits.end();
+    }
+    const HitRecord& operator[](size_t i) const;
+    /*!
+     * \brief Номер рана (неводский)
+     */
+    uint64_t nRun() const;
+    /*!
+     * \brief Номер события (неводский)
+     */
+    uint64_t nEvent() const;
+    /*!
+     * \brief Время записи события
+     */
+    TimePoint time() const;
 
-	/*!
-	 * \brief Количество хитов в событии
-	 */
-	auto size() const {
-		return mHits.size();
-	}
-	auto empty() const {
-		return mHits.empty();
-	}
-	/*!
-	 * \brief Создание и получение ассоциативного массива с измерениями со всей установки.
-	 */
-	TrekHits getTrekHits() const;
-	/*!
-	 * \brief Создание и получение массива с измерениями с камеры
-	 * \param[cham] Номер камеры
-	 */
-	ChamHits getChamberHits(unsigned cham) const;
-	/*!
-	 * \brief Создание и получение множества номеров сработавших камер
-	 */
-	std::unordered_set<unsigned> getTriggeredChambers() const;
-	/*!
-	 * \brief Установка данных события
-	 * \param data вектор со хитами TDC
-	 */
-	void setHits(const EventHits& data);
-	void clearHits();
-	void serialize(std::ostream& stream) const;
-	void deserialize(std::istream& stream);
+    /*!
+     * \brief Количество хитов в событии
+     */
+    auto size() const {
+        return mHits.size();
+    }
+    auto empty() const {
+        return mHits.empty();
+    }
+    /*!
+     * \brief Создание и получение ассоциативного массива с измерениями со всей установки.
+     */
+    TrekHits getTrekHits() const;
+    /*!
+     * \brief Создание и получение массива с измерениями с камеры
+     * \param[cham] Номер камеры
+     */
+    ChamHits getChamberHits(unsigned cham) const;
+    /*!
+     * \brief Создание и получение множества номеров сработавших камер
+     */
+    std::unordered_set<unsigned> getTriggeredChambers() const;
+    /*!
+     * \brief Установка данных события
+     * \param data вектор со хитами TDC
+     */
+    void setHits(const EventHits& data);
+    void clearHits();
+    void serialize(std::ostream& stream) const;
+    void deserialize(std::istream& stream);
 
 protected:
-	void serializeTime(std::ostream& stream, const TimePoint& time) const;
-	void deserializeTime(std::istream& stream, TimePoint& time);
+    void serializeTime(std::ostream& stream, const TimePoint& time) const;
+    void deserializeTime(std::istream& stream, TimePoint& time);
 private:
-	uint64_t mNRun;
-	uint64_t mNEvent;
-	TimePoint mTimePoint;
-	EventHits mHits;
+    uint64_t mNRun;
+    uint64_t mNEvent;
+    TimePoint mTimePoint;
+    EventHits mHits;
 
 };
 

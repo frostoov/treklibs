@@ -11,7 +11,7 @@ constexpr double E     = 2.71828182845904523536;
  */
 template<typename T>
 inline T toDeg(const T& angle) {
-	return angle * 180. / PI;
+    return angle * 180. / PI;
 }
 
 /*!
@@ -19,7 +19,7 @@ inline T toDeg(const T& angle) {
  */
 template<typename T>
 inline T toRad(const T& angle) {
-	return angle * PI / 180.;
+    return angle * PI / 180.;
 }
 
 } //math

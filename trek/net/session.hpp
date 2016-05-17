@@ -14,44 +14,45 @@ namespace trek {
 namespace net {
 
 class Session : public std::enable_shared_from_this<Session> {
-	using Buffer = std::vector<char>;
-	using Controllers   = std::unordered_map< std::string, std::shared_ptr<Controller> >;
+    using Buffer = std::vector<char>;
+    using Controllers   = std::unordered_map< std::string, std::shared_ptr<Controller> >;
 public:
-	using DestroyCallback = Callback<void(const std::shared_ptr<Session>&)>;
-	using MessageCallback = Callback<void(const Session&, const std::string message)>;
-	using StatusCallback = Callback<void(const Session&)>;
-	using TCP = boost::asio::ip::tcp;
+    using DestroyCallback = Callback<void(const std::shared_ptr<Session>&)>;
+    using MessageCallback = Callback<void(const Session&, const std::string message)>;
+    using StatusCallback = Callback<void(const Session&)>;
+    using TCP = boost::asio::ip::tcp;
 public:
-	Session(const Controllers& controllers, TCP::socket&& socket);
-	void run();
+    Session(const Controllers& controllers, TCP::socket&& socket);
+    void run();
 
-	void send(const std::string& response);
-	std::string remoteAddress() const;
-public: //callbacks
-	const MessageCallback& onRecv();
-	const MessageCallback& onSend();
+    void send(const std::string& response);
+    std::string remoteAddress() const;
+public:
+    //callbacks
+    const MessageCallback& onRecv();
+    const MessageCallback& onSend();
 
-	const StatusCallback& onStart();
-	const StatusCallback& onClose();
-	const DestroyCallback& onDestroy();
+    const StatusCallback& onStart();
+    const StatusCallback& onClose();
+    const DestroyCallback& onDestroy();
 protected:
-	void recv();
+    void recv();
 
-	void msgRecv();
-	void handleRequest(const std::string& rawRequest);
+    void msgRecv();
+    void handleRequest(const std::string& rawRequest);
 private:
-	Controllers mControllers;
-	TCP::socket mSocket;
+    Controllers mControllers;
+    TCP::socket mSocket;
 
-	MessageCallback mOnRecv;
-	MessageCallback mOnSend;
-	StatusCallback mOnStart;
-	StatusCallback mOnClose;
-	DestroyCallback mOnDestroy;
+    MessageCallback mOnRecv;
+    MessageCallback mOnSend;
+    StatusCallback mOnStart;
+    StatusCallback mOnClose;
+    DestroyCallback mOnDestroy;
 
-	Buffer mBuffer;
-	uint64_t mMsgSize;
-	std::string mRemoteAddress;
+    Buffer mBuffer;
+    uint64_t mMsgSize;
+    std::string mRemoteAddress;
 };
 
 } //net

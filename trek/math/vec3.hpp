@@ -6,61 +6,61 @@ namespace trek {
 namespace math {
 
 struct Vec3 {
-	double x, y, z;
-	Vec3(double x_ = 0, double y_ = 0, double z_ = 0);
+    double x, y, z;
+    Vec3(double x_ = 0, double y_ = 0, double z_ = 0);
 
-	/*!
-	 * \brief Унарный плюс
-	 * \return Возрщает себя
-	 */
-	Vec3 operator+() const;
-	/*!
-	 * \brief  Унарный минус
-	 * \return Возвращает обраный вектор
-	 */
-	Vec3 operator-() const;
-	/*!
-	 * \brief Сложение с данным вектором
-	 * \param vec Вектор, который прибавляется к данному
-	 */
-	void operator+= (const Vec3& vec);
-	/*!
-	 * \brief Вычитание из данного вектора
-	 * \param vec Вектор, который отнимается от данного
-	 */
-	void operator-= (const Vec3& vec);
-	/*!
-	 * \brief Вычисление орта данного вектора
-	 * \return Орт данного вектора
-	 */
-	Vec3 ort() const;
-	/*!
-	 * \brief Вычисление длины данного вектора
-	 * \return Длина данного вектора
-	 */
-	double abs() const;
+    /*!
+     * \brief Унарный плюс
+     * \return Возрщает себя
+     */
+    Vec3 operator+() const;
+    /*!
+     * \brief  Унарный минус
+     * \return Возвращает обраный вектор
+     */
+    Vec3 operator-() const;
+    /*!
+     * \brief Сложение с данным вектором
+     * \param vec Вектор, который прибавляется к данному
+     */
+    void operator+= (const Vec3& vec);
+    /*!
+     * \brief Вычитание из данного вектора
+     * \param vec Вектор, который отнимается от данного
+     */
+    void operator-= (const Vec3& vec);
+    /*!
+     * \brief Вычисление орта данного вектора
+     * \return Орт данного вектора
+     */
+    Vec3 ort() const;
+    /*!
+     * \brief Вычисление длины данного вектора
+     * \return Длина данного вектора
+     */
+    double abs() const;
 
-	/*!
-	 * \brief Вращение вектора вокруг оси X
-	 * \param ang Угол, на которое производится вращение
-	 */
-	void rotateX(double ang);
-	/*!
-	 * \brief Вращение вектора вокруг оси Y
-	 * \param ang Угол, на которое производится вращение
-	 */
-	void rotateY(double ang);
-	/*!
-	 * \brief Вращение вектора вокруг оси Z
-	 * \param ang Угол, на которое производится вращение
-	 */
-	void rotateZ(double ang);
-	/*!
-	 * \brief Вращение вектора вокруг заданого вектора
-	 * \param vec Вектор, вокруг которого, производится вращение
-	 * \param ang Угол, на которое производится вращение
-	 */
-	void rotate(const Vec3& vec, double ang);
+    /*!
+     * \brief Вращение вектора вокруг оси X
+     * \param ang Угол, на которое производится вращение
+     */
+    void rotateX(double ang);
+    /*!
+     * \brief Вращение вектора вокруг оси Y
+     * \param ang Угол, на которое производится вращение
+     */
+    void rotateY(double ang);
+    /*!
+     * \brief Вращение вектора вокруг оси Z
+     * \param ang Угол, на которое производится вращение
+     */
+    void rotateZ(double ang);
+    /*!
+     * \brief Вращение вектора вокруг заданого вектора
+     * \param vec Вектор, вокруг которого, производится вращение
+     * \param ang Угол, на которое производится вращение
+     */
+    void rotate(const Vec3& vec, double ang);
 };
 
 /*!

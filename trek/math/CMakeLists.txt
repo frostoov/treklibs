@@ -3,14 +3,14 @@ project(trekmath CXX)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall -pedantic")
 
 set(
-	HEADERS
+    HEADERS
     histogram.hpp
-	coordsystem.hpp
+    coordsystem.hpp
     plane.hpp
     quadrangle2.hpp
     quadrangle3.hpp
     hexahedron.hpp
-	general.hpp
+    general.hpp
     line2.hpp
     line3.hpp
     vec2.hpp
@@ -18,8 +18,8 @@ set(
 )
 
 set(
-	SOURCES
-	histogram.cpp
+    SOURCES
+    histogram.cpp
     coordsystem.cpp
     plane.cpp
     quadrangle2.cpp
@@ -31,7 +31,7 @@ set(
     vec3.cpp
 )
 
-add_library(${PROJECT_NAME} STATIC ${SOURCES} ${HEADERS})
+add_library($ {PROJECT_NAME} STATIC $ {SOURCES} $ {HEADERS})
 
-install(TARGETS ${PROJECT_NAME} DESTINATION lib)
-install(FILES ${HEADERS} DESTINATION include/trek/math)
+install(TARGETS $ {PROJECT_NAME} DESTINATION lib)
+install(FILES $ {HEADERS} DESTINATION include / trek / math)

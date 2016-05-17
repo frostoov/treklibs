@@ -7,8 +7,8 @@
 namespace trek {
 
 bool createTrackDescription(
-	const data::ChamHits& eventTimes,
-	const ChamberDescription& chamDesc,
-	TrackDescription& trackDesc);
+    const data::ChamHits& eventTimes,
+    const ChamberDescription& chamDesc,
+    TrackDescription& trackDesc);
 
 } //trek
