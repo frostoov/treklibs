@@ -31,7 +31,7 @@ set(
     vec3.cpp
 )
 
-add_library($ {PROJECT_NAME} STATIC $ {SOURCES} $ {HEADERS})
+add_library(${PROJECT_NAME} STATIC ${SOURCES} ${HEADERS})
 
-install(TARGETS $ {PROJECT_NAME} DESTINATION lib)
-install(FILES $ {HEADERS} DESTINATION include / trek / math)
+install(TARGETS ${PROJECT_NAME} DESTINATION lib)
+install(FILES ${HEADERS} DESTINATION include/trek/math)
