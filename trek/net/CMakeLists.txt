@@ -5,6 +5,8 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall -pedantic")
 include_directories(${CMAKE_SOURCE_DIR})
 
 set(SOURCES
+    multicastsender.cpp
+    multicastreceiver.cpp
     controller.cpp
     request.cpp
     response.cpp
@@ -13,6 +15,8 @@ set(SOURCES
 )
 
 set(HEADERS
+    multicastsender.hpp
+    multicastreceiver.hpp
     controller.hpp
     controller.hpp
     request.hpp

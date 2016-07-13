@@ -10,6 +10,7 @@ struct Request {
     using JsonString = Json::string_t;
     using JsonArray  = Json::array_t;
 
+	Request() = default;
     Request(const JsonString& object,
             const JsonString& method,
             const JsonArray& inputs = {});

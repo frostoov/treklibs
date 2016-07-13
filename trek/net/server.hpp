@@ -1,12 +1,12 @@
 #pragma once
 
-#include "controller.hpp"
-#include "session.hpp"
+#include <trek/net/controller.hpp>
+#include <trek/net/session.hpp>
+#include <trek/net/multicastsender.hpp>
 
 #include <string>
 #include <cstdint>
 #include <unordered_set>
-
 
 namespace trek {
 namespace net {
@@ -23,7 +23,14 @@ class Server {
     using IpAddress = boost::asio::ip::address;
     using TCP = boost::asio::ip::tcp;
 public:
-    Server(const std::vector<ControllerPtr>& controllers, const std::string& ipAdrress, uint16_t port);
+    struct Conifg {
+        std::string ip;
+        uint16_t port;
+
+        std::string multicastIp;
+        uint16_t multicastPort;
+    };
+    Server(const std::vector<ControllerPtr>& controllers, const Conifg& conf);
     ~Server();
     void run();
     void stop();
@@ -46,6 +53,7 @@ private:
     IoService mIoService;
     TCP::acceptor mAcceptor;
     TCP::socket mSocket;
+    MulticastSender mSender;
 
     Session::MessageCallback mOnRecv;
     Session::MessageCallback mOnSend;

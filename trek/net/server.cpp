@@ -11,13 +11,13 @@ using std::logic_error;
 
 using boost::asio::ip::address;
 
-Server::Server(const std::vector<ControllerPtr>& controllers, const string& ipAdrress, uint16_t port)
+Server::Server(const std::vector<ControllerPtr>& controllers, const Conifg& conf)
     : mControllers(convertControllers(controllers)),
-      mAcceptor(mIoService, TCP::endpoint(IpAddress::from_string(ipAdrress), port)),
-      mSocket(mIoService) {
-    auto broadcast = [this](const Response & response) {
-        for(auto& s : mSessions)
-            s->send(string(response));
+      mAcceptor(mIoService, TCP::endpoint(IpAddress::from_string(conf.ip), conf.port)),
+      mSocket(mIoService),
+      mSender(conf.multicastIp, conf.multicastPort) {
+    auto broadcast = [this](const Response& response) {
+        mSender.send(string(response));
     };
     for(auto& c : mControllers) {
         c.second->setBroadCast(broadcast);

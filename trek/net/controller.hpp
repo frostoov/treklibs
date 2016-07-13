@@ -12,13 +12,13 @@ namespace net {
 
 class Controller {
 protected:
-    using SendCallback = std::function<void(const Response&)>;
-    using Method       = std::function<void(const Request&, const SendCallback&)>;
+    using BroadcastCb  = std::function<void(const Response&)>;
+    using Method       = std::function<Response(const Request&)>;
     using Methods      = std::unordered_map<std::string, Method>;
 public:
-    void handleRequest(const Request& request, const SendCallback& send);
+    Response handleRequest(const Request& request);
     const std::string& name() const;
-    void setBroadCast(const SendCallback& broadcast) {
+    void setBroadCast(const BroadcastCb& broadcast) {
         mBroadcast = broadcast;
     }
 protected:
@@ -27,7 +27,7 @@ protected:
         if(mBroadcast)
             mBroadcast(response);
     }
-    SendCallback mBroadcast;
+    BroadcastCb mBroadcast;
 private:
     Methods     mMethods;
     std::string mName;

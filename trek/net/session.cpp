@@ -57,12 +57,12 @@ const Session::DestroyCallback& Session::onDestroy() {
 }
 
 void Session::recv() {
-    async_read(mSocket, buffer(&mMsgSize, sizeof(mMsgSize)), [this](auto & errCode, auto) {
+    async_read(mSocket, buffer(&mMsgSize, sizeof(mMsgSize)), [this](auto& errCode, auto) {
         try {
-            if(errCode) throw errCode;
+            if(errCode)
+                throw errCode;
             mBuffer.resize(mMsgSize);
-            this->msgRecv();
-            this->recv();
+            msgRecv();
         } catch(...) {
             mOnClose(*this);
             mOnDestroy(this->shared_from_this());
@@ -71,12 +71,13 @@ void Session::recv() {
 }
 
 void Session::msgRecv() {
-    async_read(mSocket, buffer(mBuffer), [&](auto & errCode, auto) {
+    async_read(mSocket, buffer(mBuffer), [&](auto& errCode, auto) {
         try {
-            if(errCode) throw errCode;
+            if(errCode)
+                throw errCode;
             auto request = string(mBuffer.data(), mBuffer.size());
             mOnRecv(*this, request);
-            this->handleRequest(request);
+            handleRequest(request);
         } catch(...) {
             mOnClose(*this);
             mOnDestroy(this->shared_from_this());
@@ -90,8 +91,10 @@ void Session::send(const string& response) {
     stream << response;
     async_write(mSocket, buffer(stream.vector()), [this, response](auto & errCode, auto) {
         try {
-            if(errCode) throw errCode;
-            this->mOnSend(*this, response);
+            if(errCode)
+                throw errCode;
+            mOnSend(*this, response);
+            recv();
         } catch(...) {
             mOnClose(*this);
             mOnDestroy(this->shared_from_this());
@@ -103,9 +106,8 @@ void Session::handleRequest(const string& rawRequest) {
     try {
         Request request(rawRequest);
         auto& controller = *mControllers.at(request.object);
-        controller.handleRequest(request, [this](const Response & response) {
-            this->send(string(response));
-        });
+        auto response = controller.handleRequest(request);
+        send(string(response));
     } catch(...) {
         Response response{"unknown", "unknown", {}, "Invalid request"};
         send(string(response));
