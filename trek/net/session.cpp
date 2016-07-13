@@ -62,7 +62,7 @@ void Session::recv() {
             if(errCode)
                 throw errCode;
             mBuffer.resize(mMsgSize);
-            msgRecv();
+            this->msgRecv();
         } catch(...) {
             mOnClose(*this);
             mOnDestroy(this->shared_from_this());
@@ -77,7 +77,7 @@ void Session::msgRecv() {
                 throw errCode;
             auto request = string(mBuffer.data(), mBuffer.size());
             mOnRecv(*this, request);
-            handleRequest(request);
+            this->handleRequest(request);
         } catch(...) {
             mOnClose(*this);
             mOnDestroy(this->shared_from_this());
@@ -94,7 +94,7 @@ void Session::send(const string& response) {
             if(errCode)
                 throw errCode;
             mOnSend(*this, response);
-            recv();
+            this->recv();
         } catch(...) {
             mOnClose(*this);
             mOnDestroy(this->shared_from_this());

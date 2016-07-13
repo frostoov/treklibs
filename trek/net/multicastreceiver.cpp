@@ -19,7 +19,7 @@ using boost::system::error_code;
 
 class MulticastReceiver::impl {
 public:
-    impl(const string& addr, uint16_t port) 
+    impl(const string& addr, uint16_t port)
         : mSocket(mIoService),
           mEndpoint(asio::ip::udp::v4(), port),
           mMulticastAddress(asio::ip::address::from_string(addr)),
@@ -30,21 +30,21 @@ public:
 
         joinMulticastGroup(mMulticastAddress);
     }
-    
+
     ~impl() {
         stop();
     }
-    
+
     void run() {
         mIoService.reset();
         doReceive();
         mIoService.run();
     }
-    
+
     void stop() {
         mIoService.stop();
     }
-    
+
     void onRecv(const function<void(vector<char>&)>& cb) {
         mCallback = cb;
     }
@@ -56,7 +56,7 @@ protected:
                 mBuffer.resize(size);
                 mCallback(mBuffer);
             }
-            doReceive();
+            this->doReceive();
         });
     }
 

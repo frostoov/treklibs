@@ -27,5 +27,12 @@ set(HEADERS
 
 add_library(${PROJECT_NAME} STATIC ${SOURCES} ${HEADERS})
 
+find_package(
+        Boost
+	1.60.0
+	REQUIRED
+)
+include_directories(${Boost_INCLUDE_DIRS})
+
 install(TARGETS ${PROJECT_NAME} DESTINATION lib)
 install(FILES ${HEADERS} DESTINATION include/trek/net)
