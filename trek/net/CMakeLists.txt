@@ -29,7 +29,7 @@ add_library(${PROJECT_NAME} STATIC ${SOURCES} ${HEADERS})
 
 find_package(
         Boost
-	1.60.0
+	1.55.0
 	REQUIRED
 )
 include_directories(${Boost_INCLUDE_DIRS})
