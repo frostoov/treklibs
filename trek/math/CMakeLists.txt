@@ -1,9 +1,8 @@
 cmake_minimum_required(VERSION 3.0)
 project(trekmath CXX)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall -pedantic")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pedantic")
 
-set(
-    HEADERS
+set(HEADERS
     histogram.hpp
     coordsystem.hpp
     plane.hpp
@@ -14,11 +13,9 @@ set(
     line2.hpp
     line3.hpp
     vec2.hpp
-    vec3.hpp
-)
+    vec3.hpp)
 
-set(
-    SOURCES
+set(SOURCES
     histogram.cpp
     coordsystem.cpp
     plane.cpp
@@ -28,10 +25,11 @@ set(
     line2.cpp
     line3.cpp
     vec2.cpp
-    vec3.cpp
-)
+    vec3.cpp)
 
 add_library(${PROJECT_NAME} STATIC ${SOURCES} ${HEADERS})
+
+set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 14)
 
 install(TARGETS ${PROJECT_NAME} DESTINATION lib)
 install(FILES ${HEADERS} DESTINATION include/trek/math)

@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.0)
 project(treknet CXX)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall -pedantic")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pedantic")
 include_directories(${CMAKE_SOURCE_DIR})
 
 set(SOURCES
@@ -11,8 +11,7 @@ set(SOURCES
     request.cpp
     response.cpp
     server.cpp
-    session.cpp
-)
+    session.cpp)
 
 set(HEADERS
     multicastsender.hpp
@@ -22,16 +21,16 @@ set(HEADERS
     request.hpp
     response.hpp
     server.hpp
-    session.hpp
-)
+    session.hpp)
 
 add_library(${PROJECT_NAME} STATIC ${SOURCES} ${HEADERS})
 
+set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 14)
+
 find_package(
-        Boost
-	1.55.0
-	REQUIRED
-)
+    Boost
+    1.55.0
+    REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 
 install(TARGETS ${PROJECT_NAME} DESTINATION lib)

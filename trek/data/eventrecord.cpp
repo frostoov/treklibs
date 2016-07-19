@@ -21,7 +21,7 @@ EventRecord::EventRecord()
       mNEvent(0),
       mTimePoint(SystemClock::now()) { }
 
-EventRecord::EventRecord(unsigned nRun, unsigned nEvent, const EventHits& hits)
+EventRecord::EventRecord(uint64_t nRun, uint64_t nEvent, const EventHits& hits)
     : mNRun(nRun),
       mNEvent(nEvent),
       mTimePoint(SystemClock::now()),

@@ -17,20 +17,20 @@ public:
         trailing = 1,
     };
 public:
-    HitRecord(Type type, unsigned wire, unsigned chamber, unsigned time);
+    HitRecord(Type type, uint32_t wire, uint32_t chamber, uint32_t time);
     HitRecord(std::istream& stream);
     /*!
      * \brief Проволка хита
      */
-    unsigned wire() const;
+    uint32_t wire() const;
     /*!
      * \brief Камера хита
      */
-    unsigned chamber() const;
+    uint32_t chamber() const;
     /*!
      * \brief Измерение хита
      */
-    unsigned time() const;
+    uint32_t time() const;
     /*!
      * \brief Тип хита (leading/trailing)
      */

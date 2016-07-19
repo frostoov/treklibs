@@ -16,20 +16,20 @@ HitRecord::HitRecord(std::istream& stream) {
     this->deserialize(stream);
 }
 
-unsigned HitRecord::wire() const {
+uint32_t HitRecord::wire() const {
     return unsigned(mChannel & 0xFF);
 }
 
-unsigned HitRecord::chamber() const {
+uint32_t HitRecord::chamber() const {
     return unsigned((mChannel >> 8) & 0xFFFFF);
+}
+
+uint32_t HitRecord::time() const {
+    return unsigned(mTime);
 }
 
 HitRecord::Type HitRecord::type() const {
     return Type(mChannel >> 28);
-}
-
-unsigned int HitRecord::time() const {
-    return unsigned(mTime);
 }
 
 void HitRecord::serialize(ostream& stream) const {
@@ -41,5 +41,6 @@ void HitRecord::deserialize(istream& stream) {
     trek::deserialize(stream, mChannel);
     trek::deserialize(stream, mTime);
 }
+
 }
 }

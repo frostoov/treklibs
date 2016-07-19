@@ -35,7 +35,7 @@ class EventRecord {
     using TimePoint    = SystemClock::time_point;
 public:
     EventRecord();
-    EventRecord(unsigned nRun, unsigned nEvent, const EventHits& hits);
+    EventRecord(uint64_t nRun, uint64_t nEvent, const EventHits& hits);
     EventRecord(std::istream& stream);
 
     auto begin() {

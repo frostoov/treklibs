@@ -17,7 +17,11 @@ Server::Server(const std::vector<ControllerPtr>& controllers, const Conifg& conf
       mSocket(mIoService),
       mSender(conf.multicastIp, conf.multicastPort) {
     auto broadcast = [this](const Response& response) {
-        mSender.send(string(response));
+        try {
+            mSender.send(string(response));
+        } catch(exception& e) {
+            std::cerr << "server multicast failure " << e.what() << std::endl;
+        }
     };
     for(auto& c : mControllers) {
         c.second->setBroadCast(broadcast);
