@@ -27,8 +27,8 @@ protected:
         if(mBroadcast)
             mBroadcast(response);
     }
-    BroadcastCb mBroadcast;
 private:
+    BroadcastCb mBroadcast;
     Methods     mMethods;
     std::string mName;
 };

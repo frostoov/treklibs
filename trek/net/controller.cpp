@@ -8,9 +8,17 @@ using std::runtime_error;
 
 using nlohmann::json;
 
-Controller::Controller(const string& name, const Methods& method)
-    : mMethods(method),
-      mName(name) { }
+Controller::Controller(const string& name, const Methods& methods)
+    : mMethods(methods),
+      mName(name) {
+    mMethods.emplace("listMethods", [&](auto&) {
+        json::array_t methodsList;
+        for(auto& m : mMethods) {
+            methodsList.push_back(m.first);
+        }
+        return Response(this->name(), "listMethods", methodsList);
+    });
+}
 
 Response Controller::handleRequest(const Request& request) {
     try {

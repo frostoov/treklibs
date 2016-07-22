@@ -3,19 +3,51 @@
 namespace trek {
 namespace net {
 
+using nlohmann::json;
+
 using std::runtime_error;
 using std::string;
 using std::exception;
 using std::make_shared;
+using std::shared_ptr;
+using std::unordered_map;
 using std::logic_error;
+using std::vector;
 
 using boost::asio::ip::address;
 
-Server::Server(const std::vector<ControllerPtr>& controllers, const Conifg& conf)
+class InfoController : public Controller {
+    using Controllers   = unordered_map<string, shared_ptr<Controller> >;
+public:
+    InfoController(const string& name, const Controllers& contrs)
+        : Controller(name, createMethods()) {
+        for(auto& c : contrs) {
+            mContr.push_back(c.first);
+        }
+    }
+protected:
+    Methods createMethods() {
+        return {
+            {"listObjects", [&](const Request&) {
+                json::array_t lst;
+                for(auto& c : mContr) {
+                    lst.push_back(c);
+                }
+                return Response(name(), "listObjects", lst);
+            }}
+        };
+    }
+private:
+    vector<string> mContr;
+};
+
+Server::Server(const vector<ControllerPtr>& controllers, const Conifg& conf)
     : mControllers(convertControllers(controllers)),
       mAcceptor(mIoService, TCP::endpoint(IpAddress::from_string(conf.ip), conf.port)),
       mSocket(mIoService),
       mSender(conf.multicastIp, conf.multicastPort) {
+    auto infoContr =  make_shared<InfoController>("info", mControllers);
+    mControllers.emplace("info", infoContr);
     auto broadcast = [this](const Response& response) {
         try {
             mSender.send(string(response));
@@ -29,7 +61,8 @@ Server::Server(const std::vector<ControllerPtr>& controllers, const Conifg& conf
 }
 
 Server::~Server() {
-    stop();
+    if(!mIoService.stopped())
+        stop();
 }
 
 void Server::run() {
