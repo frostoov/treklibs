@@ -14,6 +14,7 @@ using std::mutex;
 using std::unique_lock;
 using std::function;
 using std::string;
+using std::atomic_bool;
 
 using boost::system::error_code;
 
@@ -24,7 +25,8 @@ public:
           mEndpoint(asio::ip::udp::v4(), port),
           mMulticastAddress(asio::ip::address::from_string(addr)),
           mBuffer(mBufferSize),
-          mCallback(nullptr) {
+          mCallback(nullptr),
+          mPause(false) {
         mSocket.open(asio::ip::udp::v4());
         mSocket.bind(mEndpoint);
 
@@ -48,11 +50,20 @@ public:
     void onRecv(const function<void(vector<char>&)>& cb) {
         mCallback = cb;
     }
+
+    void pause() {
+        mPause = true;
+    }
+
+    void resume() {
+        mPause = false;
+    }
+
 protected:
     void doReceive() {
         mBuffer.resize(mBufferSize);
         mSocket.async_receive_from(boost::asio::buffer(mBuffer), mEndpoint, [this](auto& error, auto size) {
-            if(!error) {
+            if(!error && !mPause) {
                 mBuffer.resize(size);
                 mCallback(mBuffer);
             }
@@ -76,6 +87,7 @@ private:
     mutex callbackMutex;
     vector<char> mBuffer;
     function<void(vector<char>&)> mCallback;
+    atomic_bool mPause;
 
     static constexpr size_t mBufferSize = 65527;
 };
@@ -95,6 +107,14 @@ void MulticastReceiver::stop() {
 
 void MulticastReceiver::onRecv(const function<void(vector<char>&)>& callback) {
     mImpl->onRecv(callback);
+}
+
+void MulticastReceiver::pause() {
+    mImpl->pause();
+}
+
+void MulticastReceiver::resume() {
+    mImpl->resume();
 }
 
 } //net

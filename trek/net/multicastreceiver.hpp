@@ -15,6 +15,8 @@ public:
     void run();
     void stop();
     void onRecv(const std::function<void(std::vector<char>&)>& callback);
+    void pause();
+    void resume();
 private:
     std::unique_ptr<impl> mImpl;
 };
