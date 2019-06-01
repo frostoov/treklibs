@@ -3,7 +3,11 @@
 #include <trek/net/controller.hpp>
 #include <trek/net/session.hpp>
 #include <trek/net/multicastsender.hpp>
+#include <trek/net/multicastsender.hpp>
 
+#include <boost/asio/io_service.hpp>
+
+#include <iostream>
 #include <string>
 #include <cstdint>
 #include <unordered_set>

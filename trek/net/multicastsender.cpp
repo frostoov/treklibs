@@ -1,6 +1,7 @@
 #include "multicastsender.hpp"
 
 #include <boost/asio/ip/udp.hpp>
+#include <boost/asio/io_service.hpp>
 
 namespace trek {
 namespace net {
